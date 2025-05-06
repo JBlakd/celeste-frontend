@@ -16,5 +16,6 @@
       ]
     }
   },
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
 }
