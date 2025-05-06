@@ -3,6 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "forwardPorts": [5173],
+  "remoteUser": "node",
   "customizations": {
     "vscode": {
       "settings": {
@@ -16,6 +18,5 @@
       ]
     }
   },
-  "postCreateCommand": "npm install",
-  "remoteUser": "node"
+  "postCreateCommand": "npm install"
 }
