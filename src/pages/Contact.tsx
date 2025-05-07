@@ -20,12 +20,12 @@ export default function Contact() {
       </Text>
 
       <Stack>
+        <TextInput label="Your Name" placeholder="Your Name" required />
         <TextInput
-          label="Your Name"
-          placeholder="Brah from Western Sydney"
+          label="Email"
+          placeholder="your-email@example.com"
           required
         />
-        <TextInput label="Email" placeholder="brah@example.com" required />
         <Textarea
           label="Message"
           placeholder="Tell us what kind of slabs you're after..."
