@@ -1,0 +1,30 @@
+/* src/components/Header/Header.module.css */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--mantine-color-white);
+  border-bottom: 1px solid var(--mantine-color-gray-2);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navGroup {
+  display: flex;
+  gap: var(--mantine-spacing-lg);
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+
+.navLinkActive {
+  border-bottom: 2px solid var(--mantine-color-primary-filled);
+}
