@@ -1,0 +1,17 @@
+.backgroundWrap {
+  background-image: url('https://media.celestestone.com.au/example-marble.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.backgroundWrap::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: -1;
+}
