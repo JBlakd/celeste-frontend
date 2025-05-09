@@ -1,25 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Header from './components/Header/Header';
-import Footer from './components/Footer';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { routes } from './routes';
 
-function App() {
+function AppRoutes() {
+  return useRoutes(routes);
+}
+
+export default function App() {
   return (
     <MantineProvider defaultColorScheme="light">
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-        <Footer />
+        <AppRoutes />
       </BrowserRouter>
     </MantineProvider>
   );
 }
-
-export default App;
