@@ -38,7 +38,7 @@ export default function TierMenu() {
           <Menu.Item
             key={tier._id}
             component={Link}
-            to={`/tier/${tier.slug.current}`}
+            to={`/tiers/${tier.slug.current}`}
           >
             {tier.title}
           </Menu.Item>
