@@ -4,16 +4,28 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import DisplayTierProducts from './pages/DisplayTierProducts';
+import ProductDetails from './pages/ProductDetails';
 
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <RootLayout />, // ← includes Header/Footer
+    element: <RootLayout />,
     children: [
-      { path: '', element: <Home /> },
+      { index: true, element: <Home /> },
       { path: 'about', element: <About /> },
       { path: 'contact', element: <Contact /> },
-      { path: 'tiers/:tierSlug', element: <DisplayTierProducts /> }, // ← 🔥
+      {
+        path: 'tier',
+        children: [
+          {
+            path: ':tierSlug',
+            children: [
+              { index: true, element: <DisplayTierProducts /> },
+              { path: ':productSlug', element: <ProductDetails /> },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];

@@ -1,6 +1,6 @@
 // src/components/DisplayTierProducts.tsx
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Title,
   SimpleGrid,
@@ -11,19 +11,13 @@ import {
   Center,
 } from '@mantine/core';
 import { sanity } from '../lib/sanity';
-
-type Product = {
-  _id: string;
-  title: string;
-  description?: string;
-  image?: { asset: { url: string } };
-  slug: { current: string };
-};
+import type { Product } from '../types/sanity';
 
 export default function DisplayTierProducts() {
   const { tierSlug } = useParams(); // Make sure route param is named "tierSlug"
   const [products, setProducts] = useState<Product[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!tierSlug) return;
@@ -78,6 +72,10 @@ export default function DisplayTierProducts() {
             padding="lg"
             radius="md"
             withBorder
+            onClick={() => {
+              navigate(`/tier/${tierSlug}/${product.slug.current}`);
+            }}
+            style={{ cursor: 'pointer' }}
           >
             {product.image?.asset?.url && (
               <Card.Section>
