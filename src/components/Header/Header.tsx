@@ -1,7 +1,7 @@
-// src/components/Header/Header.tsx
 import { Container, Group, Title } from '@mantine/core';
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
+import TierMenu from '../TierMenu';
 
 export default function SiteHeader() {
   return (
@@ -19,6 +19,7 @@ export default function SiteHeader() {
           >
             Home
           </NavLink>
+          <TierMenu />
           <NavLink
             to="/about"
             className={({ isActive }) =>
