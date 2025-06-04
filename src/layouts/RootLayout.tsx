@@ -41,7 +41,8 @@ export default function RootLayout() {
     <Box
       pos="relative"
       mih="100vh"
-      style={{ display: 'flex', flexDirection: 'column' }}
+      display="flex"
+      style={{ flexDirection: 'column' }} // vertical stack
     >
       {location.pathname === '/' && settings?.heroVideo?.asset?.url && (
         <>
@@ -59,7 +60,9 @@ export default function RootLayout() {
         </>
       )}
       <Header />
-      <Outlet />
+      <Box style={{ flex: 1 }}>
+        <Outlet />
+      </Box>
       <Footer />
     </Box>
   );
