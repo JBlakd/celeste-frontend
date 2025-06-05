@@ -51,7 +51,7 @@ export default function SiteFooter() {
           <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
             <Stack gap={4}>
               <Text fw={700}>Contact</Text>
-              <Text size="sm">admin@celestestone.com.au</Text>
+              <Text size="sm">info@celestestone.com.au</Text>
               <Text size="sm">Mon–Fri: 8am–5pm</Text>
             </Stack>
           </Grid.Col>
