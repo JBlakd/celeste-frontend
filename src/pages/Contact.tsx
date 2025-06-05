@@ -24,17 +24,20 @@ export default function Contact() {
     setStatus('sending');
 
     try {
-      const res = await fetch(import.meta.env.VITE_CONTACT_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${import.meta.env.VITE_CONTACT_API_URL}/api/contact`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
-      });
+      );
 
       if (!res.ok) throw new Error(await res.text());
 
