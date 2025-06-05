@@ -9,6 +9,9 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 export default function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -57,7 +60,7 @@ export default function Contact() {
       </Title>
       <Text mb="lg">
         Got questions or need a custom quote? Reach out and we’ll get back to
-        you quick smart.
+        you very soon!
       </Text>
 
       <Stack>
@@ -88,6 +91,7 @@ export default function Contact() {
           color="dark"
           onClick={handleSubmit}
           loading={status === 'sending'}
+          disabled={!name || !message || !isValidEmail(email)}
         >
           Send Message
         </Button>
@@ -95,7 +99,7 @@ export default function Contact() {
           <Text c="green">Message sent! We’ll get back to you soon.</Text>
         )}
         {status === 'error' && (
-          <Text c="red">Something went wrong. Try again later, bruz.</Text>
+          <Text c="red">Something went wrong. Try again later.</Text>
         )}
       </Stack>
     </Container>
