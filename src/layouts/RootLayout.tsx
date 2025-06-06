@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Box } from '@mantine/core';
+import { Box, Container } from '@mantine/core';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer';
 import classes from './RootLayout.module.css';
@@ -61,7 +61,9 @@ export default function RootLayout() {
       )}
       <Header />
       <Box style={{ flex: 1 }}>
-        <Outlet />
+        <Container size="lg">
+          <Outlet />
+        </Container>
       </Box>
       <Footer />
     </Box>
