@@ -3,11 +3,13 @@ import {
   Container,
   Grid,
   Group,
+  Image,
   Stack,
   Text,
   Anchor,
   Divider,
 } from '@mantine/core';
+import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 
 export default function SiteFooter() {
   return (
@@ -24,13 +26,10 @@ export default function SiteFooter() {
       <Container size="lg">
         <Grid gutter="xl">
           <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-            <Stack gap="xs">
-              <Text fw={700}>Celeste Stone</Text>
-              <Text size="sm">
-                Engineered surfaces for tomorrow’s homes. Supplying top-tier
-                slabs across Australia.
-              </Text>
-            </Stack>
+            <Image
+              src={LogoBrandDoubleColorTransparentBackground}
+              style={{ height: '3rem', width: 'auto' }}
+            />
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
