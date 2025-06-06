@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Menu, Button } from '@mantine/core';
+import { Flex, Menu } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { sanity } from '../lib/sanity';
 import { ChevronDown } from 'tabler-icons-react';
+import { sanity } from '../lib/sanity';
+import classes from '@components/Header/Header.module.css'; // import the navLink styles lad
 
 type Tier = {
   _id: string;
@@ -28,9 +29,14 @@ export default function TierMenu() {
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
-        <Button rightSection={<ChevronDown size={16} />}>
-          Products by Tier
-        </Button>
+        <Flex
+          className={classes.navLink}
+          style={{ cursor: 'pointer' }}
+          align="center"
+        >
+          Products by Tier{' '}
+          <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />
+        </Flex>
       </Menu.Target>
 
       <Menu.Dropdown>

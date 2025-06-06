@@ -27,4 +27,5 @@
 
 .navLinkActive {
   border-bottom: 2px solid var(--mantine-color-primary-filled);
+  font-weight: bold;
 }
