@@ -58,11 +58,14 @@ export default function SiteHeader() {
           <NavLink
             to="/"
             className={classes.navLink}
-            style={{ backgroundColor: theme.primaryColor }}
+            style={{
+              color:
+                backgroundColor === theme.white ? theme.black : theme.white,
+            }}
           >
             Home
           </NavLink>
-          <TierMenu />
+          <TierMenu headerBackgroundColor={backgroundColor} />
           <NavLink
             to="/about"
             className={({ isActive }) =>
@@ -70,6 +73,10 @@ export default function SiteHeader() {
                 ? `${classes.navLink} ${classes.navLinkActive}`
                 : classes.navLink
             }
+            style={{
+              color:
+                backgroundColor === theme.white ? theme.black : theme.white,
+            }}
           >
             About
           </NavLink>
@@ -80,6 +87,10 @@ export default function SiteHeader() {
                 ? `${classes.navLink} ${classes.navLinkActive}`
                 : classes.navLink
             }
+            style={{
+              color:
+                backgroundColor === theme.white ? theme.black : theme.white,
+            }}
           >
             Contact
           </NavLink>

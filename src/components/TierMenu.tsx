@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flex, Menu, Text } from '@mantine/core';
+import { Flex, Menu, Text, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
 import { sanity } from '../lib/sanity';
@@ -13,7 +13,12 @@ type Tier = {
   };
 };
 
-export default function TierMenu() {
+export default function TierMenu({
+  headerBackgroundColor,
+}: {
+  headerBackgroundColor: string;
+}) {
+  const theme = useMantineTheme();
   const [tiers, setTiers] = useState<Tier[]>([]);
 
   useEffect(() => {
@@ -38,7 +43,11 @@ export default function TierMenu() {
       <Menu.Target>
         <Flex
           className={classes.navLink}
-          style={{ cursor: 'pointer' }}
+          style={{
+            color:
+              headerBackgroundColor === theme.white ? theme.black : theme.white,
+            cursor: 'pointer',
+          }}
           align="center"
         >
           Products by Tier{' '}
