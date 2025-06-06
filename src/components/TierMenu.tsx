@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flex, Menu } from '@mantine/core';
+import { Flex, Menu, Text } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
 import { sanity } from '../lib/sanity';
@@ -27,7 +27,14 @@ export default function TierMenu() {
   }, []);
 
   return (
-    <Menu shadow="md" width={200}>
+    <Menu
+      shadow="md"
+      width="9rem"
+      offset={30}
+      trigger="hover"
+      openDelay={100}
+      closeDelay={400}
+    >
       <Menu.Target>
         <Flex
           className={classes.navLink}
@@ -46,7 +53,7 @@ export default function TierMenu() {
             component={Link}
             to={`/tier/${tier.slug.current}`}
           >
-            {tier.title}
+            <Text fw={400}>{tier.title}</Text>
           </Menu.Item>
         ))}
       </Menu.Dropdown>

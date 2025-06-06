@@ -62,7 +62,7 @@ export default function SiteFooter() {
           <Text size="xs">
             © {new Date().getFullYear()} Celeste Stone Group Pty Ltd
           </Text>
-          <Text size="xs">Built with ❤️ in-house by us at Celeste Stone</Text>
+          <Text size="xs">Built with ❤️ in-house at Celeste Stone</Text>
         </Group>
       </Container>
     </Box>

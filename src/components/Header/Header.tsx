@@ -55,7 +55,11 @@ export default function SiteHeader() {
         </Paper>
 
         <Group className={classes.navGroup}>
-          <NavLink to="/" className={classes.navLink}>
+          <NavLink
+            to="/"
+            className={classes.navLink}
+            style={{ backgroundColor: theme.primaryColor }}
+          >
             Home
           </NavLink>
           <TierMenu />
