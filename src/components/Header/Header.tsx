@@ -1,11 +1,25 @@
-import { Container, Group, Title } from '@mantine/core';
+import { Container, Group, Paper, Title } from '@mantine/core';
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenu from '../TierMenu';
+import { useState } from 'react';
+import { useMantineTheme } from '@mantine/core';
 
 export default function SiteHeader() {
+  const theme = useMantineTheme();
+  const [backgroundColor, setBackgroundColor] = useState(
+    theme.colors.transparent[0],
+  );
+
   return (
-    <header className={classes.header}>
+    <Paper
+      className={classes.header}
+      style={{ backgroundColor }}
+      onMouseEnter={() => {
+        setBackgroundColor(theme.white);
+      }}
+      onMouseLeave={() => setBackgroundColor(theme.colors.transparent[0])}
+    >
       <Container size="lg" className={classes.container}>
         <Title order={3}>Celeste Stone</Title>
         <Group className={classes.navGroup}>
@@ -42,6 +56,6 @@ export default function SiteHeader() {
           </NavLink>
         </Group>
       </Container>
-    </header>
+    </Paper>
   );
 }
