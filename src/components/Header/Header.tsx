@@ -1,11 +1,12 @@
 import { Container, Group, Paper, Image } from '@mantine/core';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenu from '../TierMenu';
 import { useState } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
+import StyledNavLink from './StyledNavLink';
 
 export default function SiteHeader() {
   const theme = useMantineTheme();
@@ -55,45 +56,36 @@ export default function SiteHeader() {
         </Paper>
 
         <Group className={classes.navGroup}>
-          <NavLink
+          <StyledNavLink
             to="/"
             className={classes.navLink}
-            style={{
-              color:
-                backgroundColor === theme.white ? theme.black : theme.white,
-            }}
+            headerBackgroundColor={backgroundColor}
           >
             Home
-          </NavLink>
+          </StyledNavLink>
           <TierMenu headerBackgroundColor={backgroundColor} />
-          <NavLink
+          <StyledNavLink
             to="/about"
             className={({ isActive }) =>
               isActive
                 ? `${classes.navLink} ${classes.navLinkActive}`
                 : classes.navLink
             }
-            style={{
-              color:
-                backgroundColor === theme.white ? theme.black : theme.white,
-            }}
+            headerBackgroundColor={backgroundColor}
           >
             About
-          </NavLink>
-          <NavLink
+          </StyledNavLink>
+          <StyledNavLink
             to="/contact"
             className={({ isActive }) =>
               isActive
                 ? `${classes.navLink} ${classes.navLinkActive}`
                 : classes.navLink
             }
-            style={{
-              color:
-                backgroundColor === theme.white ? theme.black : theme.white,
-            }}
+            headerBackgroundColor={backgroundColor}
           >
             Contact
-          </NavLink>
+          </StyledNavLink>
         </Group>
       </Container>
     </Paper>
