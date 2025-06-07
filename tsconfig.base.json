@@ -29,7 +29,7 @@
       "@layouts/*": ["layouts/*"],
       "@lib/*": ["lib/*"],
       "@pages/*": ["pages/*"],
-      "@types/*": ["types/*"]
+      "@typedefs/*": ["types/*"]
     },
     "typeRoots": ["./node_modules/@types"]
   }

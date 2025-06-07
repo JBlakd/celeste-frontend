@@ -4,14 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
 import { sanity } from '../lib/sanity';
 import classes from '@components/Header/Header.module.css';
-
-type Tier = {
-  _id: string;
-  title: string;
-  slug: {
-    current: string;
-  };
-};
+import type { Tier } from '@typedefs/sanity';
 
 export default function TierMenuDesktop({
   headerBackgroundColor,
@@ -24,9 +17,10 @@ export default function TierMenuDesktop({
 
   useEffect(() => {
     const fetchTiers = async () => {
-      const query = `*[_type == "tier"]{ _id, title, slug }`;
-      const data = await sanity.fetch(query);
-      setTiers(data);
+      const query = `*[_type == "tier"]{ _id, title, slug, rank }`;
+      const data = await sanity.fetch<Tier[]>(query);
+      setTiers(data.sort((a, b) => a.rank - b.rank));
+      console.log('tiers', tiers);
     };
 
     fetchTiers();

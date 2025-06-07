@@ -3,14 +3,7 @@ import { Menu, Text, useMantineTheme, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
 import { sanity } from '../lib/sanity';
-
-type Tier = {
-  _id: string;
-  title: string;
-  slug: {
-    current: string;
-  };
-};
+import type { Tier } from '@typedefs/sanity';
 
 export default function TierMenuMobile({
   headerBackgroundColor,
@@ -24,9 +17,9 @@ export default function TierMenuMobile({
 
   useEffect(() => {
     const fetchTiers = async () => {
-      const query = `*[_type == "tier"]{ _id, title, slug }`;
-      const data = await sanity.fetch(query);
-      setTiers(data);
+      const query = `*[_type == "tier"]{ _id, title, slug, rank }`;
+      const data = await sanity.fetch<Tier[]>(query);
+      setTiers(data.sort((a, b) => a.rank - b.rank));
     };
 
     fetchTiers();

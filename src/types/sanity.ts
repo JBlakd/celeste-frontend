@@ -1,3 +1,12 @@
+export interface Tier {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  rank: number;
+}
+
 export interface TierRef {
   _ref: string;
   _type: 'reference';
