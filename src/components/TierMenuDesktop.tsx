@@ -13,7 +13,7 @@ type Tier = {
   };
 };
 
-export default function TierMenu({
+export default function TierMenuDesktop({
   headerBackgroundColor,
 }: {
   headerBackgroundColor: string;

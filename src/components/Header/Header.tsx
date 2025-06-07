@@ -1,13 +1,14 @@
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
-import TierMenu from '../TierMenu';
+import TierMenuDesktop from '@components/TierMenuDesktop';
 import { useState } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
+import TierMenuMobile from '@components/TierMenuMobile';
 
 function MobileMenu({
   backgroundColor,
@@ -27,18 +28,19 @@ function MobileMenu({
       shadow="md"
       width={200}
       position="bottom-end"
+      offset={20}
     >
       <Menu.Target>
         <Burger
           opened={menuOpened}
-          onClick={() => setMenuOpened((o) => !o)}
+          onClick={() => setMenuOpened(!menuOpened)}
           aria-label="Toggle navigation"
         />
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
         <Menu.Item>
-          <TierMenu headerBackgroundColor={backgroundColor} />
+          <TierMenuMobile headerBackgroundColor={backgroundColor} />
         </Menu.Item>
         <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
         <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
@@ -57,7 +59,7 @@ function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
       >
         Home
       </StyledNavLink>
-      <TierMenu headerBackgroundColor={backgroundColor} />
+      <TierMenuDesktop headerBackgroundColor={backgroundColor} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
