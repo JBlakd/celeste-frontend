@@ -2,7 +2,7 @@ import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenuDesktop from '@components/TierMenuDesktop';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
@@ -95,6 +95,12 @@ export default function SiteHeader() {
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setBackgroundColor(theme.white);
+    }
+  }, []);
 
   return (
     <Paper
