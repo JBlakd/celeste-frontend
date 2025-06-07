@@ -34,5 +34,13 @@
       "@types/*": ["types/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.stories.tsx"
+  ]
 }
