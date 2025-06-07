@@ -1,0 +1,13 @@
+{
+  "root": [
+    "../src/App.tsx",
+    "../src/main.tsx",
+    "../src/vite-env.d.ts",
+    "../src/components/Footer.tsx",
+    "../src/components/Header/Header.tsx",
+    "../src/pages/About.tsx",
+    "../src/pages/Contact.tsx",
+    "../src/pages/Home.tsx"
+  ],
+  "version": "5.8.3"
+}

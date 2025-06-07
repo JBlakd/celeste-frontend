@@ -7,6 +7,7 @@ import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function SiteHeader() {
   const theme = useMantineTheme();
@@ -15,6 +16,7 @@ export default function SiteHeader() {
   );
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Paper
