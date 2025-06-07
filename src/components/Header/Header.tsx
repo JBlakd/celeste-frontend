@@ -1,4 +1,4 @@
-import { Container, Group, Paper, Image } from '@mantine/core';
+import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenu from '../TierMenu';
@@ -9,11 +9,87 @@ import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleCo
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
 
+function MobileMenu({
+  backgroundColor,
+  navigate,
+  menuOpened,
+  setMenuOpened,
+}: {
+  backgroundColor: string;
+  navigate: (path: string) => void;
+  menuOpened: boolean;
+  setMenuOpened: (opened: boolean) => void;
+}) {
+  return (
+    <Menu
+      opened={menuOpened}
+      onChange={setMenuOpened}
+      shadow="md"
+      width={200}
+      position="bottom-end"
+    >
+      <Menu.Target>
+        <Burger
+          opened={menuOpened}
+          onClick={() => setMenuOpened((o) => !o)}
+          aria-label="Toggle navigation"
+        />
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
+        <Menu.Item>
+          <TierMenu headerBackgroundColor={backgroundColor} />
+        </Menu.Item>
+        <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
+        <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+  );
+}
+
+function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
+  return (
+    <Group className={classes.navGroup}>
+      <StyledNavLink
+        to="/"
+        className={classes.navLink}
+        headerBackgroundColor={backgroundColor}
+      >
+        Home
+      </StyledNavLink>
+      <TierMenu headerBackgroundColor={backgroundColor} />
+      <StyledNavLink
+        to="/about"
+        className={({ isActive }) =>
+          isActive
+            ? `${classes.navLink} ${classes.navLinkActive}`
+            : classes.navLink
+        }
+        headerBackgroundColor={backgroundColor}
+      >
+        About
+      </StyledNavLink>
+      <StyledNavLink
+        to="/contact"
+        className={({ isActive }) =>
+          isActive
+            ? `${classes.navLink} ${classes.navLinkActive}`
+            : classes.navLink
+        }
+        headerBackgroundColor={backgroundColor}
+      >
+        Contact
+      </StyledNavLink>
+    </Group>
+  );
+}
+
 export default function SiteHeader() {
   const theme = useMantineTheme();
   const [backgroundColor, setBackgroundColor] = useState(
     theme.colors.transparent[0],
   );
+  const [menuOpened, setMenuOpened] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -57,38 +133,16 @@ export default function SiteHeader() {
           />
         </Paper>
 
-        <Group className={classes.navGroup}>
-          <StyledNavLink
-            to="/"
-            className={classes.navLink}
-            headerBackgroundColor={backgroundColor}
-          >
-            Home
-          </StyledNavLink>
-          <TierMenu headerBackgroundColor={backgroundColor} />
-          <StyledNavLink
-            to="/about"
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.navLink} ${classes.navLinkActive}`
-                : classes.navLink
-            }
-            headerBackgroundColor={backgroundColor}
-          >
-            About
-          </StyledNavLink>
-          <StyledNavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.navLink} ${classes.navLinkActive}`
-                : classes.navLink
-            }
-            headerBackgroundColor={backgroundColor}
-          >
-            Contact
-          </StyledNavLink>
-        </Group>
+        {isMobile ? (
+          <MobileMenu
+            backgroundColor={backgroundColor}
+            navigate={navigate}
+            menuOpened={menuOpened}
+            setMenuOpened={setMenuOpened}
+          />
+        ) : (
+          <DesktopMenu backgroundColor={backgroundColor} />
+        )}
       </Container>
     </Paper>
   );
