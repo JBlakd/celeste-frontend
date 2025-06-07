@@ -18,5 +18,8 @@
       ]
     }
   },
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "npm install",
+  "containerEnv": {
+    "NODE_OPTIONS": ""
+  }
 }
