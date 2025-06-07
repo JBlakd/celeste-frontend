@@ -1,6 +1,5 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.tsserver.log": "verbose",
-  "typescript.suggest.autoImports": false,
-  "typescript.tsconfigPath": "tsconfig.app.json"
+  "typescript.suggest.autoImports": false
 }
