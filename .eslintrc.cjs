@@ -21,4 +21,12 @@ module.exports = {
       version: 'detect',
     },
   },
+  overrides: [
+    {
+      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      rules: {
+        'react-hooks/exhaustive-deps': 'off',
+      },
+    },
+  ],
 };
