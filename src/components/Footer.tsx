@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  Grid,
   Group,
   Image,
   Stack,
@@ -24,16 +23,19 @@ export default function SiteFooter() {
       })}
     >
       <Container size="lg">
-        <Grid gutter="xl">
-          <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
+        {/* Mimics header layout with same spacing */}
+        <Group justify="space-between" align="flex-start" wrap="nowrap">
+          {/* Left: Logo */}
+          <Box style={{ flexBasis: '30%' }}>
             <Image
               src={LogoBrandDoubleColorTransparentBackground}
               style={{ height: '3rem', width: 'auto' }}
             />
-          </Grid.Col>
+          </Box>
 
-          <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-            <Stack gap={4}>
+          {/* Center: Navigation */}
+          <Box style={{ flexBasis: '30%', textAlign: 'center' }}>
+            <Stack gap={4} align="center">
               <Text fw={700}>Navigation</Text>
               <Anchor href="/" size="sm">
                 Home
@@ -45,16 +47,17 @@ export default function SiteFooter() {
                 Contact
               </Anchor>
             </Stack>
-          </Grid.Col>
+          </Box>
 
-          <Grid.Col span={{ base: 12, sm: 6, md: 4 }}>
-            <Stack gap={4}>
+          {/* Right: Contact */}
+          <Box style={{ flexBasis: '30%', textAlign: 'right' }}>
+            <Stack gap={4} align="flex-end">
               <Text fw={700}>Contact</Text>
               <Text size="sm">info@celestestone.com.au</Text>
               <Text size="sm">Mon–Fri: 8am–5pm</Text>
             </Stack>
-          </Grid.Col>
-        </Grid>
+          </Box>
+        </Group>
 
         <Divider my="xl" />
 
