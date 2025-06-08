@@ -1,3 +1,29 @@
+export interface Homepage {
+  _type: 'homepage';
+  _id: string;
+  _rev?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+
+  heroVideo?: {
+    _type: 'file';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: 'string';
+    };
+  };
+
+  heroText?: string;
+  ctaButtonLabel?: string;
+  ctaButtonLink?: string;
+
+  featuredProducts?: Array<{
+    _ref: string;
+    _type: 'reference';
+  }>;
+}
+
 export interface Tier {
   _id: string;
   title: string;
@@ -27,16 +53,16 @@ export interface Product {
     asset: {
       _ref: string;
       _type: 'reference';
-      url: string;
+      url?: string;
     };
   };
-  gallery?: {
+  gallery?: Array<{
     _type: 'image';
     asset: {
       _ref: string;
       _type: 'reference';
     };
-  }[];
+  }>;
   tier?: TierRef;
   dimensions?: string;
   finish: 'Matte' | 'Honed' | 'Polished';
