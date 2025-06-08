@@ -12,8 +12,11 @@ import { useState, useEffect } from 'react';
 import classes from '@layouts/RootLayout.module.css';
 import { Carousel } from '@mantine/carousel';
 import '@mantine/carousel/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const [settings, setSettings] = useState<Homepage | null>(null);
   const theme = useMantineTheme();
 
@@ -21,7 +24,9 @@ export default function Home() {
     sanity
       .fetch<Homepage>(
         `*[_type == "homepage"][0]{
-          headline,
+          heroText,
+          ctaButtonLabel,
+          ctaButtonLink,
           subtext,
           heroVideo{
             asset->{
@@ -66,9 +71,14 @@ export default function Home() {
         {settings?.ctaButtonLabel && settings?.ctaButtonLink && (
           <Button
             component="a"
-            href={settings.ctaButtonLink}
             variant="filled"
-            color="dark"
+            onClick={() => {
+              if (!settings.ctaButtonLink) {
+                return;
+              }
+
+              navigate(settings.ctaButtonLink);
+            }}
           >
             {settings.ctaButtonLabel}
           </Button>
