@@ -20,7 +20,6 @@ export default function TierMenuDesktop({
       const query = `*[_type == "tier"]{ _id, title, slug, rank }`;
       const data = await sanity.fetch<Tier[]>(query);
       setTiers(data.sort((a, b) => a.rank - b.rank));
-      console.log('tiers', tiers);
     };
 
     fetchTiers();

@@ -50,7 +50,7 @@ function DesktopFooterContent() {
   return (
     <Group justify="space-between" align="flex-start" wrap="nowrap">
       {/* Logo */}
-      <Box style={{ flexBasis: '30%' }}>
+      <Box>
         <Image
           src={LogoBrandDoubleColorTransparentBackground}
           style={{ height: '3rem', width: 'auto' }}
@@ -58,29 +58,25 @@ function DesktopFooterContent() {
       </Box>
 
       {/* Navigation */}
-      <Box style={{ flexBasis: '30%', textAlign: 'center' }}>
-        <Stack gap={4} align="center">
-          <Text fw={700}>Navigation</Text>
-          <Anchor href="/" size="sm">
-            Home
-          </Anchor>
-          <Anchor href="/about" size="sm">
-            About
-          </Anchor>
-          <Anchor href="/contact" size="sm">
-            Contact
-          </Anchor>
-        </Stack>
-      </Box>
+      <Stack gap={4} align="center">
+        <Text fw={700}>Navigation</Text>
+        <Anchor href="/" size="sm">
+          Home
+        </Anchor>
+        <Anchor href="/about" size="sm">
+          About
+        </Anchor>
+        <Anchor href="/contact" size="sm">
+          Contact
+        </Anchor>
+      </Stack>
 
       {/* Contact */}
-      <Box style={{ flexBasis: '30%', textAlign: 'right' }}>
-        <Stack gap={4} align="flex-end">
-          <Text fw={700}>Contact</Text>
-          <Text size="sm">info@celestestone.com.au</Text>
-          <Text size="sm">Mon–Fri: 8am–5pm</Text>
-        </Stack>
-      </Box>
+      <Stack gap={4} align="flex-end">
+        <Text fw={700}>Contact</Text>
+        <Text size="sm">info@celestestone.com.au</Text>
+        <Text size="sm">Mon–Fri: 8am–5pm</Text>
+      </Stack>
     </Group>
   );
 }
