@@ -132,7 +132,7 @@ export default function SiteFooter() {
       <Container size="lg">
         {FooterContent}
         <Divider my="xl" />
-        <FooterCredits isMobile={isMobile} />
+        <FooterCredits isMobile={!!isMobile} />
       </Container>
     </Box>
   );
