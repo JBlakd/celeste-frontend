@@ -19,8 +19,16 @@ export interface Homepage {
   ctaButtonLink?: string;
 
   featuredProducts?: Array<{
-    _ref: string;
-    _type: 'reference';
+    _id: string;
+    title: string;
+    slug: {
+      current: string;
+    };
+    image?: {
+      asset: {
+        url: string;
+      };
+    };
   }>;
 }
 
