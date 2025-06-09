@@ -1,14 +1,14 @@
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
-import TierMenuDesktop from '@components/TierMenuDesktop';
+import TierMenuDesktop from '@components/Footer/TierMenuDesktop';
 import { useEffect, useState } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
-import TierMenuMobile from '@components/TierMenuMobile';
+import TierMenuMobile from '@components/Footer/TierMenuMobile';
 
 function MobileMenu({
   backgroundColor,

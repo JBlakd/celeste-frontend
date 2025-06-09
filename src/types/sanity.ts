@@ -1,4 +1,4 @@
-export interface Homepage {
+export interface HomepageSettings {
   _type: 'homepage';
   _id: string;
   _rev?: string;
