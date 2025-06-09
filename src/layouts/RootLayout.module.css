@@ -12,6 +12,7 @@
 }
 
 .heroOverlay {
+  background-color: rgba(0, 0, 0, 0.7); /* here's the sauce */
   position: fixed;
   inset: 0;
   z-index: -1;
