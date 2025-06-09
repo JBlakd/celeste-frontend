@@ -10,14 +10,26 @@
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
         "git.path": "/usr/bin/git",
-        "editor.formatOnSave": true,
         "[javascript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "[typescript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
-        "editor.fontSize": 12
+        "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+          "source.fixAll": "always",
+          "source.fixAll.eslint": "always"
+        },
+        "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+        "editor.fontSize": 12,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "prettier.enableDebugLogs": false,
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "typescript.suggest.autoImports": true
       },
       "extensions": [
         "dbaeumer.vscode-eslint",
