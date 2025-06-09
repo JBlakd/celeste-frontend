@@ -8,8 +8,7 @@ import CallToAction from '@components/HomePage/CallToAction';
 import FeaturedProducts from '@components/HomePage/FeaturedProducts';
 
 export default function Home() {
-  const [homepageSettings, setHomepageSettings] =
-    useState<HomepageSettings | null>(null);
+  const [homepageSettings, setHomepageSettings] = useState<HomepageSettings | null>(null);
 
   useEffect(() => {
     sanity
@@ -41,8 +40,8 @@ export default function Home() {
   }, []);
 
   return (
-    <Container size="lg">
-      <>
+    <>
+      <Box className={classes.heroSection}>
         <Box className={classes.heroVideoWrap}>
           <video
             autoPlay
@@ -54,9 +53,12 @@ export default function Home() {
           />
         </Box>
         <Box className={classes.heroOverlay} />
-      </>
-      <CallToAction homepageSettings={homepageSettings} />
-      <FeaturedProducts homepageSettings={homepageSettings} />
-    </Container>
+        <CallToAction homepageSettings={homepageSettings} />
+      </Box>
+
+      <Container size="lg">
+        <FeaturedProducts homepageSettings={homepageSettings} />
+      </Container>
+    </>
   );
 }
