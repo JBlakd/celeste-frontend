@@ -1,4 +1,4 @@
-import { Button, Box, Text } from '@mantine/core';
+import { Button, Box, Text, useMantineTheme } from '@mantine/core';
 import type { HomepageSettings } from '@typedefs/sanity';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ export default function CallToAction({
   homepageSettings: HomepageSettings | null;
 }) {
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   if (!homepageSettings) {
     return null;
@@ -16,7 +17,7 @@ export default function CallToAction({
 
   return (
     <Box mt="xl">
-      <Text size="xl" fw={700} mb="sm">
+      <Text size="xl" fw={700} mb="sm" c={theme.white}>
         {homepageSettings?.heroText}
       </Text>
       {homepageSettings?.ctaButtonLabel && homepageSettings?.ctaButtonLink && (
