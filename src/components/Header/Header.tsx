@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenuDesktop from '@components/Footer/TierMenuDesktop';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
@@ -52,20 +53,14 @@ function MobileMenu({
 function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
   return (
     <Group className={classes.navGroup}>
-      <StyledNavLink
-        to="/"
-        className={classes.navLink}
-        headerBackgroundColor={backgroundColor}
-      >
+      <StyledNavLink to="/" className={classes.navLink} headerBackgroundColor={backgroundColor}>
         Home
       </StyledNavLink>
       <TierMenuDesktop headerBackgroundColor={backgroundColor} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
-          isActive
-            ? `${classes.navLink} ${classes.navLinkActive}`
-            : classes.navLink
+          isActive ? `${classes.navLink} ${classes.navLinkActive}` : classes.navLink
         }
         headerBackgroundColor={backgroundColor}
       >
@@ -74,9 +69,7 @@ function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
       <StyledNavLink
         to="/contact"
         className={({ isActive }) =>
-          isActive
-            ? `${classes.navLink} ${classes.navLinkActive}`
-            : classes.navLink
+          isActive ? `${classes.navLink} ${classes.navLinkActive}` : classes.navLink
         }
         headerBackgroundColor={backgroundColor}
       >
@@ -86,11 +79,9 @@ function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
   );
 }
 
-export default function SiteHeader() {
+export default function SiteHeader({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
   const theme = useMantineTheme();
-  const [backgroundColor, setBackgroundColor] = useState(
-    theme.colors.transparent[0],
-  );
+  const [backgroundColor, setBackgroundColor] = useState(theme.colors.transparent[0]);
   const [menuOpened, setMenuOpened] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -104,6 +95,7 @@ export default function SiteHeader() {
 
   return (
     <Paper
+      ref={ref}
       className={classes.header}
       style={{ backgroundColor }}
       onMouseEnter={() => {

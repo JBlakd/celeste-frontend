@@ -2,8 +2,26 @@ import { Outlet } from 'react-router-dom';
 import { Box } from '@mantine/core';
 import Header from '@components/Header/Header';
 import Footer from '@components/Footer/Footer';
+import { useRef, useState, useEffect } from 'react';
+
+export interface OutletContext {
+  headerHeight: number;
+}
 
 export default function RootLayout() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      const updateHeight = () => setHeaderHeight(headerRef.current!.offsetHeight);
+
+      updateHeight();
+      window.addEventListener('resize', updateHeight);
+      return () => window.removeEventListener('resize', updateHeight);
+    }
+  }, []);
+
   return (
     <Box
       pos="relative"
@@ -11,9 +29,9 @@ export default function RootLayout() {
       display="flex"
       style={{ flexDirection: 'column' }} // vertical stack
     >
-      <Header />
+      <Header ref={headerRef} />
       <Box style={{ flex: 1 }}>
-        <Outlet />
+        <Outlet context={{ headerHeight }} />
       </Box>
       <Footer />
     </Box>

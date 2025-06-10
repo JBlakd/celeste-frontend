@@ -6,9 +6,14 @@ import classes from '@layouts/RootLayout.module.css';
 import '@mantine/carousel/styles.css';
 import CallToAction from '@components/HomePage/CallToAction';
 import FeaturedProducts from '@components/HomePage/FeaturedProducts';
+import { useOutletContext } from 'react-router-dom';
+import type { OutletContext } from '@layouts/RootLayout';
 
 export default function Home() {
   const [homepageSettings, setHomepageSettings] = useState<HomepageSettings | null>(null);
+  const { headerHeight } = useOutletContext<OutletContext>();
+
+  console.log('headerHeight', headerHeight);
 
   useEffect(() => {
     sanity
@@ -39,9 +44,18 @@ export default function Home() {
       .catch((err) => console.error('Couldn’t fetch homepage settings:', err));
   }, []);
 
+  if (!homepageSettings) {
+    return null;
+  }
+
   return (
     <>
-      <Box className={classes.heroSection}>
+      <Box
+        className={classes.heroSection}
+        style={{
+          transform: `translateY(-${headerHeight}px)`,
+        }}
+      >
         <Box className={classes.heroVideoWrap}>
           <video
             autoPlay
