@@ -1,7 +1,6 @@
 import { Carousel } from '@mantine/carousel';
 import { Box, Text, Image, useMantineTheme } from '@mantine/core';
 import type { HomepageSettings } from '@typedefs/sanity';
-import React from 'react';
 
 export default function FeaturedProducts({
   homepageSettings,
@@ -19,12 +18,7 @@ export default function FeaturedProducts({
       <Text fw={600} size="lg" mb="md">
         Featured Products
       </Text>
-      <Carousel
-        withIndicators
-        height={300}
-        slideSize="33.333333%"
-        slideGap="md"
-      >
+      <Carousel withIndicators height={300} slideSize="33.333333%" slideGap="md">
         {homepageSettings.featuredProducts.map((prod) => (
           <Carousel.Slide key={prod._id}>
             <Box p="sm" bg={theme.colors.transparent[0]}>

@@ -1,6 +1,5 @@
 import { Button, Box, Text, useMantineTheme } from '@mantine/core';
 import type { HomepageSettings } from '@typedefs/sanity';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CallToAction({
