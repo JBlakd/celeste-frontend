@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import TierMenuDesktop from '@components/Header/TierMenuDesktop';
-import { useEffect, useState, type RefObject } from 'react';
+import { useState, type RefObject } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
