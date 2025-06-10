@@ -16,7 +16,7 @@ export default function CallToAction({
   }
 
   return (
-    <Box style={{ border: '5px solid red' }}>
+    <Box mt="xl">
       <Text size="xl" fw={700} mb="sm" c={theme.white}>
         {homepageSettings?.heroText}
       </Text>

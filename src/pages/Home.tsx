@@ -39,10 +39,6 @@ export default function Home() {
       .catch((err) => console.error('Couldn’t fetch homepage settings:', err));
   }, []);
 
-  if (!homepageSettings) {
-    return null;
-  }
-
   return (
     <>
       <Box className={classes.heroSection}>
