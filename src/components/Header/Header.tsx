@@ -86,40 +86,37 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
 
 export default function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDivElement | null> }) {
   const theme = useMantineTheme();
-  const [backgroundColor, setBackgroundColor] = useState(theme.colors.transparent[0]);
   const [{ y: yScrollPosition }] = useWindowScroll();
-  const [menuOpened, setMenuOpened] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setBackgroundColor(theme.white);
-    }
-  }, []);
+  const [menuOpened, setMenuOpened] = useState(false);
+  const [mouseEnteredHeader, setMouseEnteredHeader] = useState(false);
 
   const scrolledEnough = yScrollPosition > window.innerHeight * 0.9;
-  const shouldHeaderBeColoured = backgroundColor === theme.white || scrolledEnough;
+  const shouldHeaderBeColoured = scrolledEnough || mouseEnteredHeader || location.pathname !== '/';
 
   return (
     <Paper
       ref={headerRef}
       className={classes.header}
-      style={{ backgroundColor }}
+      style={{
+        backgroundColor: shouldHeaderBeColoured ? theme.white : theme.colors.transparent[0],
+      }}
       onMouseEnter={() => {
         if (location.pathname !== '/') {
           return;
         }
 
-        setBackgroundColor(theme.white);
+        setMouseEnteredHeader(true);
       }}
       onMouseLeave={() => {
         if (location.pathname !== '/') {
           return;
         }
 
-        setBackgroundColor(theme.colors.transparent[0]);
+        setMouseEnteredHeader(false);
       }}
     >
       <Container size="lg" className={classes.container}>
