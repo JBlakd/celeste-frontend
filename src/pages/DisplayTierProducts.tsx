@@ -1,17 +1,17 @@
 // src/components/DisplayTierProducts.tsx
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  Title,
-  SimpleGrid,
-  Card,
-  Image,
-  Text,
-  Loader,
-  Center,
-} from '@mantine/core';
+import { Title, SimpleGrid, Card, Image, Text, Loader, Center, Container } from '@mantine/core';
 import { sanity } from '../lib/sanity';
 import type { Product } from '../types/sanity';
+
+function capitalise(str: string | undefined): string {
+  if (!str) {
+    return '';
+  }
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 export default function DisplayTierProducts() {
   const { tierSlug } = useParams(); // Make sure route param is named "tierSlug"
@@ -60,9 +60,9 @@ export default function DisplayTierProducts() {
     );
 
   return (
-    <>
+    <Container size="lg" pt="1rem">
       <Title order={2} mb="md">
-        Products in {tierSlug} Range
+        Products in the {capitalise(tierSlug)} Range
       </Title>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
         {products.map((product) => (
@@ -79,11 +79,7 @@ export default function DisplayTierProducts() {
           >
             {product.image?.asset?.url && (
               <Card.Section>
-                <Image
-                  src={product.image.asset.url}
-                  height={160}
-                  alt={product.title}
-                />
+                <Image src={product.image.asset.url} height={160} alt={product.title} />
               </Card.Section>
             )}
             <Text fw={500} mt="md">
@@ -97,6 +93,6 @@ export default function DisplayTierProducts() {
           </Card>
         ))}
       </SimpleGrid>
-    </>
+    </Container>
   );
 }
