@@ -18,8 +18,6 @@ export default function FeaturedProducts({
     return null;
   }
 
-  console.log('homepageSettings.featuredProducts', homepageSettings.featuredProducts);
-
   return (
     <Container size="lg">
       <Title order={2} mb="md">
