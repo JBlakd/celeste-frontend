@@ -2,22 +2,23 @@
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
-import TierMenuDesktop from '@components/Footer/TierMenuDesktop';
+import TierMenuDesktop from '@components/Header/TierMenuDesktop';
 import { useEffect, useState, type RefObject } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
-import TierMenuMobile from '@components/Footer/TierMenuMobile';
+import TierMenuMobile from '@components/Header/TierMenuMobile';
+import { useWindowScroll } from '@mantine/hooks';
 
 function MobileMenu({
-  backgroundColor,
+  shouldHeaderBeColoured,
   navigate,
   menuOpened,
   setMenuOpened,
 }: {
-  backgroundColor: string;
+  shouldHeaderBeColoured: boolean;
   navigate: (path: string) => void;
   menuOpened: boolean;
   setMenuOpened: (opened: boolean) => void;
@@ -41,7 +42,7 @@ function MobileMenu({
       <Menu.Dropdown>
         <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
         <Menu.Item>
-          <TierMenuMobile headerBackgroundColor={backgroundColor} />
+          <TierMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
         </Menu.Item>
         <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
         <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
@@ -50,19 +51,23 @@ function MobileMenu({
   );
 }
 
-function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
+function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boolean }) {
   return (
     <Group className={classes.navGroup}>
-      <StyledNavLink to="/" className={classes.navLink} headerBackgroundColor={backgroundColor}>
+      <StyledNavLink
+        to="/"
+        className={classes.navLink}
+        shouldHeaderBeColoured={shouldHeaderBeColoured}
+      >
         Home
       </StyledNavLink>
-      <TierMenuDesktop headerBackgroundColor={backgroundColor} />
+      <TierMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
           isActive ? `${classes.navLink} ${classes.navLinkActive}` : classes.navLink
         }
-        headerBackgroundColor={backgroundColor}
+        shouldHeaderBeColoured={shouldHeaderBeColoured}
       >
         About
       </StyledNavLink>
@@ -71,7 +76,7 @@ function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
         className={({ isActive }) =>
           isActive ? `${classes.navLink} ${classes.navLinkActive}` : classes.navLink
         }
-        headerBackgroundColor={backgroundColor}
+        shouldHeaderBeColoured={shouldHeaderBeColoured}
       >
         Contact
       </StyledNavLink>
@@ -79,9 +84,10 @@ function DesktopMenu({ backgroundColor }: { backgroundColor: string }) {
   );
 }
 
-export default function SiteHeader({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
+export default function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDivElement | null> }) {
   const theme = useMantineTheme();
   const [backgroundColor, setBackgroundColor] = useState(theme.colors.transparent[0]);
+  const [{ y: yScrollPosition }] = useWindowScroll();
   const [menuOpened, setMenuOpened] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -93,9 +99,12 @@ export default function SiteHeader({ ref }: { ref: RefObject<HTMLDivElement | nu
     }
   }, []);
 
+  const scrolledEnough = yScrollPosition > window.innerHeight * 0.9;
+  const shouldHeaderBeColoured = backgroundColor === theme.white || scrolledEnough;
+
   return (
     <Paper
-      ref={ref}
+      ref={headerRef}
       className={classes.header}
       style={{ backgroundColor }}
       onMouseEnter={() => {
@@ -122,7 +131,7 @@ export default function SiteHeader({ ref }: { ref: RefObject<HTMLDivElement | nu
         >
           <Image
             src={
-              backgroundColor === theme.white
+              shouldHeaderBeColoured
                 ? LogoBrandDoubleColorTransparentBackground
                 : LogoBrandWhiteTransparentBackground
             }
@@ -135,13 +144,13 @@ export default function SiteHeader({ ref }: { ref: RefObject<HTMLDivElement | nu
 
         {isMobile ? (
           <MobileMenu
-            backgroundColor={backgroundColor}
+            shouldHeaderBeColoured={shouldHeaderBeColoured}
             navigate={navigate}
             menuOpened={menuOpened}
             setMenuOpened={setMenuOpened}
           />
         ) : (
-          <DesktopMenu backgroundColor={backgroundColor} />
+          <DesktopMenu shouldHeaderBeColoured={shouldHeaderBeColoured} />
         )}
       </Container>
     </Paper>

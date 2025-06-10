@@ -6,9 +6,9 @@ import type { Tier } from '@typedefs/sanity';
 import { sanity } from '@lib/sanity';
 
 export default function TierMenuMobile({
-  headerBackgroundColor,
+  shouldHeaderBeColoured,
 }: {
-  headerBackgroundColor: string;
+  shouldHeaderBeColoured: boolean;
 }) {
   const theme = useMantineTheme();
 
@@ -38,16 +38,13 @@ export default function TierMenuMobile({
       <Menu.Target>
         <Flex
           variant="subtle"
-          color={
-            headerBackgroundColor === theme.white ? theme.black : theme.white
-          }
+          color={shouldHeaderBeColoured ? theme.black : theme.white}
           onClick={(event) => {
             event.stopPropagation();
             setMenuOpened((prev) => !prev);
           }}
         >
-          Products by Tier{' '}
-          <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
+          Products by Tier <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
         </Flex>
       </Menu.Target>
 

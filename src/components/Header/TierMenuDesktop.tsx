@@ -7,9 +7,9 @@ import classes from '@components/Header/Header.module.css';
 import type { Tier } from '@typedefs/sanity';
 
 export default function TierMenuDesktop({
-  headerBackgroundColor,
+  shouldHeaderBeColoured,
 }: {
-  headerBackgroundColor: string;
+  shouldHeaderBeColoured: boolean;
 }) {
   const theme = useMantineTheme();
   const [tiers, setTiers] = useState<Tier[]>([]);
@@ -30,7 +30,7 @@ export default function TierMenuDesktop({
       return theme.colors.celesteGold[5];
     }
 
-    return headerBackgroundColor === theme.white ? theme.black : theme.white;
+    return shouldHeaderBeColoured ? theme.black : theme.white;
   };
 
   return (

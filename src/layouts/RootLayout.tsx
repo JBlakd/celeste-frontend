@@ -29,7 +29,7 @@ export default function RootLayout() {
       display="flex"
       style={{ flexDirection: 'column' }} // vertical stack
     >
-      <Header ref={headerRef} />
+      <Header headerRef={headerRef} />
       <Box style={{ flex: 1 }}>
         <Outlet context={{ headerHeight }} />
       </Box>

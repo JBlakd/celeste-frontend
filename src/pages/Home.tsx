@@ -13,8 +13,6 @@ export default function Home() {
   const [homepageSettings, setHomepageSettings] = useState<HomepageSettings | null>(null);
   const { headerHeight } = useOutletContext<OutletContext>();
 
-  console.log('headerHeight', headerHeight);
-
   useEffect(() => {
     sanity
       .fetch<HomepageSettings>(

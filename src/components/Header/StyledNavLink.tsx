@@ -5,12 +5,12 @@ import { NavLink, type NavLinkRenderProps } from 'react-router-dom';
 export default function StyledNavLink({
   to,
   className,
-  headerBackgroundColor,
+  shouldHeaderBeColoured,
   children,
 }: {
   to: string;
   className?: string | ((props: NavLinkRenderProps) => string | undefined);
-  headerBackgroundColor: string;
+  shouldHeaderBeColoured: boolean;
   children: React.ReactNode;
 }) {
   const theme = useMantineTheme();
@@ -21,7 +21,7 @@ export default function StyledNavLink({
       return theme.colors.celesteGold[5];
     }
 
-    return headerBackgroundColor === theme.white ? theme.black : theme.white;
+    return shouldHeaderBeColoured ? theme.black : theme.white;
   };
 
   return (
