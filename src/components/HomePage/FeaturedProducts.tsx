@@ -1,7 +1,8 @@
 import { Carousel } from '@mantine/carousel';
-import { Box, Text, Image, useMantineTheme, Title } from '@mantine/core';
+import { Box, Text, Image, useMantineTheme, Title, Container } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import type { HomepageSettings } from '@typedefs/sanity';
+import classes from './FeaturedProducts.module.css';
 
 export default function FeaturedProducts({
   homepageSettings,
@@ -16,18 +17,32 @@ export default function FeaturedProducts({
   }
 
   return (
-    <>
+    <Container size="lg">
       <Title order={2} mb="md">
         Featured Products
       </Title>
       <Carousel
-        withIndicators
         height={300}
-        slideSize={isMobile ? '100%' : '33.333333%'}
+        slideSize={isMobile ? '66.666666%' : '33.333333%'}
         slideGap="md"
+        controlSize={isMobile ? 0 : 40} // <-- make arrows bigger
+        emblaOptions={{
+          loop: true,
+          dragFree: true,
+          align: 'center',
+        }}
+        classNames={{
+          control: classes.carouselControl,
+          indicator: classes.carouselIndicator,
+        }}
+        style={{
+          indicators: {
+            marginTop: '-16px',
+          },
+        }}
       >
         {homepageSettings.featuredProducts.map((prod) => (
-          <Carousel.Slide key={prod._id}>
+          <Carousel.Slide key={prod._id} style={{ cursor: 'pointer' }}>
             <Box p="sm" bg={theme.colors.transparent[0]}>
               {prod.image?.asset.url && (
                 <Image
@@ -45,6 +60,6 @@ export default function FeaturedProducts({
           </Carousel.Slide>
         ))}
       </Carousel>
-    </>
+    </Container>
   );
 }

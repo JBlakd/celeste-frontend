@@ -1,5 +1,5 @@
 import { sanity } from '@lib/sanity';
-import { Box, Container } from '@mantine/core';
+import { Box } from '@mantine/core';
 import type { HomepageSettings } from '@typedefs/sanity';
 import { useState, useEffect } from 'react';
 import classes from '@layouts/RootLayout.module.css';
@@ -68,9 +68,7 @@ export default function Home() {
         <CallToAction homepageSettings={homepageSettings} />
       </Box>
 
-      <Container size="lg">
-        <FeaturedProducts homepageSettings={homepageSettings} />
-      </Container>
+      <FeaturedProducts homepageSettings={homepageSettings} />
     </>
   );
 }
