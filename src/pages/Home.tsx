@@ -34,6 +34,10 @@ export default function Home() {
               asset->{
                 url
               }
+            },
+            tier->{
+              _id,
+              slug
             }
           }
         }`,

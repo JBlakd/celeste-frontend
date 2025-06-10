@@ -24,6 +24,11 @@ export interface HomepageSettings {
     slug: {
       current: string;
     };
+    tier: {
+      slug: {
+        current: string;
+      };
+    };
     image?: {
       asset: {
         url: string;

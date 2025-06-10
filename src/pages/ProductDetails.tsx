@@ -62,11 +62,7 @@ export default function ProductDetails() {
       <Text>🧱 Finish: {product.finish}</Text>
       <Text>📌 SKU: {product.sku}</Text>
       <Text mt="sm">🧰 Features:</Text>
-      <ul>
-        {product.features?.map((f: string, idx: number) => (
-          <li key={idx}>{f}</li>
-        ))}
-      </ul>
+      <ul>{product.features?.map((f: string, idx: number) => <li key={idx}>{f}</li>)}</ul>
     </Container>
   );
 }

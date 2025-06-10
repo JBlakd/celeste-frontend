@@ -3,6 +3,7 @@ import { Box, Text, Image, useMantineTheme, Title, Container } from '@mantine/co
 import { useMediaQuery } from '@mantine/hooks';
 import type { HomepageSettings } from '@typedefs/sanity';
 import classes from './FeaturedProducts.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function FeaturedProducts({
   homepageSettings,
@@ -11,10 +12,13 @@ export default function FeaturedProducts({
 }) {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const navigate = useNavigate();
 
   if (!homepageSettings?.featuredProducts) {
     return null;
   }
+
+  console.log('homepageSettings.featuredProducts', homepageSettings.featuredProducts);
 
   return (
     <Container size="lg">
@@ -42,7 +46,13 @@ export default function FeaturedProducts({
         }}
       >
         {homepageSettings.featuredProducts.map((prod) => (
-          <Carousel.Slide key={prod._id} style={{ cursor: 'pointer' }}>
+          <Carousel.Slide
+            key={prod._id}
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigate(`/tier/${prod.tier.slug.current}/${prod.slug.current}`);
+            }}
+          >
             <Box p="sm" bg={theme.colors.transparent[0]}>
               {prod.image?.asset.url && (
                 <Image
