@@ -4,7 +4,7 @@ import classes from './Header.module.css';
 import TierMenuDesktop from '@components/Header/TierMenuDesktop';
 import { useState, type RefObject } from 'react';
 import { useMantineTheme } from '@mantine/core';
-import LogoBrandWhiteTransparentBackground from '@assets/LogoBrandWhiteTransparentBackground.png';
+import LogoBrandGoldWhiteTransparentBackground from '@assets/LogoBrandGoldWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
@@ -129,7 +129,7 @@ export default function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDiv
             src={
               shouldHeaderBeColoured
                 ? LogoBrandDoubleColorTransparentBackground
-                : LogoBrandWhiteTransparentBackground
+                : LogoBrandGoldWhiteTransparentBackground
             }
             style={{ height: '3rem', width: 'auto' }}
             onClick={() => {
