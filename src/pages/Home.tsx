@@ -8,6 +8,7 @@ import CallToAction from '@components/HomePage/CallToAction';
 import FeaturedProducts from '@components/HomePage/FeaturedProducts';
 import { useOutletContext } from 'react-router-dom';
 import type { OutletContext } from '@layouts/RootLayout';
+import QualityDeclaration from '@components/HomePage/QualityDeclaration';
 
 export default function Home() {
   const [homepageSettings, setHomepageSettings] = useState<HomepageSettings | null>(null);
@@ -73,6 +74,8 @@ export default function Home() {
       </Box>
 
       <FeaturedProducts homepageSettings={homepageSettings} />
+
+      <QualityDeclaration />
     </>
   );
 }
