@@ -10,6 +10,7 @@ export default function QualityDeclaration() {
         backgroundColor: theme.colors.celesteGold[5],
         width: '100%',
       }}
+      px="2rem"
     >
       <Container size="lg" py="xl">
         <Flex
