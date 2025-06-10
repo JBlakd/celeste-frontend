@@ -1,5 +1,5 @@
 .heroVideoWrap {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -2;
   overflow: hidden;
@@ -13,7 +13,7 @@
 
 .heroOverlay {
   background-color: rgba(0, 0, 0, 0.6);
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -1;
 }
@@ -21,9 +21,11 @@
 .heroSection {
   position: relative;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-align: center;
+  padding-top: var(--mantine-spacing-xl); /* if you wanna offset content slightly down */
 }
