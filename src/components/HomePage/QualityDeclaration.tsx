@@ -1,8 +1,10 @@
 import { Box, Container, Flex, Image, Text, useMantineTheme, rem } from '@mantine/core';
 import CrystallineSilicaFreeLogoTransparentBackground from '@assets/CrystallineSilicaFreeLogoTransparentBackground.png';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function QualityDeclaration() {
   const theme = useMantineTheme();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Box
@@ -43,9 +45,16 @@ export default function QualityDeclaration() {
             }}
           />
 
-          <Text size="md" fw={500} c={theme.white} maw={{ md: '30%' }} ta="justify" lh="xs">
+          <Text
+            size="md"
+            fw={500}
+            c={theme.white}
+            maw={{ md: '30%' }}
+            ta={isMobile ? 'center' : 'justify'}
+            lh="xs"
+          >
             Designed for effortless cutting and finishing, our slabs handle like traditional
-            materials, without the health risks. Engineered for dimensional stability, they
+            materials, without the health risks. Engineered for dimensional stability, they store
             beautifully over time without warping or compromise.
           </Text>
         </Flex>
