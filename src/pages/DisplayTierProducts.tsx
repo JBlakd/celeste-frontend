@@ -1,28 +1,31 @@
-// src/components/DisplayTierProducts.tsx
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Title, SimpleGrid, Card, Image, Text, Loader, Center, Container } from '@mantine/core';
+import { useParams } from 'react-router-dom';
+import { Text, Loader, Center } from '@mantine/core';
 import { sanity } from '../lib/sanity';
-import type { Product } from '../types/sanity';
-
-function capitalise(str: string | undefined): string {
-  if (!str) {
-    return '';
-  }
-
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+import type { Product, Tier } from '@typedefs/sanity';
+import TierHero from '@components/Tier/TierHero';
+import ProductGrid from '@components/Tier/ProductGrid';
 
 export default function DisplayTierProducts() {
   const { tierSlug } = useParams(); // Make sure route param is named "tierSlug"
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [tier, setTier] = useState<Tier | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!tierSlug) return;
 
-    const query = `*[_type == "product" && tier->slug.current == $slug]{
+    const tierQuery = `*[_type == "tier" && slug.current == $slug][0]{
+      title,
+      slug,
+      heroImage {
+        asset->{
+          url
+        }
+      }
+    }`;
+
+    const productsQuery = `*[_type == "product" && tier->slug.current == $slug]{
       _id,
       title,
       description,
@@ -34,14 +37,17 @@ export default function DisplayTierProducts() {
       }
     }`;
 
-    sanity
-      .fetch(query, { slug: tierSlug })
-      .then((res) => {
-        setProducts(res);
+    Promise.all([
+      sanity.fetch(tierQuery, { slug: tierSlug }),
+      sanity.fetch(productsQuery, { slug: tierSlug }),
+    ])
+      .then(([tierData, productData]) => {
+        setTier(tierData);
+        setProducts(productData);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Failed to fetch products:', err);
+        console.error('Failed to fetch tier or products:', err);
         setLoading(false);
       });
   }, [tierSlug]);
@@ -60,39 +66,9 @@ export default function DisplayTierProducts() {
     );
 
   return (
-    <Container size="lg" pt="1rem">
-      <Title order={2} mb="md">
-        Products in the {capitalise(tierSlug)} Range
-      </Title>
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
-        {products.map((product) => (
-          <Card
-            key={product._id}
-            shadow="sm"
-            padding="lg"
-            radius="md"
-            withBorder
-            onClick={() => {
-              navigate(`/tier/${tierSlug}/${product.slug.current}`);
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            {product.image?.asset?.url && (
-              <Card.Section>
-                <Image src={product.image.asset.url} height={160} alt={product.title} />
-              </Card.Section>
-            )}
-            <Text fw={500} mt="md">
-              {product.title}
-            </Text>
-            {product.description && (
-              <Text size="sm" color="dimmed">
-                {product.description}
-              </Text>
-            )}
-          </Card>
-        ))}
-      </SimpleGrid>
-    </Container>
+    <>
+      <TierHero tier={tier} />
+      <ProductGrid tierSlug={tierSlug} products={products} />
+    </>
   );
 }

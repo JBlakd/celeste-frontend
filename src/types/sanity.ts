@@ -44,6 +44,7 @@ export interface Tier {
     current: string;
   };
   rank: number;
+  heroImage?: { asset?: { url: string } };
 }
 
 export interface TierRef {
