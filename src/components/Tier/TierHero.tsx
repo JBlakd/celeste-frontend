@@ -44,7 +44,9 @@ export default function TierHero({ tier }: { tier: Tier | null }) {
         <Title order={1} c={theme.white}>
           {tier.title} Range
         </Title>
-        <Text c={theme.white}>{tier.description}</Text>
+        <Text c={theme.white} style={{ textAlign: 'center' }}>
+          {tier.description}
+        </Text>
       </Container>
     </Box>
   );
