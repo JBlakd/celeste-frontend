@@ -1,23 +1,38 @@
 import type { Tier } from '@typedefs/sanity';
-import { Box, Container, useMantineTheme } from '@mantine/core';
+import { Box, Container, Title, Overlay } from '@mantine/core';
 
 export default function TierHero({ tier }: { tier: Tier | null }) {
-  const theme = useMantineTheme();
+  if (!tier) return null;
 
-  if (!tier) {
-    return null;
-  }
+  const heroImageUrl = tier.heroImage?.asset?.url;
+
+  console.log('tier', tier);
 
   return (
     <Box
       style={{
-        backgroundColor: theme.colors.celesteGold[5],
+        position: 'relative',
         width: '100%',
+        height: '300px',
+        backgroundImage: `url(${heroImageUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderRadius: '0.5rem',
+        overflow: 'hidden',
       }}
       px="2rem"
+      mb="xl"
     >
-      <Container size="lg" py="xl">
-        Products in the {tier?.title} range
+      {/* translucent overlay */}
+      <Overlay
+        gradient="linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%)"
+        opacity={1}
+        zIndex={0}
+      />
+      <Container size="lg" style={{ height: '100%', position: 'relative', zIndex: 1 }} py="xl">
+        <Title order={1} c="white">
+          {tier.title} Range
+        </Title>
       </Container>
     </Box>
   );
