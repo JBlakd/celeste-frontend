@@ -17,6 +17,7 @@ export default function DisplayTierProducts() {
 
     const tierQuery = `*[_type == "tier" && slug.current == $slug][0]{
       title,
+      description,
       slug,
       heroImage {
         asset->{

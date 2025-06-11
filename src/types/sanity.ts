@@ -40,6 +40,7 @@ export interface HomepageSettings {
 export interface Tier {
   _id: string;
   title: string;
+  description: string;
   slug: {
     current: string;
   };

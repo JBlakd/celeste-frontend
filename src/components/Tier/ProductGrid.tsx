@@ -16,7 +16,7 @@ export default function ProductGrid({
   }
 
   return (
-    <Container size="lg" pt="2rem">
+    <Container size="lg">
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
         {products.map((product) => (
           <Card

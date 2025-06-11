@@ -1,5 +1,5 @@
 import type { Tier } from '@typedefs/sanity';
-import { Box, Container, Title, Overlay, useMantineTheme } from '@mantine/core';
+import { Box, Container, Text, Title, Overlay, useMantineTheme } from '@mantine/core';
 
 export default function TierHero({ tier }: { tier: Tier | null }) {
   const theme = useMantineTheme();
@@ -35,6 +35,7 @@ export default function TierHero({ tier }: { tier: Tier | null }) {
           position: 'relative',
           zIndex: 1,
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -43,6 +44,7 @@ export default function TierHero({ tier }: { tier: Tier | null }) {
         <Title order={1} c={theme.white}>
           {tier.title} Range
         </Title>
+        <Text c={theme.white}>{tier.description}</Text>
       </Container>
     </Box>
   );
