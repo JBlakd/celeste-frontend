@@ -22,6 +22,8 @@ function MobileMenu({
   menuOpened: boolean;
   setMenuOpened: (opened: boolean) => void;
 }) {
+  const theme = useMantineTheme();
+
   return (
     <Menu
       opened={menuOpened}
@@ -36,6 +38,7 @@ function MobileMenu({
           opened={menuOpened}
           onClick={() => setMenuOpened(!menuOpened)}
           aria-label="Toggle navigation"
+          color={shouldHeaderBeColoured ? theme.black : theme.white}
         />
       </Menu.Target>
       <Menu.Dropdown>
