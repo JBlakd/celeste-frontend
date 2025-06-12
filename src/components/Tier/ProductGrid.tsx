@@ -1,4 +1,4 @@
-import { SimpleGrid, Card, Image, Text, Container } from '@mantine/core';
+import { SimpleGrid, Card, Image, Text, Container, useMantineTheme } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ export default function ProductGrid({
   tierSlug: string | undefined;
 }) {
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   if (!products) {
     return null;
@@ -30,6 +31,7 @@ export default function ProductGrid({
             style={{
               cursor: 'pointer',
               transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              backgroundColor: theme.colors.coolWhite[0],
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';

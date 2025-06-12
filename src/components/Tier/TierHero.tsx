@@ -41,10 +41,10 @@ export default function TierHero({ tier }: { tier: Tier | null }) {
         }}
         py="xl"
       >
-        <Title order={1} c={theme.white}>
+        <Title order={1} c={theme.colors.coolWhite[0]}>
           {tier.title} Range
         </Title>
-        <Text c={theme.white} style={{ textAlign: 'center' }}>
+        <Text c={theme.colors.coolWhite[0]} style={{ textAlign: 'center' }}>
           {tier.description}
         </Text>
       </Container>

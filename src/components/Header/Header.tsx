@@ -38,7 +38,7 @@ function MobileMenu({
           opened={menuOpened}
           onClick={() => setMenuOpened(!menuOpened)}
           aria-label="Toggle navigation"
-          color={shouldHeaderBeColoured ? theme.black : theme.white}
+          color={shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0]}
         />
       </Menu.Target>
       <Menu.Dropdown>
@@ -104,7 +104,9 @@ export default function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDiv
       ref={headerRef}
       className={classes.header}
       style={{
-        backgroundColor: shouldHeaderBeColoured ? theme.white : theme.colors.transparent[0],
+        backgroundColor: shouldHeaderBeColoured
+          ? theme.colors.coolWhite[0]
+          : theme.colors.transparent[0],
       }}
       onMouseEnter={() => {
         if (location.pathname !== '/') {

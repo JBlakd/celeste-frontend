@@ -1,13 +1,4 @@
-import {
-  Box,
-  Container,
-  Group,
-  Image,
-  Stack,
-  Text,
-  Anchor,
-  Divider,
-} from '@mantine/core';
+import { Box, Container, Group, Image, Stack, Text, Anchor, Divider } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 
@@ -86,9 +77,7 @@ function FooterCredits({ isMobile }: { isMobile: boolean }) {
   if (isMobile) {
     return (
       <Stack align="center" gap={4}>
-        <Text size="xs">
-          © {new Date().getFullYear()} Celeste Stone Group Pty Ltd
-        </Text>
+        <Text size="xs">© {new Date().getFullYear()} Celeste Stone Group Pty Ltd</Text>
         <Text size="xs">Built with ❤️ in-house at Celeste Stone</Text>
       </Stack>
     );
@@ -96,9 +85,7 @@ function FooterCredits({ isMobile }: { isMobile: boolean }) {
 
   return (
     <Group justify="space-between">
-      <Text size="xs">
-        © {new Date().getFullYear()} Celeste Stone Group Pty Ltd
-      </Text>
+      <Text size="xs">© {new Date().getFullYear()} Celeste Stone Group Pty Ltd</Text>
       <Text size="xs">Built with ❤️ in-house at Celeste Stone</Text>
     </Group>
   );
@@ -119,7 +106,7 @@ export default function SiteFooter() {
       component="footer"
       style={(theme) => ({
         borderTop: `1px solid ${theme.colors.gray[3]}`,
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        backgroundColor: theme.colors.coolWhite[0],
         paddingTop: theme.spacing.xl,
         paddingBottom: theme.spacing.xl,
         marginTop: theme.spacing.xl,

@@ -30,7 +30,7 @@ export default function TierMenuDesktop({
       return theme.colors.celesteGold[5];
     }
 
-    return shouldHeaderBeColoured ? theme.black : theme.white;
+    return shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0];
   };
 
   return (

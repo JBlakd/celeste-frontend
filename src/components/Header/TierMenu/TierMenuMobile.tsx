@@ -38,7 +38,7 @@ export default function TierMenuMobile({
       <Menu.Target>
         <Flex
           variant="subtle"
-          color={shouldHeaderBeColoured ? theme.black : theme.white}
+          color={shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0]}
           onClick={(event) => {
             event.stopPropagation();
             setMenuOpened((prev) => !prev);

@@ -16,7 +16,7 @@ export default function CallToAction({
 
   return (
     <Box mt="xl" px="2rem">
-      <Text size="xl" fw={700} mb="sm" c={theme.white}>
+      <Text size="xl" fw={700} mb="sm" c={theme.colors.coolWhite[0]}>
         {homepageSettings?.heroText}
       </Text>
       {homepageSettings?.ctaButtonLabel && homepageSettings?.ctaButtonLink && (

@@ -24,7 +24,7 @@ export default function QualityDeclaration() {
           <Text
             size="xl"
             fw={700}
-            c={theme.white}
+            c={theme.colors.coolWhite[0]}
             maw={{ md: '30%' }}
             ta={{ base: 'center', md: 'left' }}
             lh="lg"
@@ -48,7 +48,7 @@ export default function QualityDeclaration() {
           <Text
             size="md"
             fw={500}
-            c={theme.white}
+            c={theme.colors.coolWhite[0]}
             maw={{ md: '30%' }}
             ta={isMobile ? 'center' : 'justify'}
             lh="xs"
