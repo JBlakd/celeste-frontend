@@ -39,7 +39,7 @@ export default function ProductGrid({
               {product.title}
             </Text>
             {product.description && (
-              <Text size="sm" color="dimmed">
+              <Text size="sm" c="dimmed" lineClamp={3}>
                 {product.description}
               </Text>
             )}
