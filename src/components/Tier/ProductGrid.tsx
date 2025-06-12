@@ -32,6 +32,7 @@ export default function ProductGrid({
               cursor: 'pointer',
               transition: 'transform 0.2s ease, box-shadow 0.2s ease',
               backgroundColor: theme.colors.coolWhite[0],
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.02)';
