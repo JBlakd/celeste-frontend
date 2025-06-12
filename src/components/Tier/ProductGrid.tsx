@@ -28,7 +28,18 @@ export default function ProductGrid({
             onClick={() => {
               navigate(`/tier/${tierSlug}/${product.slug.current}`);
             }}
-            style={{ cursor: 'pointer' }}
+            style={{
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.02)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+            }}
           >
             {product.image?.asset?.url && (
               <Card.Section>
@@ -36,7 +47,7 @@ export default function ProductGrid({
               </Card.Section>
             )}
             <Text fw={500} mt="md">
-              {product.title}
+              {product.title} | {product.sku}
             </Text>
             {product.description && (
               <Text size="sm" c="dimmed" lineClamp={3}>

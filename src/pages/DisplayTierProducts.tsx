@@ -31,6 +31,7 @@ export default function DisplayTierProducts() {
       title,
       description,
       slug,
+      sku,
       image {
         asset->{
           url
