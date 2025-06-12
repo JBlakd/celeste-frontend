@@ -1,11 +1,12 @@
-import { Container, Image, Paper } from '@mantine/core';
+import { useState } from 'react';
+import { Container, Image, Paper, Modal, Box } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import type { Product } from '@typedefs/sanity';
 
 export default function ProductImages({ product }: { product: Product | null }) {
-  if (!product) {
-    return null;
-  }
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  if (!product) return null;
 
   const mainImageUrl = product.image?.asset?.url;
   const galleryImages = product.gallery?.filter((img) => img.asset?.url);
@@ -21,18 +22,68 @@ export default function ProductImages({ product }: { product: Product | null }) 
       {galleryImages && galleryImages.length > 0 && (
         <Carousel
           mt="xl"
-          slideSize="33.333333%"
+          slideSize="33.33333%"
           slideGap="md"
           emblaOptions={{ align: 'start', loop: true, dragFree: true }}
           withIndicators
         >
           {galleryImages.map((img, index) => (
             <Carousel.Slide key={index}>
-              <Image src={img.asset?.url} alt={`${product.title} image ${index + 1}`} radius="sm" />
+              <Box
+                onClick={() => setSelectedImage(img.asset.url || null)}
+                style={{ cursor: 'pointer' }}
+              >
+                <Image
+                  src={img.asset.url}
+                  alt={`${product.title} image ${index + 1}`}
+                  radius="sm"
+                  height={200}
+                  fit="cover"
+                />
+              </Box>
             </Carousel.Slide>
           ))}
         </Carousel>
       )}
+
+      {/* Modal for full image preview */}
+      <Modal
+        opened={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+        size="auto"
+        centered
+        withCloseButton={false}
+        withinPortal
+        padding={0}
+        overlayProps={{
+          backgroundOpacity: 0.85,
+          blur: 4,
+        }}
+        styles={{
+          content: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'start', // align from top down
+            overflow: 'hidden',
+            marginTop: '4.5rem', // <-- buffer from header turf
+            maxHeight: 'calc(100vh - 4.5rem)', // <-- avoid scroll cut-off
+          },
+        }}
+      >
+        {selectedImage && (
+          <Image
+            src={selectedImage}
+            alt="Preview"
+            style={{
+              width: '80vw',
+              height: 'auto',
+              maxHeight: 'calc(100vh - 8rem)', // extra buffer to avoid footer too
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+        )}
+      </Modal>
     </Container>
   );
 }
