@@ -53,16 +53,34 @@ export default function FeaturedProducts({
           >
             <Box p="sm" bg={theme.colors.transparent[0]}>
               {prod.image?.asset.url && (
-                <Image
-                  src={prod.image.asset.url}
-                  alt={prod.title}
-                  radius="md"
-                  height={180}
-                  fit="cover"
-                />
+                <Box
+                  style={{
+                    overflow: 'hidden',
+                    borderRadius: theme.radius.md,
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.03)';
+                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.25)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <Image
+                    src={prod.image.asset.url}
+                    alt={prod.title}
+                    height={180}
+                    fit="cover"
+                    style={{
+                      transition: 'transform 0.3s ease',
+                    }}
+                  />
+                </Box>
               )}
-              <Text mt="sm" fw={500}>
-                {prod.title}
+              <Text mt="sm" fw={500} ta="center">
+                {prod.title} | {prod.sku}
               </Text>
             </Box>
           </Carousel.Slide>

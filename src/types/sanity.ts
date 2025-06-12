@@ -21,6 +21,7 @@ export interface HomepageSettings {
   featuredProducts?: Array<{
     _id: string;
     title: string;
+    sku: string;
     slug: {
       current: string;
     };

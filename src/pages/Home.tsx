@@ -30,6 +30,7 @@ export default function Home() {
           featuredProducts[]->{
             _id,
             title,
+            sku,
             slug,
             image{
               asset->{
