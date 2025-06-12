@@ -76,6 +76,7 @@ export interface Product {
     asset: {
       _ref: string;
       _type: 'reference';
+      url?: string;
     };
   }>;
   tier?: TierRef;

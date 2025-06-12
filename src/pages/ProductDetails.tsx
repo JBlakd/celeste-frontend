@@ -1,9 +1,10 @@
 // src/pages/ProductDetails.tsx
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Image, Text, Title, Container, Loader } from '@mantine/core';
+import { Text, Title, Loader } from '@mantine/core';
 import { sanity } from '../lib/sanity';
 import type { Product } from '../types/sanity';
+import ProductImages from '@components/Product/ProductImages';
 
 export default function ProductDetails() {
   const { productSlug } = useParams();
@@ -54,15 +55,15 @@ export default function ProductDetails() {
   if (!product) return <Text>Product not found</Text>;
 
   return (
-    <Container size="sm">
+    <>
+      <ProductImages product={product} />
       <Title order={2}>{product.title}</Title>
-      <Image src={product.image?.asset?.url} alt={product.title} mt="md" />
       <Text mt="md">{product.description}</Text>
       <Text>📐 Dimensions: {product.dimensions}</Text>
       <Text>🧱 Finish: {product.finish}</Text>
       <Text>📌 SKU: {product.sku}</Text>
       <Text mt="sm">🧰 Features:</Text>
       <ul>{product.features?.map((f: string, idx: number) => <li key={idx}>{f}</li>)}</ul>
-    </Container>
+    </>
   );
 }

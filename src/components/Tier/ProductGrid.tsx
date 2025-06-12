@@ -24,7 +24,6 @@ export default function ProductGrid({
             shadow="sm"
             padding="lg"
             radius="md"
-            withBorder
             onClick={() => {
               navigate(`/tier/${tierSlug}/${product.slug.current}`);
             }}
