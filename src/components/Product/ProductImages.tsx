@@ -75,8 +75,8 @@ export default function ProductImages({ product }: { product: Product | null }) 
             src={selectedImage}
             alt="Preview"
             style={{
-              width: '80vw',
-              height: 'auto',
+              height: '80vh',
+              width: 'auto',
               maxHeight: 'calc(100vh - 8rem)', // extra buffer to avoid footer too
               objectFit: 'contain',
               display: 'block',
