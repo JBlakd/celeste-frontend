@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Container, Image, Paper, Modal, Box } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import type { Product } from '@typedefs/sanity';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function ProductImages({ product }: { product: Product | null }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   if (!product) return null;
 
@@ -22,9 +24,9 @@ export default function ProductImages({ product }: { product: Product | null }) 
       {galleryImages && galleryImages.length > 0 && (
         <Carousel
           mt="xl"
-          slideSize="33.33333%"
+          slideSize={isMobile ? '66.666666%' : '33.333333%'}
           slideGap="md"
-          emblaOptions={{ align: 'start', loop: true, dragFree: true }}
+          emblaOptions={{ align: isMobile ? 'center' : 'start', loop: true, dragFree: true }}
           withIndicators
         >
           {galleryImages.map((img, index) => (
