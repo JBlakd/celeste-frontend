@@ -16,7 +16,12 @@ export default function ProductImages({ product }: { product: Product | null }) 
   return (
     <Container size="lg">
       {/* Main image */}
-      <Paper radius="sm" shadow="sm">
+      <Paper
+        radius="sm"
+        shadow="sm"
+        onClick={() => setSelectedImage(mainImageUrl || null)}
+        style={{ cursor: 'pointer' }}
+      >
         {mainImageUrl && <Image src={mainImageUrl} alt={product.title} mt="2rem" />}
       </Paper>
 
