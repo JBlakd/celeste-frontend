@@ -20,7 +20,17 @@ export default function ProductImages({ product }: { product: Product | null }) 
         radius="sm"
         shadow="sm"
         onClick={() => setSelectedImage(mainImageUrl || null)}
-        style={{ cursor: 'pointer' }}
+        style={{
+          cursor: 'pointer',
+          transition: 'box-shadow 0.2s ease',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+        }}
       >
         {mainImageUrl && <Image src={mainImageUrl} alt={product.title} mt="2rem" />}
       </Paper>
@@ -35,10 +45,21 @@ export default function ProductImages({ product }: { product: Product | null }) 
           withIndicators
         >
           {galleryImages.map((img, index) => (
-            <Carousel.Slide key={index}>
+            <Carousel.Slide key={img.asset.url}>
               <Box
                 onClick={() => setSelectedImage(img.asset.url || null)}
-                style={{ cursor: 'pointer' }}
+                style={{
+                  cursor: 'pointer',
+                  transition: 'box-shadow 0.2s ease',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    '0 4px 12px rgba(0, 0, 0, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                }}
               >
                 <Image
                   src={img.asset.url}
