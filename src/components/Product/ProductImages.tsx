@@ -80,7 +80,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
         onClose={() => setSelectedImage(null)}
         size="auto"
         centered
-        withCloseButton={false}
+        withCloseButton
         withinPortal
         padding={0}
         overlayProps={{
@@ -95,6 +95,12 @@ export default function ProductImages({ product }: { product: Product | null }) 
             overflow: 'hidden',
             marginTop: '4.5rem', // <-- buffer from header turf
             maxHeight: 'calc(100vh - 4.5rem)', // <-- avoid scroll cut-off
+          },
+          close: {
+            position: 'absolute',
+            left: '1rem',
+            outline: '2px solid',
+            outlineColor: 'gray.1',
           },
         }}
       >
