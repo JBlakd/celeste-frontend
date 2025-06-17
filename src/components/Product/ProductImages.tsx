@@ -109,9 +109,15 @@ export default function ProductImages({ product }: { product: Product | null }) 
             src={selectedImage}
             alt="Preview"
             style={{
-              height: '80vh',
-              width: 'auto',
-              maxHeight: 'calc(100vh - 8rem)', // extra buffer to avoid footer too
+              height: isMobile ? 'auto' : '80vh',
+              width: isMobile ? '80vw' : 'auto',
+              ...(isMobile
+                ? {
+                    maxWidth: 'calc(100vw - 8rem)',
+                  }
+                : {
+                    maxHeight: 'calc(100vh - 8rem)',
+                  }),
               objectFit: 'contain',
               display: 'block',
             }}
