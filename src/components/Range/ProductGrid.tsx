@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ProductGrid({
   products,
-  tierSlug,
+  rangeSlug,
 }: {
   products: Product[] | null;
-  tierSlug: string | undefined;
+  rangeSlug: string | undefined;
 }) {
   const navigate = useNavigate();
   const theme = useMantineTheme();
@@ -26,7 +26,7 @@ export default function ProductGrid({
             padding="lg"
             radius="md"
             onClick={() => {
-              navigate(`/tier/${tierSlug}/${product.slug.current}`);
+              navigate(`/range/${rangeSlug}/${product.slug.current}`);
             }}
             style={{
               cursor: 'pointer',

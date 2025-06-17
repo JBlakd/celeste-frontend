@@ -25,7 +25,7 @@ export interface HomepageSettings {
     slug: {
       current: string;
     };
-    tier: {
+    range: {
       slug: {
         current: string;
       };
@@ -38,7 +38,7 @@ export interface HomepageSettings {
   }>;
 }
 
-export interface Tier {
+export interface Range {
   _id: string;
   title: string;
   description: string;
@@ -49,7 +49,7 @@ export interface Tier {
   heroImage?: { asset?: { url: string } };
 }
 
-export interface TierRef {
+export interface RangeRef {
   _ref: string;
   _type: 'reference';
 }
@@ -80,7 +80,7 @@ export interface Product {
       url?: string;
     };
   }>;
-  tier?: TierRef;
+  range?: RangeRef;
   dimensions?: string;
   finish: 'Matte' | 'Honed' | 'Polished';
   features?: string[];

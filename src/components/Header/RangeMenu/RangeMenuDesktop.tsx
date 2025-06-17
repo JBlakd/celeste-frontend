@@ -4,25 +4,25 @@ import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
 import { sanity } from '@lib/sanity';
 import classes from '@components/Header/Header.module.css';
-import type { Tier } from '@typedefs/sanity';
+import type { Range } from '@typedefs/sanity';
 
-export default function TierMenuDesktop({
+export default function RangeMenuDesktop({
   shouldHeaderBeColoured,
 }: {
   shouldHeaderBeColoured: boolean;
 }) {
   const theme = useMantineTheme();
-  const [tiers, setTiers] = useState<Tier[]>([]);
+  const [ranges, setRanges] = useState<Range[]>([]);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const fetchTiers = async () => {
-      const query = `*[_type == "tier"]{ _id, title, slug, rank }`;
-      const data = await sanity.fetch<Tier[]>(query);
-      setTiers(data.sort((a, b) => a.rank - b.rank));
+    const fetchRanges = async () => {
+      const query = `*[_type == "range"]{ _id, title, slug, rank }`;
+      const data = await sanity.fetch<Range[]>(query);
+      setRanges(data.sort((a, b) => a.rank - b.rank));
     };
 
-    fetchTiers();
+    fetchRanges();
   }, []);
 
   const getColor = () => {
@@ -46,14 +46,14 @@ export default function TierMenuDesktop({
           }}
           align="center"
         >
-          Products by Tier <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />
+          Products by Range <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />
         </Flex>
       </Menu.Target>
 
       <Menu.Dropdown>
-        {tiers.map((tier) => (
-          <Menu.Item key={tier._id} component={Link} to={`/tier/${tier.slug.current}`}>
-            <Text fw={400}>{tier.title}</Text>
+        {ranges.map((range) => (
+          <Menu.Item key={range._id} component={Link} to={`/range/${range.slug.current}`}>
+            <Text fw={400}>{range.title}</Text>
           </Menu.Item>
         ))}
       </Menu.Dropdown>

@@ -17,12 +17,12 @@
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "editor.formatOnSave": true,
-          "editor.codeActionsOnSave": {
+        "editor.codeActionsOnSave": {
           "source.fixAll": "always",
           "source.fixAll.eslint": "always"
         },
         "eslint.validate": ["javascript", "typescript", "typescriptreact"],
-        "editor.fontSize": 12,
+        "editor.fontSize": 14,
         "editor.tabSize": 2,
         "editor.insertSpaces": true,
         "editor.detectIndentation": false,
@@ -31,11 +31,7 @@
         "typescript.enablePromptUseWorkspaceTsdk": true,
         "typescript.suggest.autoImports": true
       },
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "mhutchie.git-graph"
-      ]
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "mhutchie.git-graph"]
     }
   },
   "postCreateCommand": "npm install",

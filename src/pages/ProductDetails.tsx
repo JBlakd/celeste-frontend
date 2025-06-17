@@ -32,7 +32,7 @@ export default function ProductDetails() {
           url
         }
       },
-      tier->{
+      range->{
         title,
         slug
       }

@@ -3,7 +3,7 @@ import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import DisplayTierProducts from './pages/DisplayTierProducts';
+import DisplayRangeProducts from './pages/DisplayRangeProducts';
 import ProductDetails from './pages/ProductDetails';
 
 export const routes: RouteObject[] = [
@@ -15,12 +15,12 @@ export const routes: RouteObject[] = [
       { path: 'about', element: <About /> },
       { path: 'contact', element: <Contact /> },
       {
-        path: 'tier',
+        path: 'range',
         children: [
           {
-            path: ':tierSlug',
+            path: ':rangeSlug',
             children: [
-              { index: true, element: <DisplayTierProducts /> },
+              { index: true, element: <DisplayRangeProducts /> },
               { path: ':productSlug', element: <ProductDetails /> },
             ],
           },

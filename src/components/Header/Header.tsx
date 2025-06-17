@@ -1,14 +1,14 @@
 import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
-import TierMenuDesktop from '@components/Header/TierMenu/TierMenuDesktop';
+import RangeMenuDesktop from '@components/Header/RangeMenu/RangeMenuDesktop';
 import { useState, type RefObject } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import LogoBrandGoldWhiteTransparentBackground from '@assets/LogoBrandGoldWhiteTransparentBackground.png';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
-import TierMenuMobile from '@components/Header/TierMenu/TierMenuMobile';
+import RangeMenuMobile from '@components/Header/RangeMenu/RangeMenuMobile';
 import { useWindowScroll } from '@mantine/hooks';
 
 function MobileMenu({
@@ -44,7 +44,7 @@ function MobileMenu({
       <Menu.Dropdown>
         <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
         <Menu.Item>
-          <TierMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
+          <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
         </Menu.Item>
         <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
         <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
@@ -63,7 +63,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
       >
         Home
       </StyledNavLink>
-      <TierMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
+      <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>

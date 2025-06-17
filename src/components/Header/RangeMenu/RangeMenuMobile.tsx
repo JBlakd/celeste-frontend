@@ -2,27 +2,27 @@ import { useEffect, useState } from 'react';
 import { Menu, Text, useMantineTheme, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'tabler-icons-react';
-import type { Tier } from '@typedefs/sanity';
+import type { Range } from '@typedefs/sanity';
 import { sanity } from '@lib/sanity';
 
-export default function TierMenuMobile({
+export default function RangeMenuMobile({
   shouldHeaderBeColoured,
 }: {
   shouldHeaderBeColoured: boolean;
 }) {
   const theme = useMantineTheme();
 
-  const [tiers, setTiers] = useState<Tier[]>([]);
+  const [ranges, setRanges] = useState<Range[]>([]);
   const [menuOpened, setMenuOpened] = useState(false);
 
   useEffect(() => {
-    const fetchTiers = async () => {
-      const query = `*[_type == "tier"]{ _id, title, slug, rank }`;
-      const data = await sanity.fetch<Tier[]>(query);
-      setTiers(data.sort((a, b) => a.rank - b.rank));
+    const fetchRanges = async () => {
+      const query = `*[_type == "range"]{ _id, title, slug, rank }`;
+      const data = await sanity.fetch<Range[]>(query);
+      setRanges(data.sort((a, b) => a.rank - b.rank));
     };
 
-    fetchTiers();
+    fetchRanges();
   }, []);
 
   return (
@@ -44,19 +44,19 @@ export default function TierMenuMobile({
             setMenuOpened((prev) => !prev);
           }}
         >
-          Products by Tier <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
+          Products by Range <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
         </Flex>
       </Menu.Target>
 
       <Menu.Dropdown>
-        {tiers.map((tier) => (
+        {ranges.map((range) => (
           <Menu.Item
-            key={tier._id}
+            key={range._id}
             component={Link}
-            to={`/tier/${tier.slug.current}`}
+            to={`/range/${range.slug.current}`}
             w={140} // tighter
           >
-            <Text fw={400}>{tier.title}</Text>
+            <Text fw={400}>{range.title}</Text>
           </Menu.Item>
         ))}
       </Menu.Dropdown>

@@ -1,12 +1,12 @@
-import type { Tier } from '@typedefs/sanity';
+import type { Range } from '@typedefs/sanity';
 import { Box, Container, Text, Title, Overlay, useMantineTheme } from '@mantine/core';
 
-export default function TierHero({ tier }: { tier: Tier | null }) {
+export default function RangeHero({ range }: { range: Range | null }) {
   const theme = useMantineTheme();
 
-  if (!tier) return null;
+  if (!range) return null;
 
-  const heroImageUrl = tier.heroImage?.asset?.url;
+  const heroImageUrl = range.heroImage?.asset?.url;
 
   return (
     <Box
@@ -42,10 +42,10 @@ export default function TierHero({ tier }: { tier: Tier | null }) {
         py="xl"
       >
         <Title order={1} c={theme.colors.coolWhite[0]}>
-          {tier.title} Range
+          {range.title} Range
         </Title>
         <Text c={theme.colors.coolWhite[0]} style={{ textAlign: 'center' }}>
-          {tier.description}
+          {range.description}
         </Text>
       </Container>
     </Box>

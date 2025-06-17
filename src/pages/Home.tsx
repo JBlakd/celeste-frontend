@@ -37,7 +37,7 @@ export default function Home() {
                 url
               }
             },
-            tier->{
+            range->{
               _id,
               slug
             }
