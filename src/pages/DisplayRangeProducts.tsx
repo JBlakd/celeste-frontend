@@ -60,17 +60,17 @@ export default function DisplayRangeProducts() {
         <Loader />
       </Center>
     );
-  if (!products?.length)
-    return (
-      <Center>
-        <Text>No products found in this range.</Text>
-      </Center>
-    );
 
   return (
     <>
       <RangeHero range={range} />
-      <ProductGrid rangeSlug={rangeSlug} products={products} />
+      {products?.length ? (
+        <ProductGrid rangeSlug={rangeSlug} products={products} />
+      ) : (
+        <Center>
+          <Text>No products found in this range.</Text>
+        </Center>
+      )}
     </>
   );
 }
