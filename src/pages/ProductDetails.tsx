@@ -1,10 +1,10 @@
-// src/pages/ProductDetails.tsx
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Text, Title, Loader } from '@mantine/core';
+import { Text, Loader } from '@mantine/core';
 import { sanity } from '../lib/sanity';
 import type { Product } from '../types/sanity';
 import ProductImages from '@components/Product/ProductImages';
+import ProductDescription from '@components/Product/ProductDescription';
 
 export default function ProductDetails() {
   const { productSlug } = useParams();
@@ -57,8 +57,7 @@ export default function ProductDetails() {
   return (
     <>
       <ProductImages product={product} />
-      <Title order={2}>{product.title}</Title>
-      <Text mt="md">{product.description}</Text>
+      <ProductDescription product={product} />
       <Text>📐 Dimensions: {product.dimensions}</Text>
       <Text>🧱 Finish: {product.finish}</Text>
       <Text>📌 SKU: {product.sku}</Text>
