@@ -65,7 +65,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
       {galleryImages && galleryImages.length > 0 && (
         <Carousel
           mt="xl"
-          slideSize={isMobile ? '66.666666%' : '33.333333%'}
+          slideSize={isMobile ? '100%' : '33.333333%'}
           slideGap="md"
           emblaOptions={{ align: isMobile ? 'center' : 'start', loop: true, dragFree: true }}
           withControls={isMobile ? galleryImages.length > 1 : galleryImages.length > 3}
