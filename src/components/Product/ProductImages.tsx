@@ -43,11 +43,12 @@ export default function ProductImages({ product }: { product: Product | null }) 
           slideSize={isMobile ? '66.666666%' : '33.333333%'}
           slideGap="md"
           emblaOptions={{ align: isMobile ? 'center' : 'start', loop: true, dragFree: true }}
-          withIndicators
+          withControls={isMobile ? galleryImages.length > 1 : galleryImages.length > 3}
         >
           {galleryImages.map((img, index) => (
             <Carousel.Slide key={img.asset.url}>
               <Box
+                mb="1rem"
                 onClick={() => setSelectedImage(img.asset.url || null)}
                 style={{
                   cursor: 'pointer',
