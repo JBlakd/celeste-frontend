@@ -76,6 +76,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
                 mb="1rem"
                 onClick={() => setSelectedImage(img.asset.url || null)}
                 style={{
+                  position: 'relative',
                   cursor: 'pointer',
                   transition: 'box-shadow 0.2s ease',
                   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
@@ -95,6 +96,28 @@ export default function ProductImages({ product }: { product: Product | null }) 
                   height={200}
                   fit="cover"
                 />
+                {index === 0 && (
+                  <Box
+                    style={{
+                      position: 'absolute',
+                      bottom: '0.5rem',
+                      right: '0.5rem',
+                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                      color: 'white',
+                      padding: '0.25rem 0.5rem',
+                      fontSize: '0.75rem',
+                      borderRadius: '4px',
+                      pointerEvents: 'none',
+                      height: '1.5rem',
+                      textAlign: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    Zoomed Portion
+                  </Box>
+                )}
               </Box>
             </Carousel.Slide>
           ))}
