@@ -109,7 +109,6 @@ export default function SiteFooter() {
         backgroundColor: theme.colors.coolWhite[0],
         paddingTop: theme.spacing.xl,
         paddingBottom: theme.spacing.xl,
-        marginTop: theme.spacing.xl,
       })}
     >
       <Container size="lg">

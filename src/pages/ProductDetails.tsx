@@ -5,6 +5,7 @@ import { sanity } from '../lib/sanity';
 import type { Product } from '../types/sanity';
 import ProductImages from '@components/Product/ProductImages';
 import ProductDescription from '@components/Product/ProductDescription';
+import ProductSpecifications from '@components/Product/ProductSpecifications';
 
 export default function ProductDetails() {
   const { productSlug } = useParams();
@@ -58,11 +59,7 @@ export default function ProductDetails() {
     <>
       <ProductImages product={product} />
       <ProductDescription product={product} />
-      <Text>📐 Dimensions: {product.dimensions}</Text>
-      <Text>🧱 Finish: {product.finish}</Text>
-      <Text>📌 SKU: {product.sku}</Text>
-      <Text mt="sm">🧰 Features:</Text>
-      <ul>{product.features?.map((f: string, idx: number) => <li key={idx}>{f}</li>)}</ul>
+      <ProductSpecifications product={product} />
     </>
   );
 }
