@@ -86,7 +86,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
   );
 }
 
-export default function SiteHeader({ headerRef }: { headerRef: RefObject<HTMLDivElement | null> }) {
+export default function Header({ headerRef }: { headerRef: RefObject<HTMLDivElement | null> }) {
   const theme = useMantineTheme();
   const [{ y: yScrollPosition }] = useWindowScroll();
   const navigate = useNavigate();

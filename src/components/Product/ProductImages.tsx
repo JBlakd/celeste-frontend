@@ -5,15 +5,30 @@ import type { Product } from '@typedefs/sanity';
 import { useMediaQuery } from '@mantine/hooks';
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/styles.min.css';
+import { useOutletContext } from 'react-router-dom';
+import type { OutletContext } from '@layouts/RootLayout';
 
 export default function ProductImages({ product }: { product: Product | null }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const { headerRef } = useOutletContext<OutletContext>();
 
   if (!product) return null;
 
   const mainImageUrl = product.image?.asset?.url;
   const galleryImages = product.gallery?.filter((img) => img.asset?.url);
+
+  const handleModalOpen = () => {
+    if (headerRef.current) {
+      headerRef.current.style.display = 'none'; // Header disappears lad
+    }
+  };
+
+  const handleModalClose = () => {
+    if (headerRef.current) {
+      headerRef.current.style.display = ''; // Header reappears
+    }
+  };
 
   return (
     <Container size="lg">
@@ -21,7 +36,10 @@ export default function ProductImages({ product }: { product: Product | null }) 
       <Paper
         mt="2rem"
         shadow="sm"
-        onClick={() => setSelectedImage(mainImageUrl || null)}
+        onClick={() => {
+          setSelectedImage(mainImageUrl || null);
+          handleModalOpen();
+        }}
         style={{
           cursor: 'pointer',
           transition: 'box-shadow 0.2s ease',
@@ -74,7 +92,10 @@ export default function ProductImages({ product }: { product: Product | null }) 
             <Carousel.Slide key={img.asset.url}>
               <Box
                 mb="1rem"
-                onClick={() => setSelectedImage(img.asset.url || null)}
+                onClick={() => {
+                  setSelectedImage(img.asset.url || null);
+                  handleModalOpen();
+                }}
                 style={{
                   position: 'relative',
                   cursor: 'pointer',
@@ -126,7 +147,10 @@ export default function ProductImages({ product }: { product: Product | null }) 
       {/* Modal for full image preview */}
       <Modal
         opened={!!selectedImage}
-        onClose={() => setSelectedImage(null)}
+        onClose={() => {
+          setSelectedImage(null);
+          handleModalClose();
+        }}
         size="auto"
         centered
         withCloseButton
@@ -142,7 +166,6 @@ export default function ProductImages({ product }: { product: Product | null }) 
             justifyContent: 'center',
             alignItems: 'start',
             overflow: 'hidden',
-            marginTop: '4.5rem',
             maxHeight: 'calc(100vh - 4.5rem)',
           },
           close: {
@@ -159,7 +182,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
               height: isMobile ? 'auto' : '80vh',
               width: isMobile ? '80vw' : 'auto',
               ...(isMobile
-                ? { maxWidth: 'calc(100vw - 8rem)' }
+                ? { maxWidth: 'calc(100vw - 4rem)' }
                 : { maxHeight: 'calc(100vh - 8rem)' }),
               display: 'block',
               objectFit: 'contain',

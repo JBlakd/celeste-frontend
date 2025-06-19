@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from 'react';
 
 export interface OutletContext {
   headerHeight: number;
+  headerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export default function RootLayout() {
@@ -23,15 +24,10 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Box
-      pos="relative"
-      mih="100vh"
-      display="flex"
-      style={{ flexDirection: 'column' }} // vertical stack
-    >
+    <Box pos="relative" mih="100vh" display="flex" style={{ flexDirection: 'column' }}>
       <Header headerRef={headerRef} />
       <Box style={{ flex: 1 }}>
-        <Outlet context={{ headerHeight }} />
+        <Outlet context={{ headerHeight, headerRef }} />
       </Box>
       <Footer />
     </Box>
