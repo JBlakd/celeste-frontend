@@ -145,7 +145,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
             <InnerImageZoom
               src={selectedImage}
               zoomSrc={selectedImage}
-              zoomType="hover"
+              zoomType="click"
               zoomScale={1.5}
               zoomPreload
             />
