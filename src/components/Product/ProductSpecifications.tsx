@@ -1,9 +1,7 @@
-import { Box, Container, Text, Title, useMantineTheme, Stack, Badge, Group } from '@mantine/core';
+import { Box, Container, Text, Title, Stack, Badge, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 
 export default function ProductSpecifications({ product }: { product: Product }) {
-  const theme = useMantineTheme();
-
   return (
     <Box
       style={{
@@ -12,34 +10,34 @@ export default function ProductSpecifications({ product }: { product: Product })
       mb="2rem"
     >
       <Container size="lg">
-        <Title order={4} mb="sm" style={{ color: theme.colors.gray[8] }}>
+        <Title order={4} mb="sm">
           Product Specifications
         </Title>
 
         <Stack gap={4}>
-          <Text size="sm" fw={500}>
+          <Text c="gray.9" size="sm" fw={500}>
             Dimensions:{' '}
-            <Text span fw={400}>
+            <Text c="gray.7" span fw={400}>
               {product.dimensions}
             </Text>
           </Text>
-          <Text size="sm" fw={500}>
+          <Text c="gray.9" size="sm" fw={500}>
             Finish:{' '}
-            <Text span fw={400}>
+            <Text c="gray.7" span fw={400}>
               {product.finish}
             </Text>
           </Text>
-          <Text size="sm" fw={500}>
+          <Text c="gray.9" size="sm" fw={500}>
             SKU:{' '}
-            <Text span fw={400}>
+            <Text c="gray.7" span fw={400}>
               {product.sku}
             </Text>
           </Text>
         </Stack>
 
         {!!product.features?.length && (
-          <Group gap="xs" mt="sm" wrap="wrap" align="center">
-            <Text size="sm" fw={500} style={{ marginRight: 4 }}>
+          <Flex gap="sm" align="flex-end" mt="0.25rem">
+            <Text c="gray.9" size="sm" fw={500} style={{ marginRight: 4 }}>
               Features:
             </Text>
             {product.features.map((f) => (
@@ -47,7 +45,7 @@ export default function ProductSpecifications({ product }: { product: Product })
                 {f}
               </Badge>
             ))}
-          </Group>
+          </Flex>
         )}
       </Container>
     </Box>
