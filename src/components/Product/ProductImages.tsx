@@ -179,22 +179,43 @@ export default function ProductImages({ product }: { product: Product | null }) 
         {selectedImage && (
           <Box
             style={{
-              height: isMobile ? 'auto' : '80vh',
-              width: isMobile ? '80vw' : 'auto',
-              ...(isMobile
-                ? { maxWidth: 'calc(100vw - 4rem)' }
-                : { maxHeight: 'calc(100vh - 8rem)' }),
-              display: 'block',
-              objectFit: 'contain',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+              width: '100%',
+              maxHeight: '90vh',
+              maxWidth: '90vw',
             }}
           >
-            <InnerImageZoom
-              src={selectedImage}
-              zoomSrc={selectedImage}
-              zoomType="click"
-              zoomScale={1.5}
-              zoomPreload
-            />
+            <Box
+              style={{
+                width: '100%',
+                height: '100%',
+                maxHeight: '100%',
+                maxWidth: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <InnerImageZoom
+                src={selectedImage}
+                zoomSrc={selectedImage}
+                zoomType="click"
+                zoomScale={1.5}
+                zoomPreload
+                imgAttributes={{
+                  style: {
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    display: 'block',
+                    margin: '0 auto',
+                  },
+                }}
+              />
+            </Box>
           </Box>
         )}
       </Modal>
