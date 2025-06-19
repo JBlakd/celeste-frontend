@@ -3,8 +3,6 @@ import { Container, Image, Paper, Modal, Box } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import type { Product } from '@typedefs/sanity';
 import { useMediaQuery } from '@mantine/hooks';
-import InnerImageZoom from 'react-inner-image-zoom';
-import 'react-inner-image-zoom/lib/styles.min.css';
 
 export default function ProductImages({ product }: { product: Product | null }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -36,6 +34,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
       >
         {mainImageUrl && <Image src={mainImageUrl} alt={product.title} mt="2rem" />}
       </Paper>
+
       {/* Gallery carousel */}
       {galleryImages && galleryImages.length > 0 && (
         <Carousel
@@ -74,6 +73,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
           ))}
         </Carousel>
       )}
+
       {/* Modal for full image preview */}
       <Modal
         opened={!!selectedImage}
@@ -91,10 +91,10 @@ export default function ProductImages({ product }: { product: Product | null }) 
           content: {
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'start',
+            alignItems: 'start', // align from top down
             overflow: 'hidden',
-            marginTop: '4.5rem',
-            maxHeight: 'calc(100vh - 4.5rem)',
+            marginTop: '4.5rem', // <-- buffer from header turf
+            maxHeight: 'calc(100vh - 4.5rem)', // <-- avoid scroll cut-off
           },
           close: {
             position: 'absolute',
@@ -105,25 +105,23 @@ export default function ProductImages({ product }: { product: Product | null }) 
         }}
       >
         {selectedImage && (
-          <Box
+          <Image
+            src={selectedImage}
+            alt="Preview"
             style={{
               height: isMobile ? 'auto' : '80vh',
               width: isMobile ? '80vw' : 'auto',
               ...(isMobile
-                ? { maxWidth: 'calc(100vw - 8rem)' }
-                : { maxHeight: 'calc(100vh - 8rem)' }),
-              display: 'block',
+                ? {
+                    maxWidth: 'calc(100vw - 8rem)',
+                  }
+                : {
+                    maxHeight: 'calc(100vh - 8rem)',
+                  }),
               objectFit: 'contain',
+              display: 'block',
             }}
-          >
-            <InnerImageZoom
-              src={selectedImage}
-              zoomSrc={selectedImage}
-              zoomType="hover"
-              zoomScale={1.5}
-              zoomPreload
-            />
-          </Box>
+          />
         )}
       </Modal>
     </Container>
