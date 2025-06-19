@@ -19,13 +19,14 @@ export default function ProductImages({ product }: { product: Product | null }) 
     <Container size="lg">
       {/* Main image */}
       <Paper
-        radius="sm"
+        mt="2rem"
         shadow="sm"
         onClick={() => setSelectedImage(mainImageUrl || null)}
         style={{
           cursor: 'pointer',
           transition: 'box-shadow 0.2s ease',
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+          lineHeight: 0,
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
@@ -34,7 +35,31 @@ export default function ProductImages({ product }: { product: Product | null }) 
           (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
         }}
       >
-        {mainImageUrl && <Image src={mainImageUrl} alt={product.title} mt="2rem" />}
+        {mainImageUrl && (
+          <Box style={{ position: 'relative', display: 'inline-block' }}>
+            <Image src={mainImageUrl} alt={product.title} style={{ display: 'block' }} />
+            <Box
+              style={{
+                position: 'absolute',
+                bottom: '0.5rem',
+                right: '0.5rem',
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                color: 'white',
+                padding: '0.25rem 0.5rem',
+                fontSize: '0.75rem',
+                borderRadius: '4px',
+                pointerEvents: 'none',
+                height: '1.5rem',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              Whole Slab
+            </Box>
+          </Box>
+        )}
       </Paper>
       {/* Gallery carousel */}
       {galleryImages && galleryImages.length > 0 && (
