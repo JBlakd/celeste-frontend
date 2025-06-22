@@ -16,7 +16,9 @@ export default function ProductImages({ product }: { product: Product | null }) 
   if (!product) return null;
 
   const mainImageUrl = product.image?.asset?.url;
-  const galleryImages = product.gallery?.filter((img) => img.asset?.url);
+  const galleryImages = [product.lowResZoomed].concat(
+    product.gallery?.filter((img) => img.asset?.url),
+  );
 
   const handleModalOpen = () => {
     if (headerRef.current) {
@@ -89,11 +91,15 @@ export default function ProductImages({ product }: { product: Product | null }) 
           withControls={isMobile ? galleryImages.length > 1 : galleryImages.length > 3}
         >
           {galleryImages.map((img, index) => (
-            <Carousel.Slide key={img.asset.url}>
+            <Carousel.Slide key={img?.asset.url}>
               <Box
                 mb="1rem"
                 onClick={() => {
-                  setSelectedImage(img.asset.url || null);
+                  if (index === 0) {
+                    setSelectedImage(product.highResZoomed?.asset.url || null);
+                  } else {
+                    setSelectedImage(img?.asset.url || null);
+                  }
                   handleModalOpen();
                 }}
                 style={{
@@ -111,7 +117,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
                 }}
               >
                 <Image
-                  src={img.asset.url}
+                  src={img?.asset.url}
                   alt={`${product.title} image ${index + 1}`}
                   radius="sm"
                   height={200}

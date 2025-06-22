@@ -72,6 +72,22 @@ export interface Product {
       url?: string;
     };
   };
+  lowResZoomed?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
+  highResZoomed?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
   gallery?: Array<{
     _type: 'image';
     asset: {

@@ -37,6 +37,16 @@ export default function DisplayRangeProducts() {
           url
         }
       },
+      lowResZoomed {
+        asset->{
+          url
+        }
+      },
+      highResZoomed {
+        asset->{
+          url
+        }
+      },
       gallery[]{
         asset->{
           url

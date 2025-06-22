@@ -28,6 +28,16 @@ export default function ProductDetails() {
           url
         }
       },
+      lowResZoomed {
+        asset->{
+          url
+        }
+      },
+      highResZoomed {
+        asset->{
+          url
+        }
+      },
       gallery[]{
         asset->{
           url
