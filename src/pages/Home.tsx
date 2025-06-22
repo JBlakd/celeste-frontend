@@ -37,6 +37,11 @@ export default function Home() {
                 url
               }
             },
+            lowResZoomed{
+              asset->{
+                url
+              }
+            },
             range->{
               _id,
               slug

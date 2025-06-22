@@ -35,6 +35,14 @@ export interface HomepageSettings {
         url: string;
       };
     };
+    lowResZoomed?: {
+      _type: 'image';
+      asset: {
+        _ref: string;
+        _type: 'reference';
+        url?: string;
+      };
+    };
   }>;
 }
 
