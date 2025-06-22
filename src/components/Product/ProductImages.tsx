@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Image, Paper, Modal, Box } from '@mantine/core';
+import { Container, Paper, Modal, Box } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import type { Product } from '@typedefs/sanity';
 import { useMediaQuery } from '@mantine/hooks';
@@ -7,6 +7,7 @@ import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/styles.min.css';
 import { useOutletContext } from 'react-router-dom';
 import type { OutletContext } from '@layouts/RootLayout';
+import { ImageWithLoader } from '@lib/ImageWithLoader';
 
 export default function ProductImages({ product }: { product: Product | null }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -16,9 +17,10 @@ export default function ProductImages({ product }: { product: Product | null }) 
   if (!product) return null;
 
   const mainImageUrl = product.image?.asset?.url;
-  const galleryImages = [product.lowResZoomed].concat(
-    product.gallery?.filter((img) => img.asset?.url),
-  );
+  const galleryImages = [
+    ...(product.lowResZoomed?.asset?.url ? [product.lowResZoomed] : []),
+    ...(product.gallery?.filter((img) => img.asset?.url) || []),
+  ];
 
   const handleModalOpen = () => {
     if (headerRef.current) {
@@ -57,7 +59,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
       >
         {mainImageUrl && (
           <Box style={{ position: 'relative', display: 'inline-block' }}>
-            <Image src={mainImageUrl} alt={product.title} style={{ display: 'block' }} />
+            <ImageWithLoader src={mainImageUrl} alt={product.title} style={{ display: 'block' }} />
             <Box
               style={{
                 position: 'absolute',
@@ -116,7 +118,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
                 }}
               >
-                <Image
+                <ImageWithLoader
                   src={img?.asset.url}
                   alt={`${product.title} image ${index + 1}`}
                   radius="sm"
