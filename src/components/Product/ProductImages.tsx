@@ -116,6 +116,11 @@ export default function ProductImages({ product }: { product: Product | null }) 
                   radius="sm"
                   height={200}
                   fit="cover"
+                  style={
+                    index === 0
+                      ? { imageRendering: 'crisp-edges', filter: 'blur(0.5px)' }
+                      : undefined
+                  }
                 />
                 {index === 0 && (
                   <Box
