@@ -47,7 +47,12 @@ export default function ProductGrid({
             >
               {product.image?.asset?.url && (
                 <Card.Section>
-                  <Image src={product.image.asset.url} height={160} alt={product.title} />
+                  <Image
+                    src={product.gallery?.[0]?.asset.url}
+                    height={160}
+                    alt={product.title}
+                    style={{ imageRendering: 'crisp-edges', filter: 'blur(0.5px)' }}
+                  />
                 </Card.Section>
               )}
               <Text fw={500} mt="md">

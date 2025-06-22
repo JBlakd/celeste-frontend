@@ -36,6 +36,11 @@ export default function DisplayRangeProducts() {
         asset->{
           url
         }
+      },
+      gallery[]{
+        asset->{
+          url
+        }
       }
     }`;
 
