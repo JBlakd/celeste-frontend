@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, Loader, Center } from '@mantine/core';
+import { Image, Loader, Center, Box } from '@mantine/core';
 
 export function ImageWithLoader({
   src,
@@ -23,11 +23,9 @@ export function ImageWithLoader({
   const fallbackWidth = 300;
   const fallbackHeight = 200;
 
-  // Final size to use during loading state
   const placeholderWidth = width ?? fallbackWidth;
   const placeholderHeight = height ?? fallbackHeight;
 
-  // If there's no src at all, don't even try to render the image
   if (!src) {
     return (
       <Center
@@ -44,17 +42,20 @@ export function ImageWithLoader({
   }
 
   return isLoading ? (
-    <Center
+    <Box
       style={{
         width: placeholderWidth,
         height: placeholderHeight,
         backgroundColor: '#f1f3f5',
         borderRadius: radius,
         position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: '0 auto',
       }}
     >
       <Loader size="sm" />
-      {/* Hidden preload image */}
       <img
         src={src}
         alt=""
@@ -62,7 +63,7 @@ export function ImageWithLoader({
         onLoad={() => setIsLoading(false)}
         onError={() => setIsLoading(false)}
       />
-    </Center>
+    </Box>
   ) : (
     <Image
       src={src}
