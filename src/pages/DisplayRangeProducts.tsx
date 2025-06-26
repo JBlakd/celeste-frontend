@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Text, Loader, Center } from '@mantine/core';
+import { Text, Loader, Center, Box } from '@mantine/core';
 import { sanity } from '../lib/sanity';
 import type { Product, Range } from '@typedefs/sanity';
 import RangeHero from '@components/Range/RangeHero';
@@ -71,9 +71,22 @@ export default function DisplayRangeProducts() {
 
   if (loading)
     return (
-      <Center>
-        <Loader />
-      </Center>
+      <Box
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 9999, // stays on top
+        }}
+      >
+        <Loader size="xl" />
+      </Box>
     );
 
   return (
