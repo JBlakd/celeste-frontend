@@ -9,6 +9,11 @@ import classes from '@components/Header/Header.module.css';
 type Product = {
   slug: { current: string };
   title: string;
+  range: {
+    title: string;
+  };
+  finish: string;
+  features?: string[];
 };
 
 export default function SearchProducts({
@@ -24,7 +29,7 @@ export default function SearchProducts({
 
   useEffect(() => {
     sanity
-      .fetch<Product[]>(`*[_type == "product"]{title, slug}`)
+      .fetch<Product[]>(`*[_type == "product"]{title, slug, finish, features, range->{ title } }`)
       .then((data) => {
         setProducts(data);
         setLoading(false);
@@ -44,14 +49,16 @@ export default function SearchProducts({
   };
 
   const actions =
-    products.map((product) => ({
-      label: product.title,
-      description: product.slug.current.toUpperCase(),
-      id: product.slug.current,
-      onClick: () => {
-        navigate(`/${product.slug.current}`);
-      },
-    })) || [];
+    products
+      .filter((product) => product.range)
+      .map((product) => ({
+        label: `${product.title} | ${product.slug.current.toUpperCase()}`,
+        description: [product.range.title, product.finish, ...(product.features ?? [])].join(', '),
+        id: product.slug.current,
+        onClick: () => {
+          navigate(`/${product.slug.current}`);
+        },
+      })) || [];
 
   if (loading) {
     return <Loader size="xs" />;
@@ -80,9 +87,10 @@ export default function SearchProducts({
         highlightQuery
         searchProps={{
           leftSection: <Search />,
-          placeholder: 'Search by Slab Name or ID...',
+          placeholder: 'Search by Slab Name, ID, Range, or Feature...',
         }}
-        limit={3}
+        limit={7}
+        centered
       />
     </>
   );

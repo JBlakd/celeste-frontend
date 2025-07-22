@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Text, Loader, Box } from '@mantine/core';
 import { sanity } from '../lib/sanity';
-import type { Product } from '../types/sanity';
+import type { Product } from '@typedefs/sanity';
 import ProductImages from '@components/Product/ProductImages';
 import ProductDescription from '@components/Product/ProductDescription';
 import ProductSpecifications from '@components/Product/ProductSpecifications';
