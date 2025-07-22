@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Paper, Modal, Box, Loader } from '@mantine/core';
+import { Container, Paper, Modal, Box, Loader, useMantineTheme } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import type { Product } from '@typedefs/sanity';
 import { useMediaQuery } from '@mantine/hooks';
@@ -10,6 +10,7 @@ import type { OutletContext } from '@layouts/RootLayout';
 import { ImageWithLoader } from '@lib/ImageWithLoader';
 
 export default function ProductImages({ product }: { product: Product | null }) {
+  const theme = useMantineTheme();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [modalImageLoading, setModalImageLoading] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -92,6 +93,14 @@ export default function ProductImages({ product }: { product: Product | null }) 
           slideGap="md"
           emblaOptions={{ align: isMobile ? 'center' : 'start', loop: true, dragFree: true }}
           withControls={isMobile ? galleryImages.length > 1 : galleryImages.length > 3}
+          styles={{
+            control: {
+              backgroundColor: theme.colors.gray[3],
+              color: 'black',
+              width: '3rem',
+              height: '3rem',
+            },
+          }}
         >
           {galleryImages.map((img, index) => {
             const imgUrl =
