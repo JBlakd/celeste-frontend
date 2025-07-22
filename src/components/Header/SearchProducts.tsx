@@ -89,7 +89,7 @@ export default function SearchProducts({
         highlightQuery
         searchProps={{
           leftSection: <Search />,
-          placeholder: 'Search by Slab Name, ID, Range, or Feature...',
+          placeholder: `${isMobile ? '' : 'Search by '}Slab Name, ID, Range, or Feature...`,
         }}
         limit={isMobile ? 3 : 7}
         centered={!isMobile}
