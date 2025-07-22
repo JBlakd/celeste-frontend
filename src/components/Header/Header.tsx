@@ -1,4 +1,4 @@
-import { Container, Group, Paper, Image, Burger, Menu } from '@mantine/core';
+import { Container, Group, Paper, Image, Burger, Menu, Flex } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import RangeMenuDesktop from '@components/Header/RangeMenu/RangeMenuDesktop';
@@ -26,34 +26,34 @@ function MobileMenu({
   const theme = useMantineTheme();
 
   return (
-    <Menu
-      opened={menuOpened}
-      onChange={setMenuOpened}
-      shadow="md"
-      width={200}
-      position="bottom-end"
-      offset={20}
-    >
-      <Menu.Target>
-        <Burger
-          opened={menuOpened}
-          onClick={() => setMenuOpened(!menuOpened)}
-          aria-label="Toggle navigation"
-          color={shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0]}
-        />
-      </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
-        <Menu.Item>
-          <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
-        </Menu.Item>
-        <Menu.Item>
-          <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
-        </Menu.Item>
-        <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
-        <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+    <Flex gap="lg">
+      <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
+      <Menu
+        opened={menuOpened}
+        onChange={setMenuOpened}
+        shadow="md"
+        width={200}
+        position="bottom-end"
+        offset={20}
+      >
+        <Menu.Target>
+          <Burger
+            opened={menuOpened}
+            onClick={() => setMenuOpened(!menuOpened)}
+            aria-label="Toggle navigation"
+            color={shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0]}
+          />
+        </Menu.Target>
+        <Menu.Dropdown>
+          <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
+          <Menu.Item>
+            <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
+          </Menu.Item>
+          <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
+          <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    </Flex>
   );
 }
 

@@ -5,6 +5,7 @@ import { Search } from 'tabler-icons-react';
 import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
 import classes from '@components/Header/Header.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 
 type Product = {
   slug: { current: string };
@@ -26,6 +27,7 @@ export default function SearchProducts({
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const theme = useMantineTheme();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     sanity
@@ -71,15 +73,15 @@ export default function SearchProducts({
         gap="xs"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={classes.navLink}
+        className={isMobile ? undefined : classes.navLink}
         style={{
           color: getColor(),
           cursor: 'pointer',
         }}
         onClick={openSpotlight}
       >
-        Search Products
-        <Search size="1.2rem" />
+        {isMobile ? null : 'Search Products'}
+        <Search size={isMobile ? '1.75rem' : '1.2rem'} />
       </Flex>
       <Spotlight
         actions={actions}

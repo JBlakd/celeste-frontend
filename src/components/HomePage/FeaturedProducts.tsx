@@ -46,7 +46,7 @@ export default function FeaturedProducts({
             key={prod._id}
             style={{ cursor: 'pointer' }}
             onClick={() => {
-              navigate(`/range/${prod.range.slug.current}/${prod.slug.current}`);
+              navigate(`/${prod.slug.current}`);
             }}
           >
             <Box p="sm" bg={theme.colors.transparent[0]}>
