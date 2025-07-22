@@ -91,8 +91,8 @@ export default function SearchProducts({
           leftSection: <Search />,
           placeholder: 'Search by Slab Name, ID, Range, or Feature...',
         }}
-        limit={7}
-        centered
+        limit={isMobile ? 3 : 7}
+        centered={!isMobile}
       />
     </>
   );
