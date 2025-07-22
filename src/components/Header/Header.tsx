@@ -48,7 +48,7 @@ function MobileMenu({
           <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
         </Menu.Item>
         <Menu.Item>
-          <SearchProducts />
+          <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
         </Menu.Item>
         <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
         <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
@@ -68,7 +68,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         Home
       </StyledNavLink>
       <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
-      <SearchProducts />
+      <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
