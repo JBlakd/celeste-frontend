@@ -10,6 +10,7 @@ import StyledNavLink from './StyledNavLink';
 import { useMediaQuery } from '@mantine/hooks';
 import RangeMenuMobile from '@components/Header/RangeMenu/RangeMenuMobile';
 import { useWindowScroll } from '@mantine/hooks';
+import SearchProducts from './SearchProducts';
 
 function MobileMenu({
   shouldHeaderBeColoured,
@@ -46,6 +47,9 @@ function MobileMenu({
         <Menu.Item>
           <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
         </Menu.Item>
+        <Menu.Item>
+          <SearchProducts />
+        </Menu.Item>
         <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
         <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
       </Menu.Dropdown>
@@ -64,6 +68,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         Home
       </StyledNavLink>
       <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
+      <SearchProducts />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
