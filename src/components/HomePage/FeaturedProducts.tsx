@@ -2,7 +2,6 @@ import { Carousel } from '@mantine/carousel';
 import { Box, Text, Image, useMantineTheme, Title, Container } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import type { HomepageSettings } from '@typedefs/sanity';
-import classes from './FeaturedProducts.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function FeaturedProducts({
@@ -20,26 +19,25 @@ export default function FeaturedProducts({
 
   return (
     <Container size="lg">
-      <Title order={2} mb="md">
+      <Title order={2} mb="md" pl="0.55em">
         Featured Products
       </Title>
       <Carousel
         height={300}
         slideSize={isMobile ? '66.666666%' : '33.333333%'}
         slideGap="md"
-        controlSize={isMobile ? 0 : 40} // <-- make arrows bigger
         emblaOptions={{
           loop: true,
           dragFree: true,
           align: 'center',
         }}
-        classNames={{
-          control: classes.carouselControl,
-          indicator: classes.carouselIndicator,
-        }}
-        style={{
-          indicators: {
-            marginTop: '-16px',
+        styles={{
+          control: {
+            backgroundColor: theme.colors.gray[3],
+            color: 'black',
+            width: '3rem',
+            height: '3rem',
+            marginTop: '4rem',
           },
         }}
       >
