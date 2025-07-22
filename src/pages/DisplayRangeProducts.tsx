@@ -93,7 +93,7 @@ export default function DisplayRangeProducts() {
     <>
       <RangeHero range={range} />
       {products?.length ? (
-        <ProductGrid rangeSlug={rangeSlug} products={products} />
+        <ProductGrid products={products} />
       ) : (
         <Center>
           <Text>No products found in this range.</Text>

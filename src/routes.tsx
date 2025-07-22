@@ -19,13 +19,11 @@ export const routes: RouteObject[] = [
         children: [
           {
             path: ':rangeSlug',
-            children: [
-              { index: true, element: <DisplayRangeProducts /> },
-              { path: ':productSlug', element: <ProductDetails /> },
-            ],
+            children: [{ index: true, element: <DisplayRangeProducts /> }],
           },
         ],
       },
+      { path: ':productSlug', element: <ProductDetails /> },
     ],
   },
 ];

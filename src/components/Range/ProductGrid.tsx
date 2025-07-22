@@ -2,13 +2,7 @@ import { SimpleGrid, Card, Image, Text, Container, useMantineTheme } from '@mant
 import type { Product } from '@typedefs/sanity';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProductGrid({
-  products,
-  rangeSlug,
-}: {
-  products: Product[] | null;
-  rangeSlug: string | undefined;
-}) {
+export default function ProductGrid({ products }: { products: Product[] | null }) {
   const navigate = useNavigate();
   const theme = useMantineTheme();
 
@@ -28,7 +22,7 @@ export default function ProductGrid({
               padding="lg"
               radius="md"
               onClick={() => {
-                navigate(`/range/${rangeSlug}/${product.slug.current}`);
+                navigate(`/${product.slug.current}`);
               }}
               style={{
                 cursor: 'pointer',
