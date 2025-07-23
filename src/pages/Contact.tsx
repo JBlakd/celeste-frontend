@@ -1,43 +1,29 @@
-import {
-  Container,
-  Title,
-  Text,
-  TextInput,
-  Textarea,
-  Button,
-  Stack,
-} from '@mantine/core';
+import { Container, Title, Text, TextInput, Textarea, Button, Stack } from '@mantine/core';
 import { useState } from 'react';
 
-const isValidEmail = (email: string) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 export default function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<
-    'idle' | 'sending' | 'success' | 'error'
-  >('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const handleSubmit = async () => {
     setStatus('sending');
 
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_CONTACT_API_URL}/api/contact`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            message,
-          }),
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
+      });
 
       if (!res.ok) throw new Error(await res.text());
 
@@ -62,8 +48,7 @@ export default function Contact() {
         Contact Us
       </Title>
       <Text mb="lg">
-        Got questions or need a custom quote? Reach out and we’ll get back to
-        you very soon!
+        Got questions or need a custom quote? Reach out and we’ll get back to you very soon!
       </Text>
 
       <Stack>
@@ -98,12 +83,8 @@ export default function Contact() {
         >
           Send Message
         </Button>
-        {status === 'success' && (
-          <Text c="green">Message sent! We’ll get back to you soon.</Text>
-        )}
-        {status === 'error' && (
-          <Text c="red">Something went wrong. Try again later.</Text>
-        )}
+        {status === 'success' && <Text c="green">Message sent! We’ll get back to you soon.</Text>}
+        {status === 'error' && <Text c="red">Something went wrong. Try again later.</Text>}
       </Stack>
     </Container>
   );
