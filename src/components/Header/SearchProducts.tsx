@@ -13,7 +13,7 @@ type Product = {
   range: {
     title: string;
   };
-  finish: string;
+  finish: string[];
   features?: string[];
 };
 
@@ -55,7 +55,9 @@ export default function SearchProducts({
       .filter((product) => product.range)
       .map((product) => ({
         label: `${product.title} | ${product.slug.current.toUpperCase()}`,
-        description: [product.range.title, product.finish, ...(product.features ?? [])].join(', '),
+        description: [product.range.title, ...product.finish, ...(product.features ?? [])].join(
+          ', ',
+        ),
         id: product.slug.current,
         onClick: () => {
           navigate(`/${product.slug.current}`);

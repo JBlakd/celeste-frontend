@@ -24,7 +24,7 @@ export default function ProductSpecifications({ product }: { product: Product })
           <Text c="gray.9" size="sm" fw={500}>
             Finish:{' '}
             <Text c="gray.7" span fw={400}>
-              {product.finish}
+              {product.finish.join('/')}
             </Text>
           </Text>
           <Text c="gray.9" size="sm" fw={500}>

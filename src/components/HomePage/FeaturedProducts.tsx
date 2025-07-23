@@ -67,7 +67,7 @@ export default function FeaturedProducts({
                   }}
                 >
                   <Image
-                    src={prod.lowResZoomed?.asset.url}
+                    src={prod.lowRes?.asset.url}
                     alt={prod.title}
                     height={180}
                     fit="cover"

@@ -37,7 +37,7 @@ export default function DisplayRangeProducts() {
           url
         }
       },
-      lowResZoomed {
+      lowRes {
         asset->{
           url
         }

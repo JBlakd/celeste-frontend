@@ -42,7 +42,7 @@ export default function ProductGrid({ products }: { products: Product[] | null }
               {product.image?.asset?.url && (
                 <Card.Section>
                   <Image
-                    src={product.lowResZoomed?.asset.url}
+                    src={product.lowRes?.asset.url}
                     height={160}
                     alt={product.title}
                     style={{ imageRendering: 'crisp-edges', filter: 'blur(0.5px)' }}

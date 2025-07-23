@@ -28,7 +28,7 @@ export default function ProductDetails() {
           url
         }
       },
-      lowResZoomed {
+      lowRes {
         asset->{
           url
         }

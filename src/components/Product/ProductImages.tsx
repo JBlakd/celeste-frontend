@@ -20,7 +20,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
 
   const mainImageUrl = product.image?.asset?.url || null;
   const galleryImages = [
-    ...(product.lowResZoomed?.asset?.url ? [product.lowResZoomed] : []),
+    ...(product.lowRes?.asset?.url ? [product.lowRes] : []),
     ...(product.gallery?.filter((img) => img.asset?.url) || []),
   ];
 

@@ -35,7 +35,7 @@ export interface HomepageSettings {
         url: string;
       };
     };
-    lowResZoomed?: {
+    lowRes?: {
       _type: 'image';
       asset: {
         _ref: string;
@@ -80,7 +80,7 @@ export interface Product {
       url?: string;
     };
   };
-  lowResZoomed?: {
+  lowRes?: {
     _type: 'image';
     asset: {
       _ref: string;
@@ -106,6 +106,6 @@ export interface Product {
   }>;
   range?: RangeRef;
   dimensions?: string;
-  finish: 'Matte' | 'Honed' | 'Polished';
+  finish: ('Matte' | 'Polished')[];
   features?: string[];
 }

@@ -37,7 +37,7 @@ export default function Home() {
                 url
               }
             },
-            lowResZoomed{
+            lowRes{
               asset->{
                 url
               }
