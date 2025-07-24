@@ -11,6 +11,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import RangeMenuMobile from '@components/Header/RangeMenu/RangeMenuMobile';
 import { useWindowScroll } from '@mantine/hooks';
 import SearchProducts from './SearchProducts';
+import Login from './Login';
 
 function MobileMenu({
   shouldHeaderBeColoured,
@@ -87,6 +88,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
       >
         Contact
       </StyledNavLink>
+      <Login />
     </Group>
   );
 }
