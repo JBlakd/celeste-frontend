@@ -305,7 +305,7 @@ export default function UserSession({ onClick }: { onClick?: () => void }) {
             }}
           >
             <Text truncate c={user ? theme.colors.celesteGold[5] : 'black'}>
-              {user ? `Logged in as ${user.contactName}` : 'Login'}
+              {user ? `${user.contactName}` : 'Login'}
             </Text>
             <User color={user ? theme.colors.celesteGold[5] : 'grey'} />
           </Flex>
