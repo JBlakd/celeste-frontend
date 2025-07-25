@@ -55,7 +55,15 @@ function LogInModalContent({
   );
 }
 
-function LoggedInModalContent({ user, logout }: { user: AuthData; logout: () => Promise<void> }) {
+function LoggedInModalContent({
+  user,
+  logout,
+  onChangePasswordClick,
+}: {
+  user: AuthData;
+  logout: () => Promise<void>;
+  onChangePasswordClick: () => void;
+}) {
   return (
     <Stack gap="md">
       <Stack gap={2}>
@@ -71,9 +79,62 @@ function LoggedInModalContent({ user, logout }: { user: AuthData; logout: () => 
       <Divider />
 
       <Group grow>
-        <Button variant="default">Change Password</Button>
+        <Button variant="default" onClick={onChangePasswordClick}>
+          Change Password
+        </Button>
         <Button color="red" onClick={logout}>
           Logout
+        </Button>
+      </Group>
+    </Stack>
+  );
+}
+
+function ChangePasswordModalContent({
+  form,
+  handleChange,
+  handleSubmit,
+  error,
+  loading,
+  onCancel,
+}: {
+  form: {
+    currentPassword: string;
+    newPassword: string;
+  };
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => Promise<void>;
+  error: string | null;
+  loading: boolean;
+  onCancel: () => void;
+}) {
+  return (
+    <Stack gap="md">
+      <PasswordInput
+        label="Current Password"
+        name="currentPassword"
+        value={form.currentPassword}
+        onChange={handleChange}
+        required
+      />
+      <PasswordInput
+        label="New Password"
+        name="newPassword"
+        value={form.newPassword}
+        onChange={handleChange}
+        required
+      />
+      {error && (
+        <Text c="red" size="sm">
+          {error}
+        </Text>
+      )}
+      <Group grow>
+        <Button variant="default" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button onClick={handleSubmit} loading={loading}>
+          Change
         </Button>
       </Group>
     </Stack>
@@ -83,14 +144,25 @@ function LoggedInModalContent({ user, logout }: { user: AuthData; logout: () => 
 export default function UserSession() {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
+  const theme = useMantineTheme();
+
+  const [changePasswordView, setChangePasswordView] = useState(false);
+
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [changeForm, setChangeForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+  });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const theme = useMantineTheme();
-
   const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChangeForm({ ...changeForm, [e.target.name]: e.target.value });
   };
 
   const handleLogin = async () => {
@@ -106,7 +178,7 @@ export default function UserSession() {
       if (!res.ok) throw new Error('Invalid credentials');
 
       const data = await res.json();
-      await login(data); // stores JWT + metadata in localForage inside useAuth
+      await login(data);
       close();
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -119,11 +191,78 @@ export default function UserSession() {
     }
   };
 
+  const handlePasswordChange = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/change-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...changeForm, email: user?.email }),
+      });
+
+      if (!res.ok) throw new Error('Failed to change password');
+
+      const data = await res.json();
+      await login(data);
+      setChangePasswordView(false);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Password change failed');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getModalContent = () => {
+    if (changePasswordView) {
+      return (
+        <ChangePasswordModalContent
+          form={changeForm}
+          handleChange={handleChangeFormChange}
+          handleSubmit={handlePasswordChange}
+          error={error}
+          loading={loading}
+          onCancel={() => setChangePasswordView(false)}
+        />
+      );
+    }
+
+    if (user) {
+      return (
+        <LoggedInModalContent
+          user={user}
+          logout={logout}
+          onChangePasswordClick={() => {
+            setChangeForm({ currentPassword: '', newPassword: '' });
+            setChangePasswordView(true);
+          }}
+        />
+      );
+    }
+
+    return (
+      <LogInModalContent
+        form={loginForm}
+        handleChange={handleLoginFormChange}
+        handleLogin={handleLogin}
+        error={error}
+        loading={loading}
+      />
+    );
+  };
+
   return (
     <>
       <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'} withinPortal offset={25}>
         <ActionIcon
-          onClick={open}
+          onClick={() => {
+            setChangePasswordView(false);
+            open();
+          }}
           variant="subtle"
           color={user ? theme.colors.celesteGold[5] : 'gray'}
           size="lg"
@@ -136,21 +275,13 @@ export default function UserSession() {
       <Modal
         opened={opened}
         onClose={close}
-        title={user ? `Logged in as ${user.email}` : 'Login'}
+        title={
+          changePasswordView ? 'Change Password' : user ? `Logged in as ${user.email}` : 'Login'
+        }
         overlayProps={{ blur: 3 }}
         centered
       >
-        {user ? (
-          <LoggedInModalContent user={user} logout={logout} />
-        ) : (
-          <LogInModalContent
-            form={loginForm}
-            handleChange={handleLoginFormChange}
-            handleLogin={handleLogin}
-            error={error}
-            loading={loading}
-          />
-        )}
+        {getModalContent()}
       </Modal>
     </>
   );
