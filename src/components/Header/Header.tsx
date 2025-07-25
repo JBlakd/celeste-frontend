@@ -35,6 +35,7 @@ function MobileMenu({
         trapFocus={false}
         withRoles={false}
         withinPortal
+        keepMounted
       >
         <Popover.Target>
           <Burger
@@ -72,7 +73,7 @@ function MobileMenu({
             >
               Contact
             </Text>
-            <UserSession />
+            <UserSession onClick={() => setMenuOpened(false)} />
           </Stack>
         </Popover.Dropdown>
       </Popover>

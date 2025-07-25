@@ -150,7 +150,7 @@ function ChangePasswordModalContent({
   );
 }
 
-export default function UserSession() {
+export default function UserSession({ onClick }: { onClick?: () => void }) {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
   const theme = useMantineTheme();
@@ -287,18 +287,20 @@ export default function UserSession() {
             onClick={() => {
               setChangePasswordView(false);
               open();
+              onClick?.();
             }}
           >
-            <Text truncate c={user ? theme.colors.celesteGold[5] : 'undefined'}>
+            <Text truncate c={user ? theme.colors.celesteGold[5] : 'black'}>
               {user ? `Logged in as ${user.contactName}` : 'Login'}
             </Text>
-            <User color={user ? theme.colors.celesteGold[5] : 'undefined'} />
+            <User color={user ? theme.colors.celesteGold[5] : 'grey'} />
           </Flex>
         ) : (
           <ActionIcon
             onClick={() => {
               setChangePasswordView(false);
               open();
+              onClick?.();
             }}
             variant="subtle"
             color={user ? theme.colors.celesteGold[5] : 'gray'}
