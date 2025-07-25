@@ -83,14 +83,14 @@ function LoggedInModalContent({ user, logout }: { user: AuthData; logout: () => 
 export default function UserSession() {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const theme = useMantineTheme();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleLoginFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
 
   const handleLogin = async () => {
@@ -100,7 +100,7 @@ export default function UserSession() {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(loginForm),
       });
 
       if (!res.ok) throw new Error('Invalid credentials');
@@ -144,8 +144,8 @@ export default function UserSession() {
           <LoggedInModalContent user={user} logout={logout} />
         ) : (
           <LogInModalContent
-            form={form}
-            handleChange={handleChange}
+            form={loginForm}
+            handleChange={handleLoginFormChange}
             handleLogin={handleLogin}
             error={error}
             loading={loading}
