@@ -1,4 +1,4 @@
-import { Container, Group, Paper, Image, Burger, Menu, Flex } from '@mantine/core';
+import { Container, Group, Paper, Image, Burger, Popover, Flex, Text, Stack } from '@mantine/core';
 import { useLocation, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
 import RangeMenuDesktop from '@components/Header/RangeMenu/RangeMenuDesktop';
@@ -16,44 +16,65 @@ import UserSession from './UserSession';
 function MobileMenu({
   shouldHeaderBeColoured,
   navigate,
-  menuOpened,
-  setMenuOpened,
 }: {
   shouldHeaderBeColoured: boolean;
   navigate: (path: string) => void;
-  menuOpened: boolean;
-  setMenuOpened: (opened: boolean) => void;
 }) {
   const theme = useMantineTheme();
+  const [menuOpened, setMenuOpened] = useState(false);
 
   return (
-    <Flex gap="lg">
+    <Flex gap="lg" align="center">
       <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
-      <Menu
+      <Popover
         opened={menuOpened}
         onChange={setMenuOpened}
-        shadow="md"
         width={200}
         position="bottom-end"
         offset={20}
+        trapFocus={false}
+        withRoles={false}
+        withinPortal
       >
-        <Menu.Target>
+        <Popover.Target>
           <Burger
             opened={menuOpened}
             onClick={() => setMenuOpened(!menuOpened)}
             aria-label="Toggle navigation"
             color={shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0]}
           />
-        </Menu.Target>
-        <Menu.Dropdown>
-          <Menu.Item onClick={() => navigate('/')}>Home</Menu.Item>
-          <Menu.Item>
+        </Popover.Target>
+
+        <Popover.Dropdown>
+          <Stack>
+            <Text
+              onClick={() => {
+                navigate('/');
+                setMenuOpened(false);
+              }}
+            >
+              Home
+            </Text>
             <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
-          </Menu.Item>
-          <Menu.Item onClick={() => navigate('/about')}>About</Menu.Item>
-          <Menu.Item onClick={() => navigate('/contact')}>Contact</Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
+            <Text
+              onClick={() => {
+                navigate('/about');
+                setMenuOpened(false);
+              }}
+            >
+              About
+            </Text>
+            <Text
+              onClick={() => {
+                navigate('/contact');
+                setMenuOpened(false);
+              }}
+            >
+              Contact
+            </Text>
+          </Stack>
+        </Popover.Dropdown>
+      </Popover>
     </Flex>
   );
 }
@@ -100,7 +121,6 @@ export default function Header({ headerRef }: { headerRef: RefObject<HTMLDivElem
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  const [menuOpened, setMenuOpened] = useState(false);
   const [mouseEnteredHeader, setMouseEnteredHeader] = useState(false);
 
   const scrolledEnough = yScrollPosition > window.innerHeight * 0.9;
@@ -151,12 +171,7 @@ export default function Header({ headerRef }: { headerRef: RefObject<HTMLDivElem
         </Paper>
 
         {isMobile ? (
-          <MobileMenu
-            shouldHeaderBeColoured={shouldHeaderBeColoured}
-            navigate={navigate}
-            menuOpened={menuOpened}
-            setMenuOpened={setMenuOpened}
-          />
+          <MobileMenu shouldHeaderBeColoured={shouldHeaderBeColoured} navigate={navigate} />
         ) : (
           <DesktopMenu shouldHeaderBeColoured={shouldHeaderBeColoured} />
         )}
