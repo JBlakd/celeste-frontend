@@ -101,6 +101,7 @@ function ChangePasswordModalContent({
   form: {
     currentPassword: string;
     newPassword: string;
+    confirmNewPassword: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => Promise<void>;
@@ -121,6 +122,13 @@ function ChangePasswordModalContent({
         label="New Password"
         name="newPassword"
         value={form.newPassword}
+        onChange={handleChange}
+        required
+      />
+      <PasswordInput
+        label="Confirm New Password"
+        name="confirmNewPassword"
+        value={form.confirmNewPassword}
         onChange={handleChange}
         required
       />
@@ -152,6 +160,7 @@ export default function UserSession() {
   const [changeForm, setChangeForm] = useState({
     currentPassword: '',
     newPassword: '',
+    confirmNewPassword: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -194,11 +203,22 @@ export default function UserSession() {
   const handlePasswordChange = async () => {
     setLoading(true);
     setError(null);
+
+    if (changeForm.newPassword !== changeForm.confirmNewPassword) {
+      setError('New passwords do not match');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/change-password`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/changePassword`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...changeForm, email: user?.email }),
+        body: JSON.stringify({
+          email: user?.email,
+          currentPassword: changeForm.currentPassword,
+          newPassword: changeForm.newPassword,
+        }),
       });
 
       if (!res.ok) throw new Error('Failed to change password');
@@ -237,7 +257,7 @@ export default function UserSession() {
           user={user}
           logout={logout}
           onChangePasswordClick={() => {
-            setChangeForm({ currentPassword: '', newPassword: '' });
+            setChangeForm({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
             setChangePasswordView(true);
           }}
         />
