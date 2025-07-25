@@ -34,25 +34,32 @@ function LogInModalContent({
   error: string | null;
   loading: boolean;
 }) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void handleLogin();
+  };
+
   return (
-    <Stack gap="md">
-      <TextInput label="Email" name="email" value={form.email} onChange={handleChange} required />
-      <PasswordInput
-        label="Password"
-        name="password"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
-      {error && (
-        <Text c="red" size="sm">
-          {error}
-        </Text>
-      )}
-      <Button fullWidth onClick={handleLogin} loading={loading}>
-        Log in
-      </Button>
-    </Stack>
+    <form onSubmit={handleSubmit}>
+      <Stack gap="md">
+        <TextInput label="Email" name="email" value={form.email} onChange={handleChange} required />
+        <PasswordInput
+          label="Password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        {error && (
+          <Text c="red" size="sm">
+            {error}
+          </Text>
+        )}
+        <Button fullWidth type="submit" loading={loading}>
+          Log in
+        </Button>
+      </Stack>
+    </form>
   );
 }
 
@@ -110,43 +117,50 @@ function ChangePasswordModalContent({
   loading: boolean;
   onCancel: () => void;
 }) {
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void handleSubmit();
+  };
+
   return (
-    <Stack gap="md">
-      <PasswordInput
-        label="Current Password"
-        name="currentPassword"
-        value={form.currentPassword}
-        onChange={handleChange}
-        required
-      />
-      <PasswordInput
-        label="New Password"
-        name="newPassword"
-        value={form.newPassword}
-        onChange={handleChange}
-        required
-      />
-      <PasswordInput
-        label="Confirm New Password"
-        name="confirmNewPassword"
-        value={form.confirmNewPassword}
-        onChange={handleChange}
-        required
-      />
-      {error && (
-        <Text c="red" size="sm">
-          {error}
-        </Text>
-      )}
-      <Group grow>
-        <Button variant="default" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} loading={loading}>
-          Change
-        </Button>
-      </Group>
-    </Stack>
+    <form onSubmit={onFormSubmit}>
+      <Stack gap="md">
+        <PasswordInput
+          label="Current Password"
+          name="currentPassword"
+          value={form.currentPassword}
+          onChange={handleChange}
+          required
+        />
+        <PasswordInput
+          label="New Password"
+          name="newPassword"
+          value={form.newPassword}
+          onChange={handleChange}
+          required
+        />
+        <PasswordInput
+          label="Confirm New Password"
+          name="confirmNewPassword"
+          value={form.confirmNewPassword}
+          onChange={handleChange}
+          required
+        />
+        {error && (
+          <Text c="red" size="sm">
+            {error}
+          </Text>
+        )}
+        <Group grow>
+          <Button variant="default" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" loading={loading}>
+            Change
+          </Button>
+        </Group>
+      </Stack>
+    </form>
   );
 }
 
