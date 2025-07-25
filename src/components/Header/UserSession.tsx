@@ -7,7 +7,9 @@ import {
   useMantineTheme,
   Text,
   Tooltip,
-  Flex,
+  Stack,
+  Divider,
+  Group,
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
@@ -32,44 +34,49 @@ function LogInModalContent({
   loading: boolean;
 }) {
   return (
-    <>
-      <TextInput
-        label="Email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        mb="sm"
-      />
+    <Stack gap="md">
+      <TextInput label="Email" name="email" value={form.email} onChange={handleChange} required />
       <PasswordInput
         label="Password"
         name="password"
         value={form.password}
         onChange={handleChange}
         required
-        mb="sm"
       />
-      {error && <div style={{ color: 'red', marginBottom: 10 }}>{error}</div>}
+      {error && (
+        <Text c="red" size="sm">
+          {error}
+        </Text>
+      )}
       <Button fullWidth onClick={handleLogin} loading={loading}>
         Log in
       </Button>
-    </>
+    </Stack>
   );
 }
 
 function LoggedInModalContent({ user, logout }: { user: AuthData; logout: () => Promise<void> }) {
   return (
-    <>
-      <Text>Welcome, {user.contactName}</Text>
-      <Text>{user.email}</Text>
-      <Text>Welcome, {user.companyName}</Text>
-      <Flex>
-        <Button>Change Password</Button>
+    <Stack gap="md">
+      <Stack gap={2}>
+        <Text fw={500}>{user.contactName}</Text>
+        <Text size="sm" c="dimmed">
+          {user.email}
+        </Text>
+        <Text size="sm" c="dimmed">
+          {user.companyName}
+        </Text>
+      </Stack>
+
+      <Divider />
+
+      <Group grow>
+        <Button variant="default">Change Password</Button>
         <Button color="red" onClick={logout}>
           Logout
         </Button>
-      </Flex>
-    </>
+      </Group>
+    </Stack>
   );
 }
 
