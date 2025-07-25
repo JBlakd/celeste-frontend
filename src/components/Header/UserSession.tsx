@@ -121,7 +121,7 @@ export default function UserSession() {
 
   return (
     <>
-      <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'} withinPortal>
+      <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'} withinPortal offset={25}>
         <ActionIcon
           onClick={open}
           variant="subtle"
