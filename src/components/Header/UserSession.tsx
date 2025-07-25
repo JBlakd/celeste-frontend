@@ -114,7 +114,7 @@ export default function UserSession() {
 
   return (
     <>
-      <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'}>
+      <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'} withinPortal>
         <ActionIcon
           onClick={open}
           variant="subtle"
@@ -129,7 +129,7 @@ export default function UserSession() {
       <Modal
         opened={opened}
         onClose={close}
-        title="Customer Login"
+        title={user ? `Logged in as ${user.email}` : 'Login'}
         overlayProps={{ blur: 3 }}
         centered
       >
