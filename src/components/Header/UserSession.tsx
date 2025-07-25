@@ -10,9 +10,10 @@ import {
   Stack,
   Divider,
   Group,
+  Flex,
 } from '@mantine/core';
 import { User } from 'tabler-icons-react';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 import { useAuth } from '@context/auth/useAuth';
 import type { AuthData } from '@stores/authStore';
@@ -153,6 +154,7 @@ export default function UserSession() {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
   const theme = useMantineTheme();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [changePasswordView, setChangePasswordView] = useState(false);
 
@@ -278,18 +280,34 @@ export default function UserSession() {
   return (
     <>
       <Tooltip label={user ? `Logged in as ${user.email}` : 'Login'} withinPortal offset={25}>
-        <ActionIcon
-          onClick={() => {
-            setChangePasswordView(false);
-            open();
-          }}
-          variant="subtle"
-          color={user ? theme.colors.celesteGold[5] : 'gray'}
-          size="lg"
-          title={user ? `Logged in as ${user.email}` : 'Login'}
-        >
-          <User size={20} />
-        </ActionIcon>
+        {isMobile ? (
+          <Flex
+            gap="xs"
+            align="center"
+            onClick={() => {
+              setChangePasswordView(false);
+              open();
+            }}
+          >
+            <Text truncate c={user ? theme.colors.celesteGold[5] : 'undefined'}>
+              {user ? `Logged in as ${user.contactName}` : 'Login'}
+            </Text>
+            <User color={user ? theme.colors.celesteGold[5] : 'undefined'} />
+          </Flex>
+        ) : (
+          <ActionIcon
+            onClick={() => {
+              setChangePasswordView(false);
+              open();
+            }}
+            variant="subtle"
+            color={user ? theme.colors.celesteGold[5] : 'gray'}
+            size="lg"
+            title={user ? `Logged in as ${user.email}` : 'Login'}
+          >
+            <User size={20} />
+          </ActionIcon>
+        )}
       </Tooltip>
 
       <Modal

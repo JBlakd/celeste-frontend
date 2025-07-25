@@ -72,6 +72,7 @@ function MobileMenu({
             >
               Contact
             </Text>
+            <UserSession />
           </Stack>
         </Popover.Dropdown>
       </Popover>
