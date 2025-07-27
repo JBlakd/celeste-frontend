@@ -101,7 +101,20 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
             <Text fw={700} size="lg">
               Your Cart
             </Text>
-            <ResponsiveTooltip label="Cart contents are not shared between devices, even if you have logged onto the other device with the same account." />
+            <ResponsiveTooltip
+              label={
+                <Stack gap="xs">
+                  <Text size="xs">
+                    Cart contents are not shared between devices, even if you have logged onto the
+                    other device with the same account.
+                  </Text>
+                  <Text size="xs">
+                    If you order bookmatched slabs, we will automatically assign half of your order
+                    quantity to each side.
+                  </Text>
+                </Stack>
+              }
+            />
           </Flex>
         }
         position="right"
