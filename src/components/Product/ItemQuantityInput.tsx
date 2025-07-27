@@ -18,10 +18,10 @@ export function ItemQuantityInput({
       label={withLabel ? `Quantity in Cart - ${finish}` : undefined}
       min={0}
       step={1}
-      value={cartItem?.quantity || 0}
-      onChange={(value) => {
-        const q = typeof value === 'number' ? value : parseInt(value);
-        setItem({ id, title, quantity: q || 0, finish });
+      defaultValue={cartItem?.quantity || 0}
+      onBlur={(e) => {
+        const q = parseInt(e.currentTarget.value || '0', 10);
+        setItem({ id, title, quantity: isNaN(q) ? 0 : q, finish });
       }}
       size="xs"
       w={withLabel ? undefined : '5rem'}
