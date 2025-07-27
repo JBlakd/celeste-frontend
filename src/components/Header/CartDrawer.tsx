@@ -8,6 +8,7 @@ import {
   Group,
   Badge,
   Flex,
+  Indicator,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ShoppingCart, Trash } from 'tabler-icons-react';
@@ -52,19 +53,22 @@ export function CartDrawer() {
 
   return (
     <>
-      <ActionIcon onClick={open} variant="subtle" size="lg">
-        <ShoppingCart />
-        {totalQuantity > 0 && (
-          <Badge
-            color="red"
-            size="sm"
-            variant="filled"
-            style={{ position: 'absolute', top: 5, right: 5 }}
-          >
-            {totalQuantity}
-          </Badge>
-        )}
-      </ActionIcon>
+      <Indicator
+        inline
+        size={18}
+        radius="xl"
+        color="red"
+        withBorder
+        label={totalQuantity > 0 ? totalQuantity : undefined}
+        disabled={totalQuantity === 0}
+        position="top-end"
+        offset={6}
+        zIndex={10}
+      >
+        <ActionIcon onClick={open} variant="subtle" size="lg">
+          <ShoppingCart />
+        </ActionIcon>
+      </Indicator>
 
       <Drawer
         opened={opened}
