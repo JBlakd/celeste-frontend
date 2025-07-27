@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Modal, Button, Text, Group, type MantineSize, Stack, rem } from '@mantine/core';
+import {
+  Modal,
+  Button,
+  Text,
+  Group,
+  Stack,
+  rem,
+  type MantineSize,
+  ActionIcon,
+} from '@mantine/core';
 
 type ButtonWithConfirmationProps = {
   onConfirm: () => void;
@@ -18,6 +27,7 @@ type ButtonWithConfirmationProps = {
     | 'compact-lg'
     | 'compact-xl'
     | undefined;
+  iconComponent?: React.ReactNode;
 };
 
 export function ButtonWithConfirmation({
@@ -29,6 +39,7 @@ export function ButtonWithConfirmation({
   modalMessage = 'Are you sure?',
   color = 'red',
   variant = 'filled',
+  iconComponent,
 }: ButtonWithConfirmationProps) {
   const [opened, setOpened] = useState(false);
 
@@ -39,9 +50,15 @@ export function ButtonWithConfirmation({
 
   return (
     <>
-      <Button color={color} variant={variant} onClick={() => setOpened(true)} size={size}>
-        {buttonLabel}
-      </Button>
+      {iconComponent ? (
+        <ActionIcon color={color} variant={variant} onClick={() => setOpened(true)} size={size}>
+          {iconComponent}
+        </ActionIcon>
+      ) : (
+        <Button color={color} variant={variant} onClick={() => setOpened(true)} size={size}>
+          {buttonLabel}
+        </Button>
+      )}
 
       <Modal
         opened={opened}

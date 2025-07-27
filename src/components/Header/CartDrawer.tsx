@@ -11,7 +11,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { ShoppingCart } from 'tabler-icons-react';
+import { ShoppingCart, ShoppingCartX } from 'tabler-icons-react';
 import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
@@ -152,10 +152,11 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
               <ButtonWithConfirmation
                 buttonLabel="Clear Cart"
                 modalMessage="Are you sure you want to clear your cart?"
-                size="sm"
+                size={isMobile ? 'lg' : 'sm'}
                 color="red"
-                variant="outline"
+                variant={isMobile ? 'filled' : 'outline'}
                 onConfirm={clearCart}
+                iconComponent={isMobile ? <ShoppingCartX /> : undefined}
               />
               <Flex gap="xs">
                 <Text fw={700}>Total items:</Text>
