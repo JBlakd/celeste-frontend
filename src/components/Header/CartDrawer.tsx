@@ -8,9 +8,10 @@ import {
   Group,
   Flex,
   Indicator,
+  Button,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { ShoppingCart, Trash } from 'tabler-icons-react';
+import { ShoppingCart } from 'tabler-icons-react';
 import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
@@ -103,7 +104,7 @@ export function CartDrawer() {
           </Text>
         ) : (
           <>
-            <ScrollArea h="100%">
+            <ScrollArea h="75vh">
               <Stack gap={0}>
                 {cart?.items.map((item) => (
                   <CartItem key={`${item.id}-${item.finish}`} item={item} />
@@ -114,9 +115,9 @@ export function CartDrawer() {
             <Divider my="sm" />
 
             <Group justify="space-between">
-              <ActionIcon color="red" variant="light" onClick={clearCart}>
-                <Trash />
-              </ActionIcon>
+              <Button color="red" variant="light" onClick={clearCart}>
+                Clear Cart
+              </Button>
               <Flex gap="xs">
                 <Text fw={700}>Total items:</Text>
                 <Text fw={500}>{totalQuantity}</Text>

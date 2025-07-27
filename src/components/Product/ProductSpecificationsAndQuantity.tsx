@@ -3,8 +3,6 @@ import type { Product } from '@typedefs/sanity';
 import { ItemQuantityInput } from './ItemQuantityInput';
 
 export default function ProductSpecificationsAndQuantity({ product }: { product: Product }) {
-  console.log('ProductSpecifications', product);
-
   return (
     <Box
       style={{
