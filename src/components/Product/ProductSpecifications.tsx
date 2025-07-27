@@ -13,9 +13,10 @@ export default function ProductSpecifications({ product }: { product: Product })
       mb="2rem"
     >
       <Container size="lg">
-        <Flex justify="space-between">
-          <>
-            <Title order={4} mb="sm">
+        <Flex justify="space-between" align="flex-start" wrap="wrap" gap="xl">
+          {/* LEFT COLUMN */}
+          <Box style={{ flex: 1, minWidth: 280 }}>
+            <Title order={4} mb="lg">
               Product Specifications
             </Title>
 
@@ -41,8 +42,8 @@ export default function ProductSpecifications({ product }: { product: Product })
             </Stack>
 
             {!!product.features?.length && (
-              <Flex gap="sm" align="flex-end" mt="0.25rem">
-                <Text c="gray.9" size="sm" fw={500} style={{ marginRight: 4 }}>
+              <Flex gap="sm" align="flex-end" mt="0.5rem" wrap="wrap">
+                <Text c="gray.9" size="sm" fw={500}>
                   Features:
                 </Text>
                 {product.features.map((f) => (
@@ -52,16 +53,23 @@ export default function ProductSpecifications({ product }: { product: Product })
                 ))}
               </Flex>
             )}
-          </>
-          <>
+          </Box>
+
+          {/* RIGHT COLUMN */}
+          <Stack gap={5} align="flex-end">
             {product.finish.map((finish) => {
               const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
-
               return (
-                <ItemQuantityInput key={finish} id={id} title={product.title} finish={finish} />
+                <ItemQuantityInput
+                  key={finish}
+                  id={id}
+                  title={product.title}
+                  finish={finish}
+                  expandLabel
+                />
               );
             })}
-          </>
+          </Stack>
         </Flex>
       </Container>
     </Box>
