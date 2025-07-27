@@ -97,11 +97,11 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
         opened={opened}
         onClose={close}
         title={
-          <Flex gap="md">
+          <Flex gap="md" align="center">
             <Text fw={700} size="lg">
               Your Cart
             </Text>
-            <ResponsiveTooltip label="Cart contents are not shared between devices,\neven if you have logged onto the other device with the same account." />
+            <ResponsiveTooltip label="Cart contents are not shared between devices, even if you have logged onto the other device with the same account." />
           </Flex>
         }
         position="right"

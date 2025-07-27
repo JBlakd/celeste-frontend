@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Tooltip, ActionIcon } from '@mantine/core';
+import { Tooltip } from '@mantine/core';
 import { InfoCircle } from 'tabler-icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 
-export function ResponsiveTooltip({ label }: { label: string }) {
+export function ResponsiveTooltip({ label }: { label: React.ReactNode }) {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [opened, setOpened] = useState(false);
 
@@ -15,20 +15,17 @@ export function ResponsiveTooltip({ label }: { label: string }) {
     <Tooltip
       label={label}
       opened={isMobile ? opened : undefined}
-      position="top"
+      position="bottom"
       withArrow
+      multiline
       transitionProps={{ duration: 150 }}
     >
-      <ActionIcon
-        variant="subtle"
-        size="sm"
+      <InfoCircle
         onClick={toggleTooltip}
         onMouseEnter={!isMobile ? () => setOpened(true) : undefined}
         onMouseLeave={!isMobile ? () => setOpened(false) : undefined}
-        aria-label="Info"
-      >
-        <InfoCircle size={16} />
-      </ActionIcon>
+        size={16}
+      />
     </Tooltip>
   );
 }
