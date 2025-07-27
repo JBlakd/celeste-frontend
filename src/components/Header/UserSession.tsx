@@ -167,7 +167,6 @@ function ChangePasswordModalContent({
 export default function UserSession({ onClick }: { onClick?: () => void }) {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
-  console.log('user', user);
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
@@ -322,7 +321,7 @@ export default function UserSession({ onClick }: { onClick?: () => void }) {
             size="lg"
             title={user ? `Logged in as ${user.email}` : 'Login'}
           >
-            <User size={20} />
+            <User />
           </ActionIcon>
         )}
       </Tooltip>

@@ -12,6 +12,7 @@ import RangeMenuMobile from '@components/Header/RangeMenu/RangeMenuMobile';
 import { useWindowScroll } from '@mantine/hooks';
 import SearchProducts from './SearchProducts';
 import UserSession from './UserSession';
+import { CartDrawer } from './CartDrawer';
 
 function MobileMenu({
   shouldHeaderBeColoured,
@@ -112,6 +113,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         Contact
       </StyledNavLink>
       <UserSession />
+      <CartDrawer />
     </Group>
   );
 }

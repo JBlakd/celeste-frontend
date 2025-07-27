@@ -18,7 +18,6 @@ export type AuthData = {
 export const authStoreEntry = {
   async get() {
     const data = await localforage.getItem<AuthData>(AUTH_KEY);
-    console.log('authStore.get', data);
     return data;
   },
   async set(data: AuthData) {
