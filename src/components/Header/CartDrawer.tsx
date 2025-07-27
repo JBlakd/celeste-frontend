@@ -149,27 +149,29 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
             <Divider my="sm" />
 
             <Group justify="space-between">
-              <ButtonWithConfirmation
-                buttonLabel="Clear Cart"
-                modalMessage="Are you sure you want to clear your cart?"
-                size={isMobile ? 'lg' : 'sm'}
-                color="red"
-                variant={isMobile ? 'filled' : 'outline'}
-                onConfirm={clearCart}
-                iconComponent={isMobile ? <IconShoppingCartX /> : undefined}
-              />
-              <ButtonWithConfirmation
-                buttonLabel="Submit Cart"
-                modalMessage="Are you sure you want to submit your cart?"
-                size={isMobile ? 'lg' : 'sm'}
-                color="green"
-                variant={isMobile ? 'filled' : 'outline'}
-                onConfirm={() => {
-                  console.log('Submit cart', cart?.items);
-                  close();
-                }}
-                iconComponent={isMobile ? <IconShoppingCartCheck /> : undefined}
-              />
+              <Flex gap={isMobile ? 'lg' : 'xs'}>
+                <ButtonWithConfirmation
+                  buttonLabel="Clear Cart"
+                  modalMessage="Are you sure you want to clear your cart?"
+                  size={isMobile ? 'lg' : 'sm'}
+                  color="red"
+                  variant={isMobile ? 'filled' : 'outline'}
+                  onConfirm={clearCart}
+                  iconComponent={isMobile ? <IconShoppingCartX /> : undefined}
+                />
+                <ButtonWithConfirmation
+                  buttonLabel="Submit Cart"
+                  modalMessage="Are you sure you want to submit your cart?"
+                  size={isMobile ? 'lg' : 'sm'}
+                  color="green"
+                  variant="filled"
+                  onConfirm={() => {
+                    console.log('Submit cart', cart?.items);
+                    close();
+                  }}
+                  iconComponent={isMobile ? <IconShoppingCartCheck /> : undefined}
+                />
+              </Flex>
               <Flex gap="xs">
                 <Text fw={700}>Total items:</Text>
                 <Text fw={500}>{totalQuantity}</Text>

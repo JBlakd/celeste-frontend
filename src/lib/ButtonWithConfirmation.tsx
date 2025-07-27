@@ -65,7 +65,7 @@ export function ButtonWithConfirmation({
         onClose={() => setOpened(false)}
         withCloseButton={false}
         centered
-        size="sm"
+        size="md"
         styles={{
           body: { paddingTop: rem(24), paddingBottom: rem(24) },
         }}
