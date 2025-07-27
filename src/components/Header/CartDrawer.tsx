@@ -9,8 +9,9 @@ import {
   Flex,
   Indicator,
   Button,
+  useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { ShoppingCart } from 'tabler-icons-react';
 import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
@@ -42,7 +43,9 @@ function CartItem({ item }: { item: CartItemType }) {
   );
 }
 
-export function CartDrawer() {
+export function CartDrawer({ onClick }: { onClick?: () => void }) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const { cart, totalQuantity, clearCart } = useCart();
   const { user } = useAuth();
@@ -53,27 +56,41 @@ export function CartDrawer() {
 
   return (
     <>
-      <Indicator
-        inline
-        size={18}
-        radius="xl"
-        label={totalQuantity > 0 ? totalQuantity : undefined}
-        disabled={totalQuantity === 0}
-        position="top-end"
-        offset={6}
-        zIndex={10}
-        styles={{
-          indicator: {
-            color: 'black', // text color
-            fontWeight: 600,
-            fontSize: '0.75rem',
-          },
-        }}
-      >
-        <ActionIcon onClick={open} variant="subtle" size="lg">
-          <ShoppingCart />
-        </ActionIcon>
-      </Indicator>
+      {isMobile ? (
+        <Flex
+          gap="xs"
+          align="center"
+          onClick={() => {
+            open();
+            onClick?.();
+          }}
+        >
+          <Text c={theme.colors.celesteGold[5]}>Cart ({totalQuantity} items)</Text>
+          <ShoppingCart color={theme.colors.celesteGold[5]} />
+        </Flex>
+      ) : (
+        <Indicator
+          inline
+          size={18}
+          radius="xl"
+          label={totalQuantity > 0 ? totalQuantity : undefined}
+          disabled={totalQuantity === 0}
+          position="top-end"
+          offset={6}
+          zIndex={10}
+          styles={{
+            indicator: {
+              color: 'black', // text color
+              fontWeight: 600,
+              fontSize: '0.75rem',
+            },
+          }}
+        >
+          <ActionIcon onClick={open} variant="subtle" size="lg">
+            <ShoppingCart />
+          </ActionIcon>
+        </Indicator>
+      )}
 
       <Drawer
         opened={opened}
@@ -81,7 +98,7 @@ export function CartDrawer() {
         title="Your Cart"
         position="right"
         padding="md"
-        size="md"
+        size={isMobile ? 'xs' : 'md'}
         styles={{
           content: {
             marginTop: 80,
@@ -90,7 +107,7 @@ export function CartDrawer() {
             borderTopLeftRadius: 5,
             borderTopRightRadius: 5,
             borderBottomLeftRadius: 5,
-            overflow: 'hidden', // keeps inner content clipped to the curve
+            overflow: 'hidden',
           },
           title: {
             fontWeight: 700,
@@ -115,7 +132,7 @@ export function CartDrawer() {
             <Divider my="sm" />
 
             <Group justify="space-between">
-              <Button color="red" variant="light" onClick={clearCart}>
+              <Button size="sm" color="red" variant="outline" onClick={clearCart}>
                 Clear Cart
               </Button>
               <Flex gap="xs">

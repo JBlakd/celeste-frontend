@@ -75,6 +75,7 @@ function MobileMenu({
               Contact
             </Text>
             <UserSession onClick={() => setMenuOpened(false)} />
+            <CartDrawer onClick={() => setMenuOpened(false)} />
           </Stack>
         </Popover.Dropdown>
       </Popover>
