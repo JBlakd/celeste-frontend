@@ -121,7 +121,7 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
           </Text>
         ) : (
           <>
-            <ScrollArea h="70vh">
+            <ScrollArea h={isMobile ? '60vh' : '70vh'}>
               <Stack gap={0}>
                 {cart?.items.map((item) => (
                   <CartItem key={`${item.id}-${item.finish}`} item={item} />
