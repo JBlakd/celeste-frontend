@@ -2,7 +2,7 @@ import localforage from 'localforage';
 
 localforage.config({
   name: 'celeste-store',
-  storeName: 'cart', // IndexedDB object store name
+  storeName: 'data', // IndexedDB object store name
   driver: localforage.INDEXEDDB,
 });
 
@@ -19,7 +19,7 @@ export interface CartData {
   items: Array<CartItem>;
 }
 
-export const cartStore = {
+export const cartStoreEntry = {
   async get() {
     return await localforage.getItem<CartData>(CART_KEY);
   },

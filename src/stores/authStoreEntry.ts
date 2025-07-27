@@ -2,7 +2,7 @@ import localforage from 'localforage';
 
 localforage.config({
   name: 'celeste-store',
-  storeName: 'auth', // IndexedDB object store name
+  storeName: 'data', // IndexedDB object store name
   driver: localforage.INDEXEDDB,
 });
 
@@ -15,9 +15,11 @@ export type AuthData = {
   contactName: string;
 };
 
-export const authStore = {
+export const authStoreEntry = {
   async get() {
-    return await localforage.getItem<AuthData>(AUTH_KEY);
+    const data = await localforage.getItem<AuthData>(AUTH_KEY);
+    console.log('authStore.get', data);
+    return data;
   },
   async set(data: AuthData) {
     await localforage.setItem(AUTH_KEY, data);

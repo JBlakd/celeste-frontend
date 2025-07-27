@@ -16,7 +16,7 @@ import { User } from 'tabler-icons-react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 import { useAuth } from '@context/auth/useAuth';
-import type { AuthData } from '@stores/authStore';
+import type { AuthData } from '@stores/authStoreEntry';
 
 function LogInModalContent({
   form,
@@ -167,6 +167,7 @@ function ChangePasswordModalContent({
 export default function UserSession({ onClick }: { onClick?: () => void }) {
   const [opened, { open, close }] = useDisclosure(false);
   const { user, login, logout } = useAuth();
+  console.log('user', user);
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
 

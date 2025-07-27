@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { CartData, CartItem } from '../../stores/cartStore';
+import type { CartData, CartItem } from '../../stores/cartStoreEntry';
 
 type CartContextType = {
   cart: CartData | null;

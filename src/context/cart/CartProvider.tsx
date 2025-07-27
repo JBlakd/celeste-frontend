@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
-import { type CartData, type CartItem, cartStore } from '@stores/cartStore';
+import { type CartData, type CartItem, cartStoreEntry } from '@stores/cartStoreEntry';
 import { CartContext } from './CartContext';
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartData | null>(null);
 
   useEffect(() => {
-    cartStore.get().then((data) => {
+    cartStoreEntry.get().then((data) => {
       if (data) setCart(data);
       else setCart({ items: [] });
     });
@@ -28,14 +28,14 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       }
 
       const updatedCart = { items: updatedItems };
-      cartStore.set(updatedCart);
+      cartStoreEntry.set(updatedCart);
       return updatedCart;
     });
   };
 
   const clearCart = () => {
     setCart({ items: [] });
-    cartStore.clear();
+    cartStoreEntry.clear();
   };
 
   const totalQuantity = useMemo(() => {

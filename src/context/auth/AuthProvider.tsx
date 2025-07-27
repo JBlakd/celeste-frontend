@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
-import { type AuthData, authStore } from '@stores/authStore';
+import { type AuthData, authStoreEntry } from '@stores/authStoreEntry';
 import { AuthContext } from './AuthContext';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthData | null>(null);
 
   useEffect(() => {
-    authStore.get().then((data) => {
+    authStoreEntry.get().then((data) => {
       if (data) setUser(data);
     });
   }, []);
 
   const login = async (data: AuthData) => {
-    await authStore.set(data);
+    await authStoreEntry.set(data);
     setUser(data);
   };
 
   const logout = async () => {
-    await authStore.clear();
+    await authStoreEntry.clear();
     setUser(null);
   };
 

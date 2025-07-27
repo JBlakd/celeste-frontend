@@ -1,6 +1,6 @@
 // src/context/AuthContext.tsx
 import { createContext } from 'react';
-import type { AuthData } from '../../stores/authStore';
+import type { AuthData } from '../../stores/authStoreEntry';
 
 type AuthContextType = {
   user: AuthData | null;
