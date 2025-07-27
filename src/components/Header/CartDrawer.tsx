@@ -79,12 +79,7 @@ export function CartDrawer() {
                       <Text fw={500}>{item.title}</Text>
                       <Badge>{item.finish}</Badge>
                     </Group>
-                    <ItemQuantityInput
-                      id={item.id}
-                      title={item.title}
-                      quantity={item.quantity}
-                      finish={item.finish}
-                    />
+                    <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
                   </Stack>
                 ))}
               </Stack>
