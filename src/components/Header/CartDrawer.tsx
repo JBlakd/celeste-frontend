@@ -17,6 +17,7 @@ import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
 import type { CartItem as CartItemType } from '@stores/cartStoreEntry';
+import { ResponsiveTooltip } from '@lib/ResponsiveTooltip';
 
 function CartItem({ item }: { item: CartItemType }) {
   return (
@@ -95,7 +96,14 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
       <Drawer
         opened={opened}
         onClose={close}
-        title="Your Cart"
+        title={
+          <Flex gap="md">
+            <Text fw={700} size="lg">
+              Your Cart
+            </Text>
+            <ResponsiveTooltip label="Cart contents are not shared between devices,\neven if you have logged onto the other device with the same account." />
+          </Flex>
+        }
         position="right"
         padding="md"
         size={isMobile ? 'xs' : 'md'}
@@ -108,10 +116,6 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
             borderTopRightRadius: 5,
             borderBottomLeftRadius: 5,
             overflow: 'hidden',
-          },
-          title: {
-            fontWeight: 700,
-            fontSize: '1.5rem',
           },
         }}
       >
