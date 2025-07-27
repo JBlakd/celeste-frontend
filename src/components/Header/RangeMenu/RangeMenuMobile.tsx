@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, Text, useMantineTheme, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'tabler-icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import type { Range } from '@typedefs/sanity';
 import { sanity } from '@lib/sanity';
 
@@ -44,7 +44,8 @@ export default function RangeMenuMobile({
             setMenuOpened((prev) => !prev);
           }}
         >
-          Products by Range <ChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
+          Products by Range{' '}
+          <IconChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />{' '}
         </Flex>
       </Menu.Target>
 

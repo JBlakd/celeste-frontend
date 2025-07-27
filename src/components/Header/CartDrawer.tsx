@@ -11,7 +11,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { ShoppingCart, ShoppingCartX } from 'tabler-icons-react';
+import { IconShoppingCart, IconShoppingCartX, IconShoppingCartCheck } from '@tabler/icons-react';
 import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
@@ -67,7 +67,7 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
           }}
         >
           <Text c={theme.colors.celesteGold[5]}>Cart ({totalQuantity} items)</Text>
-          <ShoppingCart color={theme.colors.celesteGold[5]} />
+          <IconShoppingCart color={theme.colors.celesteGold[5]} />
         </Flex>
       ) : (
         <Indicator
@@ -88,7 +88,7 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
           }}
         >
           <ActionIcon onClick={open} variant="subtle" size="lg">
-            <ShoppingCart />
+            <IconShoppingCart />
           </ActionIcon>
         </Indicator>
       )}
@@ -156,7 +156,19 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
                 color="red"
                 variant={isMobile ? 'filled' : 'outline'}
                 onConfirm={clearCart}
-                iconComponent={isMobile ? <ShoppingCartX /> : undefined}
+                iconComponent={isMobile ? <IconShoppingCartX /> : undefined}
+              />
+              <ButtonWithConfirmation
+                buttonLabel="Submit Cart"
+                modalMessage="Are you sure you want to submit your cart?"
+                size={isMobile ? 'lg' : 'sm'}
+                color="green"
+                variant={isMobile ? 'filled' : 'outline'}
+                onConfirm={() => {
+                  console.log('Submit cart', cart?.items);
+                  close();
+                }}
+                iconComponent={isMobile ? <IconShoppingCartCheck /> : undefined}
               />
               <Flex gap="xs">
                 <Text fw={700}>Total items:</Text>

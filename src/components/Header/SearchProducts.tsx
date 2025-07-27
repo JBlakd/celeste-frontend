@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Spotlight, openSpotlight } from '@mantine/spotlight';
 import { Flex, Loader, useMantineTheme } from '@mantine/core';
-import { Search } from 'tabler-icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
 import classes from '@components/Header/Header.module.css';
@@ -83,14 +83,14 @@ export default function SearchProducts({
         onClick={openSpotlight}
       >
         {isMobile ? null : 'Search Products'}
-        <Search size={isMobile ? '1.75rem' : '1.2rem'} />
+        <IconSearch size={isMobile ? '1.75rem' : '1.2rem'} />
       </Flex>
       <Spotlight
         actions={actions}
         nothingFound="Nothing found..."
         highlightQuery
         searchProps={{
-          leftSection: <Search />,
+          leftSection: <IconSearch />,
           placeholder: `${isMobile ? '' : 'Search by '}Slab Name, ID, Range, or Feature...`,
         }}
         limit={isMobile ? 3 : 7}

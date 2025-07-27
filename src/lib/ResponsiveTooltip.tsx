@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Tooltip } from '@mantine/core';
-import { InfoCircle } from 'tabler-icons-react';
+import { IconInfoCircle } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 
 export function ResponsiveTooltip({ label }: { label: React.ReactNode }) {
@@ -20,7 +20,7 @@ export function ResponsiveTooltip({ label }: { label: React.ReactNode }) {
       multiline
       transitionProps={{ duration: 150 }}
     >
-      <InfoCircle
+      <IconInfoCircle
         onClick={toggleTooltip}
         onMouseEnter={!isMobile ? () => setOpened(true) : undefined}
         onMouseLeave={!isMobile ? () => setOpened(false) : undefined}

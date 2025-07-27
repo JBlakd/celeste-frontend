@@ -12,7 +12,7 @@ import {
   Group,
   Flex,
 } from '@mantine/core';
-import { User } from 'tabler-icons-react';
+import { IconUser } from '@tabler/icons-react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 import { useAuth } from '@context/auth/useAuth';
@@ -307,7 +307,7 @@ export default function UserSession({ onClick }: { onClick?: () => void }) {
             <Text truncate c={user ? theme.colors.celesteGold[5] : 'black'}>
               {user ? user.contactName : 'Login'}
             </Text>
-            <User color={user ? theme.colors.celesteGold[5] : 'grey'} />
+            <IconUser color={user ? theme.colors.celesteGold[5] : 'grey'} />
           </Flex>
         ) : (
           <ActionIcon
@@ -321,7 +321,7 @@ export default function UserSession({ onClick }: { onClick?: () => void }) {
             size="lg"
             title={user ? `Logged in as ${user.email}` : 'Login'}
           >
-            <User />
+            <IconUser />
           </ActionIcon>
         )}
       </Tooltip>
