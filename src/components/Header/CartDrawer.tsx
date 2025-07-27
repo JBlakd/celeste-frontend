@@ -83,6 +83,10 @@ export function CartDrawer() {
             borderBottomLeftRadius: 5,
             overflow: 'hidden', // keeps inner content clipped to the curve
           },
+          title: {
+            fontWeight: 700,
+            fontSize: '1.5rem',
+          },
         }}
       >
         {cart?.items.length === 0 ? (

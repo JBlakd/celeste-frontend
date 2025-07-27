@@ -24,6 +24,7 @@ export function ItemQuantityInput({
         setItem({ id, title, quantity: q || 0, finish });
       }}
       size="xs"
+      w={withLabel ? undefined : '5rem'}
     />
   );
 }
