@@ -65,7 +65,7 @@ export default function ProductSpecificationsAndQuantity({ product }: { product:
                   id={id}
                   title={product.title}
                   finish={finish}
-                  expandLabel
+                  withLabel
                 />
               );
             })}

@@ -6,8 +6,8 @@ export function ItemQuantityInput({
   id,
   title,
   finish,
-  expandLabel,
-}: Omit<CartItem, 'quantity'> & { expandLabel?: boolean }) {
+  withLabel,
+}: Omit<CartItem, 'quantity'> & { withLabel?: boolean }) {
   const { cart, setItem } = useCart();
   const cartItem = cart?.items.find(
     (item) => item.id === id && item.finish === finish && item.title === title,
@@ -15,7 +15,7 @@ export function ItemQuantityInput({
 
   return (
     <NumberInput
-      label={expandLabel ? `Quantity in Cart - ${finish}` : 'Quantity'}
+      label={withLabel ? `Quantity in Cart - ${finish}` : undefined}
       min={0}
       step={1}
       value={cartItem?.quantity || 0}

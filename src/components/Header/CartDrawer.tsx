@@ -6,10 +6,8 @@ import {
   Divider,
   ScrollArea,
   Group,
-  useMantineTheme,
   Badge,
   Flex,
-  type MantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ShoppingCart, Trash } from 'tabler-icons-react';
@@ -18,26 +16,32 @@ import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
 import type { CartItem as CartItemType } from '@stores/cartStoreEntry';
 
-function CartItem({ item, theme }: { item: CartItemType; theme: MantineTheme }) {
+function CartItem({ item }: { item: CartItemType }) {
   return (
-    <Stack
+    <Group
       key={`${item.id}-${item.finish}`}
-      gap="xs"
-      p="xs"
-      style={{ border: `1px solid ${theme.colors.gray[3]}`, borderRadius: 8 }}
+      justify="space-between"
+      align="center"
+      py="xs"
+      style={{
+        borderBottom: '1px solid #eee',
+      }}
     >
-      <Flex justify="space-between">
-        <Text fw={500}>
-          {item.title} - {item.finish}
+      <Flex direction="column" gap={0} style={{ flex: 1 }}>
+        <Text size="sm" fw={500} truncate>
+          {item.title}
         </Text>
-        <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+        <Text size="xs" c="dimmed">
+          {item.finish}
+        </Text>
       </Flex>
-    </Stack>
+
+      <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+    </Group>
   );
 }
 
 export function CartDrawer() {
-  const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const { cart, totalQuantity, clearCart } = useCart();
   const { user } = useAuth();
@@ -88,9 +92,9 @@ export function CartDrawer() {
         ) : (
           <>
             <ScrollArea h={400}>
-              <Stack>
+              <Stack gap={0}>
                 {cart?.items.map((item) => (
-                  <CartItem key={`${item.id}-${item.finish}`} item={item} theme={theme} />
+                  <CartItem key={`${item.id}-${item.finish}`} item={item} />
                 ))}
               </Stack>
             </ScrollArea>
