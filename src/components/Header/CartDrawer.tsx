@@ -8,7 +8,6 @@ import {
   Group,
   Flex,
   Indicator,
-  Button,
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
@@ -18,6 +17,7 @@ import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
 import type { CartItem as CartItemType } from '@stores/cartStoreEntry';
 import { ResponsiveTooltip } from '@lib/ResponsiveTooltip';
+import { ButtonWithConfirmation } from '@lib/ButtonWithConfirmation';
 
 function CartItem({ item }: { item: CartItemType }) {
   return (
@@ -136,9 +136,14 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
             <Divider my="sm" />
 
             <Group justify="space-between">
-              <Button size="sm" color="red" variant="outline" onClick={clearCart}>
-                Clear Cart
-              </Button>
+              <ButtonWithConfirmation
+                buttonLabel="Clear Cart"
+                modalMessage="Are you sure you want to clear your cart?"
+                size="sm"
+                color="red"
+                variant="outline"
+                onConfirm={clearCart}
+              />
               <Flex gap="xs">
                 <Text fw={700}>Total items:</Text>
                 <Text fw={500}>{totalQuantity}</Text>
