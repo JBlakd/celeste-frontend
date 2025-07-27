@@ -9,12 +9,32 @@ import {
   useMantineTheme,
   Badge,
   Flex,
+  type MantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ShoppingCart, Trash } from 'tabler-icons-react';
 import { useCart } from '@context/cart/useCart';
 import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
 import { useAuth } from '@context/auth/useAuth';
+import type { CartItem as CartItemType } from '@stores/cartStoreEntry';
+
+function CartItem({ item, theme }: { item: CartItemType; theme: MantineTheme }) {
+  return (
+    <Stack
+      key={`${item.id}-${item.finish}`}
+      gap="xs"
+      p="xs"
+      style={{ border: `1px solid ${theme.colors.gray[3]}`, borderRadius: 8 }}
+    >
+      <Flex justify="space-between">
+        <Text fw={500}>
+          {item.title} - {item.finish}
+        </Text>
+        <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+      </Flex>
+    </Stack>
+  );
+}
 
 export function CartDrawer() {
   const theme = useMantineTheme();
@@ -70,19 +90,7 @@ export function CartDrawer() {
             <ScrollArea h={400}>
               <Stack>
                 {cart?.items.map((item) => (
-                  <Stack
-                    key={`${item.id}-${item.finish}`}
-                    gap="xs"
-                    p="xs"
-                    style={{ border: `1px solid ${theme.colors.gray[3]}`, borderRadius: 8 }}
-                  >
-                    <Flex justify="space-between">
-                      <Text fw={500}>
-                        {item.title} - {item.finish}
-                      </Text>
-                      <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
-                    </Flex>
-                  </Stack>
+                  <CartItem key={`${item.id}-${item.finish}`} item={item} theme={theme} />
                 ))}
               </Stack>
             </ScrollArea>
