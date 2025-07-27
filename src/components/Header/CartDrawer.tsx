@@ -6,7 +6,6 @@ import {
   Divider,
   ScrollArea,
   Group,
-  Badge,
   Flex,
   Indicator,
 } from '@mantine/core';
@@ -57,13 +56,18 @@ export function CartDrawer() {
         inline
         size={18}
         radius="xl"
-        color="red"
-        withBorder
         label={totalQuantity > 0 ? totalQuantity : undefined}
         disabled={totalQuantity === 0}
         position="top-end"
         offset={6}
         zIndex={10}
+        styles={{
+          indicator: {
+            color: 'black', // text color
+            fontWeight: 600,
+            fontSize: '0.75rem',
+          },
+        }}
       >
         <ActionIcon onClick={open} variant="subtle" size="lg">
           <ShoppingCart />
@@ -99,7 +103,7 @@ export function CartDrawer() {
           </Text>
         ) : (
           <>
-            <ScrollArea h={400}>
+            <ScrollArea h="100%">
               <Stack gap={0}>
                 {cart?.items.map((item) => (
                   <CartItem key={`${item.id}-${item.finish}`} item={item} />
@@ -110,10 +114,13 @@ export function CartDrawer() {
             <Divider my="sm" />
 
             <Group justify="space-between">
-              <Text fw={500}>Total items: {totalQuantity}</Text>
               <ActionIcon color="red" variant="light" onClick={clearCart}>
                 <Trash />
               </ActionIcon>
+              <Flex gap="xs">
+                <Text fw={700}>Total items:</Text>
+                <Text fw={500}>{totalQuantity}</Text>
+              </Flex>
             </Group>
           </>
         )}

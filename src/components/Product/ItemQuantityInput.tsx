@@ -25,6 +25,7 @@ export function ItemQuantityInput({
       }}
       size="xs"
       w={withLabel ? undefined : '5rem'}
+      allowDecimal={false}
     />
   );
 }
