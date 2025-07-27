@@ -8,6 +8,7 @@ import {
   Group,
   useMantineTheme,
   Badge,
+  Flex,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ShoppingCart, Trash } from 'tabler-icons-react';
@@ -75,11 +76,12 @@ export function CartDrawer() {
                     p="xs"
                     style={{ border: `1px solid ${theme.colors.gray[3]}`, borderRadius: 8 }}
                   >
-                    <Group justify="space-between">
-                      <Text fw={500}>{item.title}</Text>
-                      <Badge>{item.finish}</Badge>
-                    </Group>
-                    <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+                    <Flex justify="space-between">
+                      <Text fw={500}>
+                        {item.title} - {item.finish}
+                      </Text>
+                      <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+                    </Flex>
                   </Stack>
                 ))}
               </Stack>

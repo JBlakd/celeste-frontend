@@ -5,7 +5,7 @@ import { sanity } from '../lib/sanity';
 import type { Product } from '@typedefs/sanity';
 import ProductImages from '@components/Product/ProductImages';
 import ProductDescription from '@components/Product/ProductDescription';
-import ProductSpecifications from '@components/Product/ProductSpecifications';
+import ProductSpecificationsAndQuantity from '@components/Product/ProductSpecificationsAndQuantity';
 
 export default function ProductDetails() {
   const { productSlug } = useParams();
@@ -87,7 +87,7 @@ export default function ProductDetails() {
     <>
       <ProductImages product={product} />
       <ProductDescription product={product} />
-      <ProductSpecifications product={product} />
+      <ProductSpecificationsAndQuantity product={product} />
     </>
   );
 }

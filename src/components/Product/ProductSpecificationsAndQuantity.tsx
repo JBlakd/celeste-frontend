@@ -2,7 +2,7 @@ import { Box, Container, Text, Title, Stack, Badge, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import { ItemQuantityInput } from './ItemQuantityInput';
 
-export default function ProductSpecifications({ product }: { product: Product }) {
+export default function ProductSpecificationsAndQuantity({ product }: { product: Product }) {
   console.log('ProductSpecifications', product);
 
   return (
