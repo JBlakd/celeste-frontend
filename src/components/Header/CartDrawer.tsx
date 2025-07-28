@@ -30,7 +30,7 @@ async function submitCart({
   items: CartItemType[];
 }) {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/receive-order`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/receiveOrder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
