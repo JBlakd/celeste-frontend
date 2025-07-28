@@ -28,15 +28,15 @@ export default function ProductGrid({ products }: { products: Product[] | null }
                 cursor: 'pointer',
                 transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 backgroundColor: theme.colors.coolWhite[0],
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.20)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.12)';
               }}
             >
               {product.image?.asset?.url && (

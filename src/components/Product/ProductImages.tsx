@@ -18,8 +18,6 @@ export default function ProductImages({ product }: { product: Product | null }) 
 
   if (!product) return null;
 
-  console.log('product', product);
-
   const mainImageUrl = product.image?.asset?.url || null;
   const mainImageLowResUrl = product.lowResImage?.asset?.url || null;
   const zoomedImageHighResUrl = product.highResZoomed?.asset?.url || null;
