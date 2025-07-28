@@ -28,12 +28,22 @@ export default function ProductDetails() {
           url
         }
       },
+      lowResImage {
+        asset->{
+          url
+        }
+      },
       lowRes {
         asset->{
           url
         }
       },
       highResZoomed {
+        asset->{
+          url
+        }
+      },
+      lowResZoomed {
         asset->{
           url
         }

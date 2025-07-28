@@ -18,9 +18,15 @@ export default function ProductImages({ product }: { product: Product | null }) 
 
   if (!product) return null;
 
+  console.log('product', product);
+
   const mainImageUrl = product.image?.asset?.url || null;
+  const mainImageLowResUrl = product.lowResImage?.asset?.url || null;
+  const zoomedImageHighResUrl = product.highResZoomed?.asset?.url || null;
+  const zoomedImageLowResUrl = product.lowResZoomed?.asset?.url || null;
+
   const galleryImages = [
-    ...(product.lowRes?.asset?.url ? [product.lowRes] : []),
+    ...(zoomedImageLowResUrl ? [product.lowResZoomed] : []),
     ...(product.gallery?.filter((img) => img.asset?.url) || []),
   ];
 
@@ -59,9 +65,13 @@ export default function ProductImages({ product }: { product: Product | null }) 
           (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
         }}
       >
-        {mainImageUrl && (
+        {mainImageLowResUrl && (
           <Box style={{ position: 'relative', display: 'inline-block' }}>
-            <ImageWithLoader src={mainImageUrl} alt={product.title} style={{ display: 'block' }} />
+            <ImageWithLoader
+              src={mainImageLowResUrl}
+              alt={product.title}
+              style={{ display: 'block' }}
+            />
             <Box
               style={{
                 position: 'absolute',
@@ -103,8 +113,7 @@ export default function ProductImages({ product }: { product: Product | null }) 
           }}
         >
           {galleryImages.map((img, index) => {
-            const imgUrl =
-              index === 0 ? product.highResZoomed?.asset.url || null : img?.asset.url || null;
+            const imgUrl = index === 0 ? zoomedImageHighResUrl || null : img?.asset.url || null;
 
             return (
               <Carousel.Slide key={img?.asset.url}>

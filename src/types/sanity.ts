@@ -80,6 +80,14 @@ export interface Product {
       url?: string;
     };
   };
+  lowResImage?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
   lowRes?: {
     _type: 'image';
     asset: {
@@ -89,6 +97,14 @@ export interface Product {
     };
   };
   highResZoomed?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
+  lowResZoomed?: {
     _type: 'image';
     asset: {
       _ref: string;
