@@ -20,21 +20,12 @@ import { ResponsiveTooltip } from '@lib/ResponsiveTooltip';
 import { ButtonWithConfirmation } from '@lib/ButtonWithConfirmation';
 import { showNotification } from '@mantine/notifications';
 
-async function submitCart({
-  token,
-  email,
-  items,
-}: {
-  token: string;
-  email: string;
-  items: CartItemType[];
-}) {
+async function submitCart({ email, items }: { email: string; items: CartItemType[] }) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/receiveOrder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ email, items }),
     });
@@ -227,7 +218,6 @@ export function CartDrawer({
                   variant="filled"
                   onConfirm={async () => {
                     await submitCart({
-                      token: user.token,
                       email: user.email,
                       items: cart.items,
                     });

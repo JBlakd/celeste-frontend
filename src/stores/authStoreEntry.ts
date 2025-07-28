@@ -9,7 +9,6 @@ localforage.config({
 export const AUTH_KEY = 'auth';
 
 export type AuthData = {
-  token: string;
   companyName: string;
   email: string;
   contactName: string;
