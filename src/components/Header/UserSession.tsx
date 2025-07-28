@@ -34,6 +34,8 @@ function LogInModalContent({
   error: string | null;
   loading: boolean;
 }) {
+  const theme = useMantineTheme();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     void handleLogin();
@@ -51,7 +53,7 @@ function LogInModalContent({
           required
         />
         {error && (
-          <Text c="red" size="sm">
+          <Text c={theme.colors.celesteRed[5]} size="sm">
             {error}
           </Text>
         )}
@@ -72,6 +74,8 @@ function LoggedInModalContent({
   logout: () => Promise<void>;
   onChangePasswordClick: () => void;
 }) {
+  const theme = useMantineTheme();
+
   return (
     <Stack gap="md">
       <Stack gap={2}>
@@ -90,7 +94,7 @@ function LoggedInModalContent({
         <Button variant="default" onClick={onChangePasswordClick}>
           Change Password
         </Button>
-        <Button color="red" onClick={logout}>
+        <Button color={theme.colors.celesteRed[5]} onClick={logout}>
           Logout
         </Button>
       </Group>
@@ -117,6 +121,8 @@ function ChangePasswordModalContent({
   loading: boolean;
   onCancel: () => void;
 }) {
+  const theme = useMantineTheme();
+
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     void handleSubmit();
@@ -147,7 +153,7 @@ function ChangePasswordModalContent({
           required
         />
         {error && (
-          <Text c="red" size="sm">
+          <Text c={theme.colors.celesteRed[5]} size="sm">
             {error}
           </Text>
         )}

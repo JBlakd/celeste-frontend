@@ -48,6 +48,18 @@ const theme = createTheme({
       '#79312F', // 8 - dried blood
       '#5E2322', // 9 - near-brown
     ],
+    celesteGreen: [
+      '#EAF3ED', // 0 - misty mint
+      '#D5E7DA', // 1 - eucalyptus foam
+      '#BFDCC8', // 2 - pale sage
+      '#A9D0B5', // 3 - muted mint
+      '#93C5A3', // 4 - chilled matcha
+      '#7EBA91', // 5 - forest latte (main)
+      '#699E7A', // 6 - deep sage
+      '#538263', // 7 - olive grove
+      '#3E664D', // 8 - eucalyptus bark
+      '#294A37', // 9 - evergreen shadow
+    ],
     coolWhite: [
       '#FAFAFA',
       '#F7F8F9',

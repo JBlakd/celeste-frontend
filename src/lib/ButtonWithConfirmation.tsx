@@ -37,7 +37,7 @@ export function ButtonWithConfirmation({
   confirmLabel = 'Yes',
   cancelLabel = 'Cancel',
   modalMessage = 'Are you sure?',
-  color = 'red',
+  color = '#C86460',
   variant = 'filled',
   iconComponent,
 }: ButtonWithConfirmationProps) {

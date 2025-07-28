@@ -1,4 +1,13 @@
-import { Container, Title, Text, TextInput, Textarea, Button, Stack } from '@mantine/core';
+import {
+  Container,
+  Title,
+  Text,
+  TextInput,
+  Textarea,
+  Button,
+  Stack,
+  useMantineTheme,
+} from '@mantine/core';
 import { useState } from 'react';
 
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -8,6 +17,8 @@ export default function Contact() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const theme = useMantineTheme();
 
   const handleSubmit = async () => {
     setStatus('sending');
@@ -83,8 +94,12 @@ export default function Contact() {
         >
           Send Message
         </Button>
-        {status === 'success' && <Text c="green">Message sent! We’ll get back to you soon.</Text>}
-        {status === 'error' && <Text c="red">Something went wrong. Try again later.</Text>}
+        {status === 'success' && (
+          <Text c={theme.colors.celesteGreen[5]}>Message sent! We’ll get back to you soon.</Text>
+        )}
+        {status === 'error' && (
+          <Text c={theme.colors.celesteRed[5]}>Something went wrong. Try again later.</Text>
+        )}
       </Stack>
     </Container>
   );

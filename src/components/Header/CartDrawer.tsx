@@ -9,6 +9,7 @@ import {
   Flex,
   Indicator,
   useMantineTheme,
+  type MantineTheme,
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconShoppingCart, IconShoppingCartX, IconShoppingCartCheck } from '@tabler/icons-react';
@@ -20,7 +21,10 @@ import { ResponsiveTooltip } from '@lib/ResponsiveTooltip';
 import { ButtonWithConfirmation } from '@lib/ButtonWithConfirmation';
 import { showNotification } from '@mantine/notifications';
 
-async function submitCart({ email, items }: { email: string; items: CartItemType[] }) {
+async function submitCart(
+  { email, items }: { email: string; items: CartItemType[] },
+  theme: MantineTheme,
+) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/receiveOrder`, {
       method: 'POST',
@@ -35,15 +39,15 @@ async function submitCart({ email, items }: { email: string; items: CartItemType
     if (!response.ok) {
       const message = data?.error || 'Failed to submit cart';
       showNotification({
-        message,
-        color: 'red',
+        message: 'Failed to submit cart',
+        color: theme.colors.celesteRed[5],
       });
       throw new Error(message);
     }
 
     showNotification({
       message: data.message,
-      color: 'green',
+      color: theme.colors.celesteGreen[5],
     });
 
     return {
@@ -52,9 +56,10 @@ async function submitCart({ email, items }: { email: string; items: CartItemType
     };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
+    console.log('about to show notification', message);
     showNotification({
-      message,
-      color: 'red',
+      message: 'Failed to submit cart',
+      color: theme.colors.celesteRed[5],
     });
     console.error('🧨 Failed to submit cart:', err);
     return {
@@ -217,10 +222,13 @@ export function CartDrawer({
                   color={theme.colors.celesteGold[5]}
                   variant="filled"
                   onConfirm={async () => {
-                    const result = await submitCart({
-                      email: user.email,
-                      items: cart.items,
-                    });
+                    const result = await submitCart(
+                      {
+                        email: user.email,
+                        items: cart.items,
+                      },
+                      theme,
+                    );
                     if (result.success) {
                       clearCart();
                       close();
