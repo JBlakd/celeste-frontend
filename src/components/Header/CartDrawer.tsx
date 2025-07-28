@@ -217,12 +217,14 @@ export function CartDrawer({
                   color={theme.colors.celesteGold[5]}
                   variant="filled"
                   onConfirm={async () => {
-                    await submitCart({
+                    const result = await submitCart({
                       email: user.email,
                       items: cart.items,
                     });
-                    clearCart();
-                    close();
+                    if (result.success) {
+                      clearCart();
+                      close();
+                    }
                   }}
                   iconComponent={isMobile ? <IconShoppingCartCheck /> : undefined}
                 />
