@@ -2,6 +2,7 @@ import { NumberInput } from '@mantine/core';
 import { useCart } from '@context/cart/useCart';
 import type { CartItem } from '@stores/cartStoreEntry';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@context/auth/useAuth';
 
 export function ItemQuantityInput({
   id,
@@ -9,6 +10,7 @@ export function ItemQuantityInput({
   finish,
   withLabel,
 }: Omit<CartItem, 'quantity'> & { withLabel?: boolean }) {
+  const { user } = useAuth();
   const { cart, setItem } = useCart();
   const cartItem = cart?.items.find(
     (item) => item.id === id && item.finish === finish && item.title === title,
@@ -25,6 +27,10 @@ export function ItemQuantityInput({
     const q = typeof value === 'number' ? value : parseInt(value.toString(), 10);
     setItem({ id, title, quantity: isNaN(q) ? 0 : q, finish });
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <NumberInput
