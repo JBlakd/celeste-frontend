@@ -18,6 +18,60 @@ import { useAuth } from '@context/auth/useAuth';
 import type { CartItem as CartItemType } from '@stores/cartStoreEntry';
 import { ResponsiveTooltip } from '@lib/ResponsiveTooltip';
 import { ButtonWithConfirmation } from '@lib/ButtonWithConfirmation';
+import { showNotification } from '@mantine/notifications';
+
+async function submitCart({
+  token,
+  email,
+  items,
+}: {
+  token: string;
+  email: string;
+  items: CartItemType[];
+}) {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/receive-order`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email, items }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const message = data?.error || 'Failed to submit cart';
+      showNotification({
+        message,
+        color: 'red',
+      });
+      throw new Error(message);
+    }
+
+    showNotification({
+      message: data.message,
+      color: 'green',
+    });
+
+    return {
+      success: true,
+      message: data.message,
+    };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    showNotification({
+      message,
+      color: 'red',
+    });
+    console.error('🧨 Failed to submit cart:', err);
+    return {
+      success: false,
+      error: message,
+    };
+  }
+}
 
 function CartItem({ item }: { item: CartItemType }) {
   return (
@@ -138,7 +192,7 @@ export function CartDrawer({
           },
         }}
       >
-        {cart?.items.length === 0 ? (
+        {!cart || cart?.items.length === 0 ? (
           <Text size="sm" c="dimmed">
             There are no items in your cart.
           </Text>
@@ -171,8 +225,13 @@ export function CartDrawer({
                   size={isMobile ? 'lg' : 'sm'}
                   color="green"
                   variant="filled"
-                  onConfirm={() => {
-                    console.log('Submit cart', cart?.items);
+                  onConfirm={async () => {
+                    await submitCart({
+                      token: user.token,
+                      email: user.email,
+                      items: cart.items,
+                    });
+                    clearCart();
                     close();
                   }}
                   iconComponent={isMobile ? <IconShoppingCartCheck /> : undefined}
