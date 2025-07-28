@@ -75,7 +75,10 @@ function MobileMenu({
               Contact
             </Text>
             <UserSession onClick={() => setMenuOpened(false)} />
-            <CartDrawer onClick={() => setMenuOpened(false)} />
+            <CartDrawer
+              onClick={() => setMenuOpened(false)}
+              shouldHeaderBeColoured={shouldHeaderBeColoured}
+            />
           </Stack>
         </Popover.Dropdown>
       </Popover>
@@ -114,7 +117,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         Contact
       </StyledNavLink>
       <UserSession />
-      <CartDrawer />
+      <CartDrawer shouldHeaderBeColoured={shouldHeaderBeColoured} />
     </Group>
   );
 }

@@ -44,7 +44,13 @@ function CartItem({ item }: { item: CartItemType }) {
   );
 }
 
-export function CartDrawer({ onClick }: { onClick?: () => void }) {
+export function CartDrawer({
+  shouldHeaderBeColoured,
+  onClick,
+}: {
+  shouldHeaderBeColoured: boolean;
+  onClick?: () => void;
+}) {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
@@ -81,7 +87,7 @@ export function CartDrawer({ onClick }: { onClick?: () => void }) {
           zIndex={10}
           styles={{
             indicator: {
-              color: 'black', // text color
+              color: shouldHeaderBeColoured ? 'black' : 'white', // text color
               fontWeight: 600,
               fontSize: '0.75rem',
             },
