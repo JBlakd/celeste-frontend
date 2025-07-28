@@ -205,8 +205,8 @@ export function CartDrawer({
                   buttonLabel="Clear Cart"
                   modalMessage="Are you sure you want to clear your cart?"
                   size={isMobile ? 'lg' : 'sm'}
-                  color="red"
-                  variant={isMobile ? 'filled' : 'outline'}
+                  color={theme.colors.celesteRed[5]}
+                  variant="filled"
                   onConfirm={clearCart}
                   iconComponent={isMobile ? <IconShoppingCartX /> : undefined}
                 />
@@ -214,7 +214,7 @@ export function CartDrawer({
                   buttonLabel="Submit Cart"
                   modalMessage="Are you sure you want to submit your cart?"
                   size={isMobile ? 'lg' : 'sm'}
-                  color="green"
+                  color={theme.colors.celesteGold[5]}
                   variant="filled"
                   onConfirm={async () => {
                     await submitCart({

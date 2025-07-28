@@ -35,6 +35,18 @@ const theme = createTheme({
       '#79543D',
       '#63402D',
     ],
+    celesteRed: [
+      '#F9EBEA', // 0 - airy blush
+      '#F2D2D1', // 1 - rose mist
+      '#E8B6B4', // 2 - soft clay
+      '#DE9997', // 3 - muted salmon
+      '#D47D7B', // 4 - dusty rose
+      '#C86460', // 5 - terracotta (main)
+      '#AD514E', // 6 - warm rust
+      '#933F3D', // 7 - deep brick
+      '#79312F', // 8 - dried blood
+      '#5E2322', // 9 - near-brown
+    ],
     coolWhite: [
       '#FAFAFA',
       '#F7F8F9',
