@@ -22,7 +22,15 @@ import { ButtonWithConfirmation } from '@lib/ButtonWithConfirmation';
 import { showNotification } from '@mantine/notifications';
 
 async function submitCart(
-  { email, items }: { email: string; items: CartItemType[] },
+  {
+    token,
+    email,
+    items,
+  }: {
+    token: string;
+    email: string;
+    items: CartItemType[];
+  },
   theme: MantineTheme,
 ) {
   try {
@@ -30,6 +38,7 @@ async function submitCart(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-Session-Token': token,
       },
       body: JSON.stringify({ email, items }),
     });
@@ -224,6 +233,7 @@ export function CartDrawer({
                   onConfirm={async () => {
                     const result = await submitCart(
                       {
+                        token: user.token,
                         email: user.email,
                         items: cart.items,
                       },
