@@ -177,6 +177,15 @@ export function CartDrawer({
                     If you order bookmatched slabs, we will automatically assign half of your order
                     quantity to each side.
                   </Text>
+                  <Text size="xs">
+                    We will send you an acknowledgment email with your order details once you submit
+                    your cart. After that, we will contact you to confirm the order and arrange
+                    payment.
+                  </Text>
+                  <Text size="xs">
+                    If you encounter any issues at any point in this process, please do not hesitate
+                    to contact us.
+                  </Text>
                 </Stack>
               }
             />

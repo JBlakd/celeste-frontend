@@ -24,7 +24,7 @@ export function ResponsiveTooltip({ label }: { label: React.ReactNode }) {
         onClick={toggleTooltip}
         onMouseEnter={!isMobile ? () => setOpened(true) : undefined}
         onMouseLeave={!isMobile ? () => setOpened(false) : undefined}
-        size={16}
+        size="1.2rem"
       />
     </Tooltip>
   );
