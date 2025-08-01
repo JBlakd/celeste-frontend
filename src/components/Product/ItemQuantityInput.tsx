@@ -8,8 +8,9 @@ export function ItemQuantityInput({
   id,
   title,
   finish,
+  hideControls = false,
   label = 'none',
-}: Omit<CartItem, 'quantity'> & { label?: 'none' | 'condensed' | 'full' }) {
+}: Omit<CartItem, 'quantity'> & { label?: 'none' | 'condensed' | 'full'; hideControls?: boolean }) {
   const { user } = useAuth();
   const { cart, setItem } = useCart();
   const cartItem = cart?.items.find(
@@ -50,6 +51,7 @@ export function ItemQuantityInput({
         size="xs"
         w={label === 'full' ? undefined : '5rem'}
         allowDecimal={false}
+        hideControls={hideControls}
       />
     </div>
   );
