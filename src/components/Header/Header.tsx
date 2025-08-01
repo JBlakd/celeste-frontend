@@ -26,7 +26,7 @@ function MobileMenu({
 
   return (
     <Flex gap="lg" align="center">
-      <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
+      <SearchProducts />
       <Popover
         opened={menuOpened}
         onChange={setMenuOpened}
@@ -97,7 +97,6 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         Home
       </StyledNavLink>
       <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
-      <SearchProducts shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink
         to="/about"
         className={({ isActive }) =>
@@ -116,6 +115,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
       >
         Contact
       </StyledNavLink>
+      <SearchProducts />
       <UserSession />
       <CartDrawer shouldHeaderBeColoured={shouldHeaderBeColoured} />
     </Group>

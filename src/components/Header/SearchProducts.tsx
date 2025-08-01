@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Spotlight, openSpotlight } from '@mantine/spotlight';
-import { Flex, Loader, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Loader, Tooltip } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
-import classes from '@components/Header/Header.module.css';
 import { useMediaQuery } from '@mantine/hooks';
 
 type Product = {
@@ -17,16 +16,10 @@ type Product = {
   features?: string[];
 };
 
-export default function SearchProducts({
-  shouldHeaderBeColoured,
-}: {
-  shouldHeaderBeColoured: boolean;
-}) {
+export default function SearchProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
@@ -41,14 +34,6 @@ export default function SearchProducts({
         setLoading(false);
       });
   }, []);
-
-  const getColor = () => {
-    if (isHovered) {
-      return theme.colors.celesteGold[5];
-    }
-
-    return shouldHeaderBeColoured ? theme.black : theme.colors.coolWhite[0];
-  };
 
   const actions =
     products
@@ -70,21 +55,12 @@ export default function SearchProducts({
 
   return (
     <>
-      <Flex
-        align="center"
-        gap="xs"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className={isMobile ? undefined : classes.navLink}
-        style={{
-          color: getColor(),
-          cursor: 'pointer',
-        }}
-        onClick={openSpotlight}
-      >
-        {isMobile ? null : 'Search Products'}
-        <IconSearch size={isMobile ? '1.75rem' : '1.2rem'} />
-      </Flex>
+      <Tooltip label="Search Products" position="bottom" offset={25}>
+        <ActionIcon variant="subtle" size="lg" onClick={openSpotlight}>
+          <IconSearch />
+        </ActionIcon>
+      </Tooltip>
+
       <Spotlight
         actions={actions}
         nothingFound="Nothing found..."
