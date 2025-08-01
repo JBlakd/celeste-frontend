@@ -63,7 +63,7 @@ export default function ProductSpecificationsAndQuantity({ product }: { product:
                   id={id}
                   title={product.title}
                   finish={finish}
-                  withLabel
+                  label="full"
                 />
               );
             })}

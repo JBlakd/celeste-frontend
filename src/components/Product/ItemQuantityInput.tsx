@@ -8,8 +8,8 @@ export function ItemQuantityInput({
   id,
   title,
   finish,
-  withLabel,
-}: Omit<CartItem, 'quantity'> & { withLabel?: boolean }) {
+  label = 'none',
+}: Omit<CartItem, 'quantity'> & { label?: 'none' | 'condensed' | 'full' }) {
   const { user } = useAuth();
   const { cart, setItem } = useCart();
   const cartItem = cart?.items.find(
@@ -28,21 +28,29 @@ export function ItemQuantityInput({
     setItem({ id, title, quantity: isNaN(q) ? 0 : q, finish });
   };
 
+  const getLabel = () => {
+    if (label === 'full') return `Quantity in Cart - ${finish}`;
+    if (label === 'condensed') return `${finish}`;
+    return undefined;
+  };
+
   if (!user) {
     return null;
   }
 
   return (
-    <NumberInput
-      label={withLabel ? `Quantity in Cart - ${finish}` : undefined}
-      min={0}
-      step={1}
-      value={value}
-      onChange={setValue}
-      onBlur={handleBlur}
-      size="xs"
-      w={withLabel ? undefined : '5rem'}
-      allowDecimal={false}
-    />
+    <div onClick={(e) => e.stopPropagation()}>
+      <NumberInput
+        label={getLabel()}
+        min={0}
+        step={1}
+        value={value}
+        onChange={setValue}
+        onBlur={handleBlur}
+        size="xs"
+        w={label === 'full' ? undefined : '5rem'}
+        allowDecimal={false}
+      />
+    </div>
   );
 }

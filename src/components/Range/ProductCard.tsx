@@ -45,47 +45,40 @@ function CondensedContent({
   imageUrl: string | undefined;
 }) {
   return (
-    // 🔹 Condensed layout
-    <Flex gap="md" align="flex-start">
-      {/* Thumbnail on left */}
+    <>
       {imageUrl && (
-        <Image
-          src={imageUrl}
-          width={120}
-          height={120}
-          alt={product.title}
-          radius="sm"
-          style={{
-            objectFit: 'cover',
-            imageRendering: 'crisp-edges',
-            filter: 'blur(0.4px)',
-            flexShrink: 0,
-          }}
-        />
+        <Card.Section>
+          <Image
+            src={imageUrl}
+            height={160}
+            alt={product.title}
+            style={{
+              imageRendering: 'crisp-edges',
+              filter: 'blur(0.5px)',
+              objectFit: 'cover',
+            }}
+          />
+        </Card.Section>
       )}
 
-      {/* Details and Finishes on right */}
-      <Flex direction="column" justify="space-between" style={{ flex: 1 }}>
-        <Text fw={600} size="sm">
-          {product.title}
+      <Flex align="center" justify="space-between" mt="md">
+        <Text fw={500}>
+          {product.title} | {product.sku}
         </Text>
-        <Text size="xs" c="dimmed">
-          {product.sku}
-        </Text>
-
-        <Flex gap="xs" mt="xs" wrap="wrap">
-          {product.finish?.map((finish) => (
-            <ItemQuantityInput
-              key={finish}
-              id={product._id}
-              title={product.title}
-              finish={finish}
-              withLabel={false}
-            />
-          ))}
-        </Flex>
       </Flex>
-    </Flex>
+
+      <Flex gap="xs" wrap="wrap">
+        {product.finish?.map((finish) => (
+          <ItemQuantityInput
+            key={finish}
+            id={product._id}
+            title={product.title}
+            finish={finish}
+            label="condensed"
+          />
+        ))}
+      </Flex>
+    </>
   );
 }
 

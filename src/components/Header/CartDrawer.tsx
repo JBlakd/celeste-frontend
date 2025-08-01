@@ -98,7 +98,7 @@ function CartItem({ item }: { item: CartItemType }) {
         </Text>
       </Flex>
 
-      <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} />
+      <ItemQuantityInput id={item.id} title={item.title} finish={item.finish} label="none" />
     </Group>
   );
 }
