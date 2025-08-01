@@ -30,6 +30,7 @@ export default function DisplayRangeProducts() {
       _id,
       title,
       description,
+      finish,
       slug,
       sku,
       image {

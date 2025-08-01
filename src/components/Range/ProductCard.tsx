@@ -3,9 +3,95 @@ import { useMantineTheme, Card, Image, Text, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import { useNavigate } from 'react-router-dom';
 
+function FullContent({ product, imageUrl }: { product: Product; imageUrl: string | undefined }) {
+  return (
+    // 🔸 Full layout
+    <>
+      {imageUrl && (
+        <Card.Section>
+          <Image
+            src={imageUrl}
+            height={160}
+            alt={product.title}
+            style={{
+              imageRendering: 'crisp-edges',
+              filter: 'blur(0.5px)',
+              objectFit: 'cover',
+            }}
+          />
+        </Card.Section>
+      )}
+
+      <Flex align="center" justify="space-between" mt="md">
+        <Text fw={500}>
+          {product.title} | {product.sku}
+        </Text>
+      </Flex>
+
+      {product.description && (
+        <Text size="sm" c="dimmed" lineClamp={3}>
+          {product.description}
+        </Text>
+      )}
+    </>
+  );
+}
+
+function CondensedContent({
+  product,
+  imageUrl,
+}: {
+  product: Product;
+  imageUrl: string | undefined;
+}) {
+  return (
+    // 🔹 Condensed layout
+    <Flex gap="md" align="flex-start">
+      {/* Thumbnail on left */}
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          width={120}
+          height={120}
+          alt={product.title}
+          radius="sm"
+          style={{
+            objectFit: 'cover',
+            imageRendering: 'crisp-edges',
+            filter: 'blur(0.4px)',
+            flexShrink: 0,
+          }}
+        />
+      )}
+
+      {/* Details and Finishes on right */}
+      <Flex direction="column" justify="space-between" style={{ flex: 1 }}>
+        <Text fw={600} size="sm">
+          {product.title}
+        </Text>
+        <Text size="xs" c="dimmed">
+          {product.sku}
+        </Text>
+
+        <Flex gap="xs" mt="xs" wrap="wrap">
+          {product.finish?.map((finish) => (
+            <ItemQuantityInput
+              key={finish}
+              id={product._id}
+              title={product.title}
+              finish={finish}
+              withLabel={false}
+            />
+          ))}
+        </Flex>
+      </Flex>
+    </Flex>
+  );
+}
+
 export default function ProductCard({
   product,
-  condensed,
+  condensed = false,
 }: {
   product: Product;
   condensed?: boolean;
@@ -13,20 +99,25 @@ export default function ProductCard({
   const navigate = useNavigate();
   const theme = useMantineTheme();
 
+  const handleCardClick = () => {
+    navigate(`/${product.slug.current}`);
+  };
+
+  const imageUrl = product.lowRes?.asset?.url || product.image?.asset?.url;
+
   return (
     <Card
       key={product._id}
       shadow="sm"
-      padding="lg"
+      padding="md"
       radius="md"
-      onClick={() => {
-        navigate(`/${product.slug.current}`);
-      }}
+      onClick={handleCardClick}
       style={{
         cursor: 'pointer',
         transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-        backgroundColor: theme.colors.coolWhite[0],
+        backgroundColor: theme.colors.coolWhite?.[0] || theme.white,
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
+        maxWidth: condensed ? 500 : undefined,
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'scale(1.02)';
@@ -37,34 +128,10 @@ export default function ProductCard({
         e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.12)';
       }}
     >
-      {product.image?.asset?.url && (
-        <Card.Section>
-          <Image
-            src={product.lowRes?.asset.url}
-            height={160}
-            alt={product.title}
-            style={{ imageRendering: 'crisp-edges', filter: 'blur(0.5px)' }}
-          />
-        </Card.Section>
-      )}
-      <Flex>
-        <Text fw={500} mt="md">
-          {product.title} | {product.sku}
-        </Text>
-      </Flex>
-      {condensed &&
-        product.finish.map((finish) => (
-          <ItemQuantityInput
-            id={product._id}
-            title={product.title}
-            finish={finish}
-            withLabel={false}
-          />
-        ))}
-      {!condensed && product.description && (
-        <Text size="sm" c="dimmed" lineClamp={3}>
-          {product.description}
-        </Text>
+      {condensed ? (
+        <CondensedContent product={product} imageUrl={imageUrl} />
+      ) : (
+        <FullContent product={product} imageUrl={imageUrl} />
       )}
     </Card>
   );
