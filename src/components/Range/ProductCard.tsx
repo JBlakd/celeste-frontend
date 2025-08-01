@@ -1,8 +1,15 @@
-import { useMantineTheme, Card, Image, Text } from '@mantine/core';
+import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
+import { useMantineTheme, Card, Image, Text, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  condensed,
+}: {
+  product: Product;
+  condensed?: boolean;
+}) {
   const navigate = useNavigate();
   const theme = useMantineTheme();
 
@@ -40,10 +47,21 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         </Card.Section>
       )}
-      <Text fw={500} mt="md">
-        {product.title} | {product.sku}
-      </Text>
-      {product.description && (
+      <Flex>
+        <Text fw={500} mt="md">
+          {product.title} | {product.sku}
+        </Text>
+      </Flex>
+      {condensed &&
+        product.finish.map((finish) => (
+          <ItemQuantityInput
+            id={product._id}
+            title={product.title}
+            finish={finish}
+            withLabel={false}
+          />
+        ))}
+      {!condensed && product.description && (
         <Text size="sm" c="dimmed" lineClamp={3}>
           {product.description}
         </Text>

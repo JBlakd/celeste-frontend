@@ -13,7 +13,7 @@ export default function ProductGrid({ products }: { products: Product[] | null }
         {products
           .sort((a, b) => a.sku.localeCompare(b.sku))
           .map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product._id} product={product} condensed />
           ))}
       </SimpleGrid>
     </Container>
