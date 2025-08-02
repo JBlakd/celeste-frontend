@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Spotlight, openSpotlight } from '@mantine/spotlight';
-import { ActionIcon, Loader, Tooltip } from '@mantine/core';
+import { ActionIcon, Flex, Loader, Tooltip } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
 import { useMediaQuery } from '@mantine/hooks';
+import { ItemCartToggle } from '@components/Product/ItemCartToggle';
 
 type Product = {
   slug: { current: string };
+  sku: string;
   title: string;
   range: {
     title: string;
   };
-  finish: string[];
+  finish: ('Polished' | 'Matte')[];
   features?: string[];
 };
 
@@ -24,7 +26,9 @@ export default function SearchProducts() {
 
   useEffect(() => {
     sanity
-      .fetch<Product[]>(`*[_type == "product"]{title, slug, finish, features, range->{ title } }`)
+      .fetch<Product[]>(
+        `*[_type == "product"]{title, slug, sku, finish, features, range->{ title } }`,
+      )
       .then((data) => {
         setProducts(data);
         setLoading(false);
@@ -47,6 +51,14 @@ export default function SearchProducts() {
         onClick: () => {
           navigate(`/${product.slug.current}`);
         },
+        rightSection: (
+          <Flex gap="xs">
+            {product.finish.map((finish: 'Polished' | 'Matte') => {
+              const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
+              return <ItemCartToggle key={id} id={id} title={product.title} finish={finish} />;
+            })}
+          </Flex>
+        ),
       })) || [];
 
   if (loading) {
@@ -69,8 +81,10 @@ export default function SearchProducts() {
           leftSection: <IconSearch />,
           placeholder: `${isMobile ? '' : 'Search by '}Slab Name, ID, Range, or Feature...`,
         }}
-        limit={isMobile ? 3 : 7}
         centered={!isMobile}
+        maxHeight={isMobile ? '80vh' : '60vh'}
+        scrollable
+        keepMounted
       />
     </>
   );
