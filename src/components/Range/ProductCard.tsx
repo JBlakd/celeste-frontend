@@ -1,5 +1,5 @@
 import { ItemQuantityInputLazy } from '@components/Product/ItemQuantityInputLazy';
-import { useMantineTheme, Card, Image, Text, Flex, Divider } from '@mantine/core';
+import { useMantineTheme, Card, Image, Text, Flex, Divider, Anchor } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -106,43 +106,54 @@ function ProductCardInternal({
   const navigate = useNavigate();
   const theme = useMantineTheme();
 
-  const handleCardClick = () => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+
+    e.preventDefault();
     navigate(`/${product.slug.current}`);
   };
 
   const imageUrl = product.lowRes?.asset?.url;
 
   return (
-    <Card
-      key={product._id}
-      shadow="sm"
-      padding="md"
-      radius="md"
+    <Anchor
+      href={`/${product.slug.current}`}
       onClick={handleCardClick}
-      style={{
-        cursor: 'pointer',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-        backgroundColor: theme.colors.coolWhite?.[0] || theme.white,
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
-        maxWidth: condensed ? 500 : undefined,
-      }}
-      onMouseEnter={(e) => {
-        if (condensed) return;
-        e.currentTarget.style.transform = 'scale(1.02)';
-        e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.20)';
-      }}
-      onMouseLeave={(e) => {
-        if (condensed) return;
-        e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.12)';
-      }}
+      style={{ display: 'block' }} // full-width clickable
+      underline="never"
     >
-      {condensed ? (
-        <CondensedContent product={product} imageUrl={imageUrl} />
-      ) : (
-        <FullContent product={product} imageUrl={imageUrl} />
-      )}
-    </Card>
+      <Card
+        key={product._id}
+        shadow="sm"
+        padding="md"
+        radius="md"
+        style={{
+          cursor: 'pointer',
+          transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          backgroundColor: theme.colors.coolWhite?.[0] || theme.white,
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
+          maxWidth: condensed ? 500 : undefined,
+        }}
+        onMouseEnter={(e) => {
+          if (condensed) return;
+          e.currentTarget.style.transform = 'scale(1.02)';
+          e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.20)';
+        }}
+        onMouseLeave={(e) => {
+          if (condensed) return;
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.12)';
+        }}
+      >
+        {condensed ? (
+          <CondensedContent product={product} imageUrl={imageUrl} />
+        ) : (
+          <FullContent product={product} imageUrl={imageUrl} />
+        )}
+      </Card>
+    </Anchor>
   );
 }
 

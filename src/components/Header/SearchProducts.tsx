@@ -50,7 +50,7 @@ export default function SearchProducts() {
             description: [product.range.title, finish, ...(product.features ?? [])].join(', '),
             id,
             onClick: () => {
-              navigate(`/${product.slug.current}?finish=${finish.toLowerCase()}`);
+              navigate(`/${product.slug.current}`);
             },
             rightSection: <ItemCartToggle id={id} title={product.title} finish={finish} />,
           };
