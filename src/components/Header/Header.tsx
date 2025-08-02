@@ -57,6 +57,14 @@ function MobileMenu({
             >
               Home
             </Text>
+            <Text
+              onClick={() => {
+                navigate('/all');
+                setMenuOpened(false);
+              }}
+            >
+              All Products
+            </Text>
             <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
             <Text
               onClick={() => {
@@ -95,6 +103,13 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         shouldHeaderBeColoured={shouldHeaderBeColoured}
       >
         Home
+      </StyledNavLink>
+      <StyledNavLink
+        to="/all"
+        className={classes.navLink}
+        shouldHeaderBeColoured={shouldHeaderBeColoured}
+      >
+        All Products
       </StyledNavLink>
       <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink

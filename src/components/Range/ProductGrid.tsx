@@ -2,7 +2,13 @@ import { SimpleGrid, Container } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import ProductCard from './ProductCard';
 
-export default function ProductGrid({ products }: { products: Product[] | null }) {
+export default function ProductGrid({
+  products,
+  condensed,
+}: {
+  products: Product[] | null;
+  condensed?: boolean;
+}) {
   if (!products) {
     return null;
   }
@@ -13,7 +19,7 @@ export default function ProductGrid({ products }: { products: Product[] | null }
         {products
           .sort((a, b) => a.sku.localeCompare(b.sku))
           .map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product._id} product={product} condensed={condensed} />
           ))}
       </SimpleGrid>
     </Container>
