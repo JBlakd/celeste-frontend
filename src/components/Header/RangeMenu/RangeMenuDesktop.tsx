@@ -46,7 +46,7 @@ export default function RangeMenuDesktop({
           }}
           align="center"
         >
-          Products by Range <IconChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />
+          Range <IconChevronDown size={16} style={{ marginLeft: 4, marginTop: 4 }} />
         </Flex>
       </Menu.Target>
 
