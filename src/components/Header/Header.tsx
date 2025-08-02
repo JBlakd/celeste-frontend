@@ -155,7 +155,7 @@ export default function Header({ headerRef }: { headerRef: RefObject<HTMLDivElem
       className={classes.header}
       style={{
         backgroundColor: shouldHeaderBeColoured
-          ? theme.colors.coolWhite[0]
+          ? theme.colors.coolWhite[3]
           : theme.colors.transparent[0],
       }}
       onMouseEnter={() => {

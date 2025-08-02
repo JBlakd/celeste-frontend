@@ -10,7 +10,7 @@ function AppRoutes() {
 const theme = createTheme({
   primaryColor: 'celesteGold',
   black: '#1E1A17',
-  white: '#FFFFFF',
+  white: '#F7F8F9',
   colors: {
     transparent: [
       'rgba(0, 0, 0, 0)',

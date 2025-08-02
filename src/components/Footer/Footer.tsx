@@ -106,7 +106,7 @@ export default function SiteFooter() {
       component="footer"
       style={(theme) => ({
         borderTop: `1px solid ${theme.colors.gray[3]}`,
-        backgroundColor: theme.colors.coolWhite[0],
+        backgroundColor: theme.colors.coolWhite[3],
         paddingTop: theme.spacing.xl,
         paddingBottom: theme.spacing.xl,
       })}
