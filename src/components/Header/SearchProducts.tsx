@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Spotlight, openSpotlight } from '@mantine/spotlight';
-import { ActionIcon, Flex, Loader, Tooltip } from '@mantine/core';
+import { ActionIcon, Loader, Tooltip } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
@@ -42,24 +42,20 @@ export default function SearchProducts() {
   const actions =
     products
       .filter((product) => product.range)
-      .map((product) => ({
-        label: `${product.title} | ${product.slug.current.toUpperCase()}`,
-        description: [product.range.title, ...product.finish, ...(product.features ?? [])].join(
-          ', ',
-        ),
-        id: product.slug.current,
-        onClick: () => {
-          navigate(`/${product.slug.current}`);
-        },
-        rightSection: (
-          <Flex gap="xs">
-            {product.finish.map((finish: 'Polished' | 'Matte') => {
-              const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
-              return <ItemCartToggle key={id} id={id} title={product.title} finish={finish} />;
-            })}
-          </Flex>
-        ),
-      })) || [];
+      .flatMap((product) => {
+        return product.finish.map((finish: 'Polished' | 'Matte') => {
+          const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
+          return {
+            label: `${product.title} | ${product.sku}`,
+            description: [product.range.title, finish, ...(product.features ?? [])].join(', '),
+            id,
+            onClick: () => {
+              navigate(`/${product.slug.current}?finish=${finish.toLowerCase()}`);
+            },
+            rightSection: <ItemCartToggle id={id} title={product.title} finish={finish} />,
+          };
+        });
+      }) || [];
 
   if (loading) {
     return <Loader size="xs" />;
