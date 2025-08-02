@@ -1,4 +1,4 @@
-import { ItemQuantityInput } from '@components/Product/ItemQuantityInput';
+import { ItemQuantityInputLazy } from '@components/Product/ItemQuantityInputLazy';
 import { useMantineTheme, Card, Image, Text, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import { useNavigate } from 'react-router-dom';
@@ -70,15 +70,19 @@ function CondensedContent({
       </Flex>
 
       <Flex gap="xs" wrap="wrap">
-        {product.finish?.map((finish) => (
-          <ItemQuantityInput
-            key={finish}
-            id={product._id}
-            title={product.title}
-            finish={finish}
-            label="condensed"
-          />
-        ))}
+        {product.finish?.map((finish) => {
+          const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
+
+          return (
+            <ItemQuantityInputLazy
+              key={finish}
+              id={id}
+              title={product.title}
+              finish={finish}
+              label="condensed"
+            />
+          );
+        })}
       </Flex>
     </>
   );
