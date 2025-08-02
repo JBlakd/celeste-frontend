@@ -1,0 +1,8 @@
+/* spotlight.module.css */
+.action {
+  transition: background-color 120ms ease;
+}
+
+.action:hover {
+  background-color: #EADCCC; /* or your custom hover shade */
+}

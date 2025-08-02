@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { sanity } from '@lib/sanity';
 import { useMediaQuery } from '@mantine/hooks';
 import { ItemCartToggle } from '@components/Product/ItemCartToggle';
+import spotlightStyles from './SearchProducts.module.css';
 
 type Product = {
   slug: { current: string };
@@ -81,6 +82,9 @@ export default function SearchProducts() {
         maxHeight={isMobile ? '80vh' : '60vh'}
         scrollable
         keepMounted
+        classNames={{
+          action: spotlightStyles.action,
+        }}
       />
     </>
   );
