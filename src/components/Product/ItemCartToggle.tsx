@@ -37,20 +37,29 @@ export function ItemCartToggle({
 
   if (!user) return null;
 
+  const subtleHoverColor = theme.colors.celesteGold[0]; // pale hover color
+
   return (
-    <Tooltip label={inCart ? 'Remove from cart' : label} withArrow>
+    <Tooltip label={inCart ? 'Remove from cart' : label} withArrow position="right" zIndex={9999}>
       <div
         onClick={toggleItem}
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 6,
-          borderRadius: 6,
+          borderRadius: theme.radius.sm,
           cursor: 'pointer',
+          transition: 'background-color 120ms ease',
+          padding: '0.25rem',
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLDivElement).style.backgroundColor = subtleHoverColor;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLDivElement).style.backgroundColor = 'transparent';
         }}
       >
-        {inCart ? <IconCheck color={theme.colors.celesteGreen[8]} /> : <IconShoppingCartPlus />}
+        {inCart ? <IconCheck color={theme.colors.celesteGreen?.[8]} /> : <IconShoppingCartPlus />}
       </div>
     </Tooltip>
   );
