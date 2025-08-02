@@ -1,7 +1,7 @@
 import { useCart } from '@context/cart/useCart';
 import { useAuth } from '@context/auth/useAuth';
 import { IconShoppingCartPlus, IconCheck } from '@tabler/icons-react';
-import { Tooltip } from '@mantine/core';
+import { Tooltip, useMantineTheme } from '@mantine/core';
 
 export function ItemCartToggle({
   id,
@@ -16,6 +16,7 @@ export function ItemCartToggle({
 }) {
   const { user } = useAuth();
   const { cart, setItem } = useCart();
+  const theme = useMantineTheme();
 
   const cartItem = cart?.items.find(
     (item) => item.id === id && item.title === title && item.finish === finish,
@@ -49,7 +50,7 @@ export function ItemCartToggle({
           cursor: 'pointer',
         }}
       >
-        {inCart ? <IconCheck /> : <IconShoppingCartPlus />}
+        {inCart ? <IconCheck color={theme.colors.celesteGreen[8]} /> : <IconShoppingCartPlus />}
       </div>
     </Tooltip>
   );
