@@ -50,16 +50,18 @@ export default function RangeMenuMobile({
       </Menu.Target>
 
       <Menu.Dropdown>
-        {ranges.map((range) => (
-          <Menu.Item
-            key={range._id}
-            component={Link}
-            to={`/range/${range.slug.current}`}
-            w={140} // tighter
-          >
-            <Text fw={400}>{range.title}</Text>
-          </Menu.Item>
-        ))}
+        {ranges
+          .filter((range) => range.slug.current !== 'all')
+          .map((range) => (
+            <Menu.Item
+              key={range._id}
+              component={Link}
+              to={`/range/${range.slug.current}`}
+              w={140} // tighter
+            >
+              <Text fw={400}>{range.title}</Text>
+            </Menu.Item>
+          ))}
       </Menu.Dropdown>
     </Menu>
   );

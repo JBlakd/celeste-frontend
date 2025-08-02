@@ -51,11 +51,13 @@ export default function RangeMenuDesktop({
       </Menu.Target>
 
       <Menu.Dropdown>
-        {ranges.map((range) => (
-          <Menu.Item key={range._id} component={Link} to={`/range/${range.slug.current}`}>
-            <Text fw={400}>{range.title}</Text>
-          </Menu.Item>
-        ))}
+        {ranges
+          .filter((range) => range.slug.current !== 'all')
+          .map((range) => (
+            <Menu.Item key={range._id} component={Link} to={`/range/${range.slug.current}`}>
+              <Text fw={400}>{range.title}</Text>
+            </Menu.Item>
+          ))}
       </Menu.Dropdown>
     </Menu>
   );
