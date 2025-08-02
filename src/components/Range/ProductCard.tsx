@@ -45,8 +45,6 @@ function CondensedContent({
   product: Product;
   imageUrl: string | undefined;
 }) {
-  const theme = useMantineTheme();
-
   return (
     <>
       {imageUrl && (
