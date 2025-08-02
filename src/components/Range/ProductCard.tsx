@@ -1,11 +1,11 @@
 import { ItemQuantityInputLazy } from '@components/Product/ItemQuantityInputLazy';
 import { useMantineTheme, Card, Image, Text, Flex } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function FullContent({ product, imageUrl }: { product: Product; imageUrl: string | undefined }) {
   return (
-    // 🔸 Full layout
     <>
       {imageUrl && (
         <Card.Section>
@@ -88,7 +88,7 @@ function CondensedContent({
   );
 }
 
-export default function ProductCard({
+function ProductCardInternal({
   product,
   condensed = false,
 }: {
@@ -119,10 +119,12 @@ export default function ProductCard({
         maxWidth: condensed ? 500 : undefined,
       }}
       onMouseEnter={(e) => {
+        if (condensed) return;
         e.currentTarget.style.transform = 'scale(1.02)';
         e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.20)';
       }}
       onMouseLeave={(e) => {
+        if (condensed) return;
         e.currentTarget.style.transform = 'scale(1)';
         e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.12)';
       }}
@@ -135,3 +137,8 @@ export default function ProductCard({
     </Card>
   );
 }
+
+export default React.memo(
+  ProductCardInternal,
+  (prev, next) => JSON.stringify(prev.product) === JSON.stringify(next.product),
+);
