@@ -2,6 +2,7 @@ import { useCart } from '@context/cart/useCart';
 import { useAuth } from '@context/auth/useAuth';
 import { IconShoppingCartPlus, IconCheck } from '@tabler/icons-react';
 import { Tooltip, useMantineTheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function ItemCartToggle({
   id,
@@ -17,6 +18,7 @@ export function ItemCartToggle({
   const { user } = useAuth();
   const { cart, setItem } = useCart();
   const theme = useMantineTheme();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const cartItem = cart?.items.find(
     (item) => item.id === id && item.title === title && item.finish === finish,
@@ -53,9 +55,11 @@ export function ItemCartToggle({
           padding: '0.25rem',
         }}
         onMouseEnter={(e) => {
+          if (isMobile) return;
           (e.currentTarget as HTMLDivElement).style.backgroundColor = subtleHoverColor;
         }}
         onMouseLeave={(e) => {
+          if (isMobile) return;
           (e.currentTarget as HTMLDivElement).style.backgroundColor = 'transparent';
         }}
       >
