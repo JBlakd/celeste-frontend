@@ -54,53 +54,61 @@ export default function Contact() {
   };
 
   return (
-    <Container py="xl" maw={600}>
-      <Title order={2} mb="md">
-        Contact Us
-      </Title>
-      <Text mb="lg">
-        Got questions or need a custom quote? Reach out and we’ll get back to you very soon!
-      </Text>
+    <>
+      <title>Celeste Stone | Contact Us</title>
+      <meta
+        name="description"
+        content="Have questions or need a custom quote? Reach out and we’ll get back to you very soon!"
+      />
+      <link rel="canonical" href="https://celestestone.com.au/contact" />
+      <Container py="xl" maw={600}>
+        <Title order={2} mb="md">
+          Contact Us
+        </Title>
+        <Text mb="lg">
+          Got questions or need a custom quote? Reach out and we’ll get back to you very soon!
+        </Text>
 
-      <Stack>
-        <TextInput
-          label="Your Name"
-          placeholder="Your Name"
-          required
-          value={name}
-          onChange={(e) => setName(e.currentTarget.value)}
-        />
-        <TextInput
-          label="Email"
-          placeholder="your-email@example.com"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <Textarea
-          label="Message"
-          placeholder="Tell us what kind of slabs you're after..."
-          required
-          minRows={4}
-          value={message}
-          onChange={(e) => setMessage(e.currentTarget.value)}
-        />
-        <Button
-          variant="filled"
-          color="dark"
-          onClick={handleSubmit}
-          loading={status === 'sending'}
-          disabled={!name || !message || !isValidEmail(email)}
-        >
-          Send Message
-        </Button>
-        {status === 'success' && (
-          <Text c={theme.colors.celesteGreen[5]}>Message sent! We’ll get back to you soon.</Text>
-        )}
-        {status === 'error' && (
-          <Text c={theme.colors.celesteRed[5]}>Something went wrong. Try again later.</Text>
-        )}
-      </Stack>
-    </Container>
+        <Stack>
+          <TextInput
+            label="Your Name"
+            placeholder="Your Name"
+            required
+            value={name}
+            onChange={(e) => setName(e.currentTarget.value)}
+          />
+          <TextInput
+            label="Email"
+            placeholder="your-email@example.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.currentTarget.value)}
+          />
+          <Textarea
+            label="Message"
+            placeholder="Tell us what kind of slabs you're after..."
+            required
+            minRows={4}
+            value={message}
+            onChange={(e) => setMessage(e.currentTarget.value)}
+          />
+          <Button
+            variant="filled"
+            color="dark"
+            onClick={handleSubmit}
+            loading={status === 'sending'}
+            disabled={!name || !message || !isValidEmail(email)}
+          >
+            Send Message
+          </Button>
+          {status === 'success' && (
+            <Text c={theme.colors.celesteGreen[5]}>Message sent! We’ll get back to you soon.</Text>
+          )}
+          {status === 'error' && (
+            <Text c={theme.colors.celesteRed[5]}>Something went wrong. Try again later.</Text>
+          )}
+        </Stack>
+      </Container>
+    </>
   );
 }

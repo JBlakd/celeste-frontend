@@ -59,6 +59,12 @@ export default function Home() {
 
   return (
     <>
+      <title>Celeste Stone | Silica-Free Surfaces</title>
+      <meta
+        name="description"
+        content="Natural aesthetics, reimagined without a single crystal of compromise."
+      />
+      <link rel="canonical" href="https://celestestone.com.au/" />
       <Box
         className={classes.heroSection}
         style={{

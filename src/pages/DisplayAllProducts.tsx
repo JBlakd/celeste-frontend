@@ -89,6 +89,12 @@ export default function DisplayAllProducts() {
 
   return (
     <>
+      <title>Celeste Stone | All Products</title>
+      <meta
+        name="description"
+        content="View and order all of our products in one convenient page."
+      />
+      <link rel="canonical" href="https://celestestone.com.au/all" />
       <RangeHero range={range} />
       {products?.length ? (
         <ProductGrid products={products} condensed />
