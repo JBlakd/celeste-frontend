@@ -96,7 +96,7 @@ export default function ProductCard({
     navigate(`/${product.slug.current}`);
   };
 
-  const imageUrl = product.lowRes?.asset?.url || product.image?.asset?.url;
+  const imageUrl = product.lowRes?.asset?.url;
 
   return (
     <Card
