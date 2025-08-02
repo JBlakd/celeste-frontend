@@ -42,7 +42,8 @@ export default function RangeHero({ range }: { range: Range | null }) {
         py="xl"
       >
         <Title order={1} c={theme.colors.coolWhite[0]}>
-          {range.title} Range
+          {range.title}
+          {range.slug.current === 'all' ? '' : ' Range'}
         </Title>
         <Text c={theme.colors.coolWhite[0]} style={{ textAlign: 'center' }}>
           {range.description}

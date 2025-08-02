@@ -1,16 +1,29 @@
 import { useEffect, useState } from 'react';
 import { Text, Loader, Center, Box } from '@mantine/core';
 import { sanity } from '../lib/sanity';
-import type { Product } from '@typedefs/sanity';
+import type { Product, Range } from '@typedefs/sanity';
 import RangeHero from '@components/Range/RangeHero';
 import ProductGrid from '@components/Range/ProductGrid';
 
 export default function DisplayAllProducts() {
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [range, setRange] = useState<Range | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const query = `*[_type == "product"]{
+    const rangeQuery = `*[_type == "range" && slug.current == $slug][0]{
+      title,
+      description,
+      slug,
+      heroImage {
+        asset->{
+          url
+        }
+      }
+    }`;
+
+    const productsQuery = `*[_type == "product"]{
       _id,
       title,
       description,
@@ -39,14 +52,17 @@ export default function DisplayAllProducts() {
       }
     }`;
 
-    sanity
-      .fetch<Product[]>(query)
-      .then((data) => {
-        setProducts(data);
+    Promise.all([
+      sanity.fetch(rangeQuery, { slug: 'all' }),
+      sanity.fetch(productsQuery, { slug: 'all' }),
+    ])
+      .then(([rangeData, productData]) => {
+        setRange(rangeData);
+        setProducts(productData);
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Failed to fetch products:', err);
+        console.error('Failed to fetch range or products:', err);
         setLoading(false);
       });
   }, []);
@@ -73,7 +89,7 @@ export default function DisplayAllProducts() {
 
   return (
     <>
-      <RangeHero range={null} />
+      <RangeHero range={range} />
       {products?.length ? (
         <ProductGrid products={products} condensed />
       ) : (
