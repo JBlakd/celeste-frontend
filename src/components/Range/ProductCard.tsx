@@ -18,6 +18,7 @@ function FullContent({ product, imageUrl }: { product: Product; imageUrl: string
               filter: 'blur(0.5px)',
               objectFit: 'cover',
             }}
+            loading="lazy"
           />
         </Card.Section>
       )}
@@ -57,6 +58,7 @@ function CondensedContent({
               filter: 'blur(0.5px)',
               objectFit: 'cover',
             }}
+            loading="lazy"
           />
         </Card.Section>
       )}
