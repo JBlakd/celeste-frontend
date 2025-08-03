@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Container, Title, Text, Box, Image } from '@mantine/core';
+import { Container, Title, Text, Box, Image, List, useMantineTheme } from '@mantine/core';
 import { sanity } from '@lib/sanity';
 import type { AboutUsPage } from '@typedefs/sanity';
 
 export default function About() {
   const [aboutUs, setAboutUs] = useState<AboutUsPage | null>(null);
+  const theme = useMantineTheme();
 
   useEffect(() => {
     sanity
@@ -41,45 +42,58 @@ export default function About() {
       <link rel="canonical" href="https://celestestone.com.au/about" />
 
       <Container size="lg" py="xl">
-        <Title order={2} mb="md">
+        <Title order={2} mb="xl" c={theme.colors.celesteGold[5]}>
           {aboutUs.pageTitle}
         </Title>
 
         {aboutUs.mission && (
-          <Box mb="md">
-            <Title order={4}>Our Mission</Title>
-            <Text>{aboutUs.mission}</Text>
+          <Box mb="xl">
+            <Title order={4} mb="xs">
+              Our Mission
+            </Title>
+            <Text c={theme.colors.gray[7]}>{aboutUs.mission}</Text>
           </Box>
         )}
 
         {aboutUs.vision && (
-          <Box mb="md">
-            <Title order={4}>Our Vision</Title>
-            <Text>{aboutUs.vision}</Text>
+          <Box mb="xl">
+            <Title order={4} mb="xs">
+              Our Vision
+            </Title>
+            <Text c={theme.colors.gray[7]}>{aboutUs.vision}</Text>
           </Box>
         )}
 
         {aboutUs.factoryParagraphs?.map((section, i) => (
-          <Box key={i} mb="lg">
+          <Box key={i} mb="xl">
             {section.title && (
-              <Title order={5} mb="xs">
+              <Title order={4} mb="xs">
                 {section.title}
               </Title>
             )}
-            {section.body && <Text>{section.body}</Text>}
+            {section.body &&
+              (section.body.startsWith('-') ? (
+                <List spacing="xs" size="md" c={theme.colors.gray[7]} withPadding>
+                  {section.body
+                    .split('\n')
+                    .filter((line) => line.trim().startsWith('-'))
+                    .map((line, index) => (
+                      <List.Item key={index}>{line.replace(/^\s*-\s*/, '')}</List.Item>
+                    ))}
+                </List>
+              ) : (
+                <Text c={theme.colors.gray[7]}>{section.body}</Text>
+              ))}
           </Box>
         ))}
 
         {aboutUs.factoryCarousel?.length && (
           <Box mt="xl">
-            <Title order={4} mb="sm">
-              Our Factory
-            </Title>
             <Box
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '1rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '1.5rem',
               }}
             >
               {aboutUs.factoryCarousel.map((item, i) => (
@@ -93,11 +107,15 @@ export default function About() {
                     />
                   )}
                   {item.title && (
-                    <Title order={6} mt="xs">
+                    <Title order={6} mt="sm">
                       {item.title}
                     </Title>
                   )}
-                  {item.caption && <Text size="sm">{item.caption}</Text>}
+                  {item.caption && (
+                    <Text size="sm" c={theme.colors.gray[7]}>
+                      {item.caption}
+                    </Text>
+                  )}
                 </Box>
               ))}
             </Box>
