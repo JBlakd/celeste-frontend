@@ -59,13 +59,27 @@ export default function About() {
         }}
       >
         {modalImage && (
-          <Image
-            src={modalImage}
-            alt="Enlarged factory image"
-            radius="sm"
-            fit="contain"
-            style={{ maxHeight: '80vh' }}
-          />
+          <Box
+            style={{
+              height: '80vh',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'black',
+            }}
+          >
+            <img
+              src={modalImage}
+              alt="Enlarged factory image"
+              style={{
+                height: '100%',
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          </Box>
         )}
       </Modal>
 
