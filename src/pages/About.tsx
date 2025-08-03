@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Container, Title, Text, Box, Image, List, useMantineTheme } from '@mantine/core';
+import { Container, Title, Text, Box, Image, List, useMantineTheme, Modal } from '@mantine/core';
 import { sanity } from '@lib/sanity';
 import type { AboutUsPage } from '@typedefs/sanity';
 
 export default function About() {
   const [aboutUs, setAboutUs] = useState<AboutUsPage | null>(null);
+  const [modalImage, setModalImage] = useState<string | null>(null);
   const theme = useMantineTheme();
 
   useEffect(() => {
@@ -40,6 +41,33 @@ export default function About() {
       <title>Celeste Stone | About Us</title>
       <meta name="description" content="Learn about our mission, vision and partnerships." />
       <link rel="canonical" href="https://celestestone.com.au/about" />
+
+      <Modal
+        opened={!!modalImage}
+        onClose={() => setModalImage(null)}
+        size="auto"
+        centered
+        withCloseButton={false}
+        styles={{
+          body: { padding: 0 },
+        }}
+        withinPortal
+        zIndex={9999}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3,
+        }}
+      >
+        {modalImage && (
+          <Image
+            src={modalImage}
+            alt="Enlarged factory image"
+            radius="sm"
+            fit="contain"
+            style={{ maxHeight: '80vh' }}
+          />
+        )}
+      </Modal>
 
       <Container size="lg" py="xl">
         <Title order={2} mb="xl" c={theme.colors.celesteGold[5]}>
@@ -97,13 +125,14 @@ export default function About() {
               }}
             >
               {aboutUs.factoryCarousel.map((item, i) => (
-                <Box key={i}>
+                <Box key={i} style={{ cursor: item.image?.asset?.url ? 'pointer' : 'default' }}>
                   {item.image?.asset?.url && (
                     <Image
                       src={item.image.asset.url}
                       alt={item.caption || item.title || `Factory image ${i + 1}`}
                       radius="md"
                       fit="cover"
+                      onClick={() => setModalImage(item.image.asset.url || null)}
                     />
                   )}
                   {item.title && (
