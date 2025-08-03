@@ -125,3 +125,33 @@ export interface Product {
   finish: ('Matte' | 'Polished')[];
   features?: string[];
 }
+
+export interface AboutUsPage {
+  _type: 'aboutUs';
+  _id: string;
+  _rev?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+
+  pageTitle: string;
+  mission?: string;
+  vision?: string;
+
+  factoryParagraphs?: Array<{
+    title?: string;
+    body?: string;
+  }>;
+
+  factoryCarousel?: Array<{
+    image: {
+      _type: 'image';
+      asset: {
+        _ref: string;
+        _type: 'reference';
+        url?: string;
+      };
+    };
+    title?: string;
+    caption?: string;
+  }>;
+}
