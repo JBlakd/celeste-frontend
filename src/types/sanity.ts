@@ -72,6 +72,7 @@ export interface Product {
   };
   sku: string;
   description?: string;
+  rank: number;
   image?: {
     _type: 'image';
     asset: {

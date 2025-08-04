@@ -30,6 +30,7 @@ export default function DisplayAllProducts() {
       finish,
       slug,
       sku,
+      rank,
       image {
         asset->{
           url

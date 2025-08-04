@@ -31,6 +31,7 @@ export default function DisplayRangeProducts() {
       title,
       description,
       finish,
+      rank,
       slug,
       sku,
       image {

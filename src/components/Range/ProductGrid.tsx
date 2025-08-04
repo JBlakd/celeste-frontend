@@ -13,11 +13,13 @@ export default function ProductGrid({
     return null;
   }
 
+  console.log('Rendering ProductGrid with products:', products);
+
   return (
     <Container size="lg" mb="2rem">
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="xl">
         {products
-          .sort((a, b) => a.sku.localeCompare(b.sku))
+          .sort((a, b) => b.rank - a.rank)
           .map((product) => (
             <ProductCard key={product._id} product={product} condensed={condensed} />
           ))}
