@@ -6,6 +6,7 @@ import '@mantine/spotlight/styles.css';
 import '@mantine/notifications/styles.css';
 import { AuthProvider } from '@context/auth/AuthProvider';
 import { CartProvider } from '@context/cart/CartProvider.tsx';
+import './app.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

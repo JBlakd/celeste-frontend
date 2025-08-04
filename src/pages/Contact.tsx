@@ -94,7 +94,6 @@ export default function Contact() {
           />
           <Button
             variant="filled"
-            color="dark"
             onClick={handleSubmit}
             loading={status === 'sending'}
             disabled={!name || !message || !isValidEmail(email)}

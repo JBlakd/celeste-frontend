@@ -132,7 +132,7 @@ function ProductCardInternal({
         style={{
           cursor: 'pointer',
           transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-          backgroundColor: theme.colors.coolWhite?.[0] || theme.white,
+          backgroundColor: theme.colors.coolWhite?.[5] || theme.white,
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
           maxWidth: condensed ? 500 : undefined,
         }}

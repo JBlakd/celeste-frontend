@@ -15,7 +15,7 @@ export default function ProductGrid({
 
   return (
     <Container size="lg" mb="2rem">
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }}>
+      <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="xl">
         {products
           .sort((a, b) => a.sku.localeCompare(b.sku))
           .map((product) => (

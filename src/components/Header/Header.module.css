@@ -4,7 +4,7 @@
   top: 0;
   z-index: 1000;
   background-color: var(--mantine-color-white);
-  border-bottom: 1px solid var(--mantine-color-gray-2);
+  border-bottom: 1px solid var(--mantine-color-gray-5);
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
 }
 
