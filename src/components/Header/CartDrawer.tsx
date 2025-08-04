@@ -65,7 +65,6 @@ async function submitCart(
     };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
-    console.log('about to show notification', message);
     showNotification({
       message: 'Failed to submit cart',
       color: theme.colors.celesteRed[5],

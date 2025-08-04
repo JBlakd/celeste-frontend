@@ -13,8 +13,6 @@ export default function ProductGrid({
     return null;
   }
 
-  console.log('Rendering ProductGrid with products:', products);
-
   return (
     <Container size="lg" mb="2rem">
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="xl">
