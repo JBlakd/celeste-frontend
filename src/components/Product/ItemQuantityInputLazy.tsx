@@ -47,6 +47,7 @@ export function ItemQuantityInputLazy({
 
   const activate = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     setActivated(true);
     if (!value) {
       setValue(1);
