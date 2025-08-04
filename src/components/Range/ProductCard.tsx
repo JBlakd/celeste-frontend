@@ -1,4 +1,5 @@
 import { ItemQuantityInputLazy } from '@components/Product/ItemQuantityInputLazy';
+import { useAuth } from '@context/auth/useAuth';
 import { useMantineTheme, Card, Image, Text, Flex, Divider, Anchor } from '@mantine/core';
 import type { Product } from '@typedefs/sanity';
 import React from 'react';
@@ -45,6 +46,8 @@ function CondensedContent({
   product: Product;
   imageUrl: string | undefined;
 }) {
+  const { user } = useAuth();
+
   return (
     <>
       {imageUrl && (
@@ -69,29 +72,32 @@ function CondensedContent({
         </Text>
       </Flex>
 
-      <Divider
-        my="0.35rem"
-        size="xs"
-        style={{
-          borderTop: '1px solid rgba(0, 0, 0, 0.10)',
-          opacity: 0.7,
-        }}
-      />
-
-      <Flex gap="xs" wrap="wrap">
-        {product.finish?.map((finish) => {
-          const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
-          return (
-            <ItemQuantityInputLazy
-              key={finish}
-              id={id}
-              title={product.title}
-              finish={finish}
-              label="condensed"
-            />
-          );
-        })}
-      </Flex>
+      {user && (
+        <>
+          <Divider
+            my="0.35rem"
+            size="xs"
+            style={{
+              borderTop: '1px solid rgba(0, 0, 0, 0.10)',
+              opacity: 0.7,
+            }}
+          />
+          <Flex gap="xs" wrap="wrap">
+            {product.finish?.map((finish) => {
+              const id = `${product.sku}-${finish === 'Matte' ? 'M' : 'P'}`;
+              return (
+                <ItemQuantityInputLazy
+                  key={finish}
+                  id={id}
+                  title={product.title}
+                  finish={finish}
+                  label="condensed"
+                />
+              );
+            })}
+          </Flex>
+        </>
+      )}
     </>
   );
 }
