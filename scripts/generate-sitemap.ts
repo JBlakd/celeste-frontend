@@ -24,13 +24,15 @@ async function generateSitemap() {
 
   // --- Dynamic ranges ---
   const ranges: { slug: { current: string } }[] = await sanity.fetch(`*[_type == "range"]{ slug }`);
-  ranges.forEach((r) => {
-    smStream.write({
-      url: `/range/${r.slug.current}`,
-      changefreq: 'weekly',
-      priority: 0.8,
+  ranges
+    .filter((r) => r.slug.current !== 'all')
+    .forEach((r) => {
+      smStream.write({
+        url: `/range/${r.slug.current}`,
+        changefreq: 'weekly',
+        priority: 0.8,
+      });
     });
-  });
 
   // --- Dynamic products ---
   const products: { slug: { current: string } }[] = await sanity.fetch(
