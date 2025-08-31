@@ -123,13 +123,12 @@ export default function Resources() {
           <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 3 }} spacing="md">
             {data.resources!.map((res, i) => {
               const asset = res.file?.asset;
-              const href = asset?.url ?? '';
-              const filename = asset?.originalFilename ?? '';
+              const baseUrl = asset?.url ?? '';
+              const filename = asset?.originalFilename || 'download';
+              const downloadUrl = baseUrl ? `${baseUrl}?dl=${encodeURIComponent(filename)}` : '';
               const size = bytesToReadable(asset?.size);
               const mime = asset?.mimeType ?? '';
-              const mimeLabel = mime
-                ? mime.split('/').pop()?.toLowerCase() // "application/pdf" -> "pdf"
-                : '';
+              const mimeLabel = mime ? mime.split('/').pop()?.toLowerCase() : '';
 
               return (
                 <Card key={i} withBorder radius="md" padding="lg">
@@ -147,15 +146,15 @@ export default function Resources() {
                   ) : null}
 
                   <Text size="xs" c={theme.colors.gray[6]} mb="md">
-                    {filename}
+                    {asset?.originalFilename}
                     {size ? ` • ${size}` : ''}
                   </Text>
 
                   <Group justify="space-between">
-                    {href ? (
+                    {baseUrl ? (
                       <>
                         <Anchor
-                          href={href}
+                          href={baseUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           c={theme.colors.blue[6]}
@@ -165,8 +164,7 @@ export default function Resources() {
                         </Anchor>
                         <Button
                           component="a"
-                          href={href}
-                          download={filename || true}
+                          href={downloadUrl} // force attachment via ?dl=
                           leftSection={<IconDownload size={16} />}
                           variant="filled"
                           color="dark"
