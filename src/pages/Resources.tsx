@@ -145,9 +145,12 @@ export default function Resources() {
                     </Text>
                   ) : null}
 
-                  <Text size="xs" c={theme.colors.gray[6]} mb="md">
+                  <Text size="xs" c={theme.colors.gray[6]} lineClamp={1}>
                     {asset?.originalFilename}
-                    {size ? ` • ${size}` : ''}
+                  </Text>
+
+                  <Text size="xs" c={theme.colors.gray[6]} mb="md">
+                    {size ? `${size}` : ''}
                   </Text>
 
                   <Group justify="space-between">
