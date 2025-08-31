@@ -156,3 +156,35 @@ export interface AboutUsPage {
     caption?: string;
   }>;
 }
+
+export interface ResourceAsset {
+  url?: string;
+  originalFilename?: string;
+  mimeType?: string;
+  size?: number;
+  _ref?: string;
+  _type?: 'reference';
+}
+
+export interface ResourceFile {
+  _type: 'file';
+  asset: ResourceAsset;
+}
+
+export interface ResourceItem {
+  title: string;
+  description?: string;
+  file?: ResourceFile | null;
+}
+
+export interface ResourcePage {
+  _type: 'resourcePage';
+  _id: string;
+  _rev?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+
+  pageTitle: string;
+  paragraphs?: string[];
+  resources?: ResourceItem[];
+}
