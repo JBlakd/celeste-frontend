@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Text, Loader, Box } from '@mantine/core';
+import { Text, Loader, Box, Container, Center } from '@mantine/core';
 import { sanity } from '../lib/sanity';
 import type { Product } from '@typedefs/sanity';
 import ProductImages from '@components/Product/ProductImages';
@@ -91,7 +91,14 @@ export default function ProductDetails() {
       </Box>
     );
 
-  if (!product) return <Text>Product not found</Text>;
+  if (!product)
+    return (
+      <Container size="lg" pt="2rem">
+        <Center>
+          <Text>Page not found</Text>
+        </Center>
+      </Container>
+    );
 
   return (
     <>

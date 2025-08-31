@@ -13,6 +13,8 @@ import { useWindowScroll } from '@mantine/hooks';
 import SearchProducts from './SearchProducts';
 import UserSession from './UserSession';
 import { CartDrawer } from './CartDrawer';
+import InfoMenuDesktop from './InfoMenu/InfoMenuDesktop';
+import InfoMenuMobile from './InfoMenu/InfoMenuMobile';
 
 function MobileMenu({
   shouldHeaderBeColoured,
@@ -66,14 +68,7 @@ function MobileMenu({
               All Products
             </Text>
             <RangeMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
-            <Text
-              onClick={() => {
-                navigate('/about');
-                setMenuOpened(false);
-              }}
-            >
-              About
-            </Text>
+            <InfoMenuMobile shouldHeaderBeColoured={shouldHeaderBeColoured} />
             <Text
               onClick={() => {
                 navigate('/contact');
@@ -112,15 +107,7 @@ function DesktopMenu({ shouldHeaderBeColoured }: { shouldHeaderBeColoured: boole
         All Products
       </StyledNavLink>
       <RangeMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
-      <StyledNavLink
-        to="/about"
-        className={({ isActive }) =>
-          isActive ? `${classes.navLink} ${classes.navLinkActive}` : classes.navLink
-        }
-        shouldHeaderBeColoured={shouldHeaderBeColoured}
-      >
-        About
-      </StyledNavLink>
+      <InfoMenuDesktop shouldHeaderBeColoured={shouldHeaderBeColoured} />
       <StyledNavLink
         to="/contact"
         className={({ isActive }) =>
