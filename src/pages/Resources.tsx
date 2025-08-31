@@ -12,6 +12,7 @@ import {
   List,
   useMantineTheme,
   Skeleton,
+  SimpleGrid,
 } from '@mantine/core';
 import { IconDownload } from '@tabler/icons-react';
 import { sanity } from '@lib/sanity';
@@ -69,16 +70,16 @@ export default function Resources() {
           <Skeleton height={16} mt="xs" />
           <Skeleton height={16} mt="xs" />
           <Skeleton height={16} mt="xs" width="70%" />
-          <Group mt="xl" gap="lg">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} withBorder radius="md" style={{ width: 340 }}>
+          <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md" mt="xl">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} withBorder radius="md">
                 <Skeleton height={18} mb="sm" />
                 <Skeleton height={12} mb="xs" />
                 <Skeleton height={12} width="60%" />
                 <Skeleton height={34} mt="md" />
               </Card>
             ))}
-          </Group>
+          </SimpleGrid>
         </Container>
       </>
     );
@@ -119,19 +120,16 @@ export default function Resources() {
         ) : null}
 
         {hasResources ? (
-          <Box
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '1rem',
-            }}
-          >
+          <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 3 }} spacing="md">
             {data.resources!.map((res, i) => {
               const asset = res.file?.asset;
               const href = asset?.url ?? '';
               const filename = asset?.originalFilename ?? '';
               const size = bytesToReadable(asset?.size);
               const mime = asset?.mimeType ?? '';
+              const mimeLabel = mime
+                ? mime.split('/').pop()?.toLowerCase() // "application/pdf" -> "pdf"
+                : '';
 
               return (
                 <Card key={i} withBorder radius="md" padding="lg">
@@ -139,7 +137,7 @@ export default function Resources() {
                     <Title order={5} style={{ lineHeight: 1.3 }}>
                       {res.title || filename || `File ${i + 1}`}
                     </Title>
-                    {mime ? <Badge variant="light">{mime}</Badge> : null}
+                    {mimeLabel ? <Badge variant="light">{mimeLabel}</Badge> : null}
                   </Group>
 
                   {res.description ? (
@@ -185,7 +183,7 @@ export default function Resources() {
                 </Card>
               );
             })}
-          </Box>
+          </SimpleGrid>
         ) : (
           <Text c={theme.colors.gray[7]}>No resources yet. Check back soon.</Text>
         )}
