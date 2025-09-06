@@ -1,4 +1,4 @@
-import { Box, Container, Group, Image, Stack, Text, Anchor, Divider } from '@mantine/core';
+import { Box, Container, Group, Image, Stack, Text, Anchor, Divider, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import LogoBrandDoubleColorTransparentBackground from '@assets/LogoBrandDoubleColorTransparentBackground.png';
 
@@ -30,7 +30,17 @@ function MobileFooterContent() {
       <Stack gap={4} align="center">
         <Text fw={700}>Contact</Text>
         <Text size="sm">info@celestestone.com.au</Text>
-        <Text size="sm">Mon–Fri: 8am–5pm</Text>
+        <Text size="sm">(02) 7807 0723</Text>
+        <Flex gap="0.3rem">
+          <Text size="sm" fw={700}>
+            Mon–Fri:
+          </Text>
+          <Text size="sm">8am–5:30pm</Text>
+          <Text size="sm" fw={700}>
+            Sat:
+          </Text>
+          <Text size="sm">9am–3pm</Text>
+        </Flex>
       </Stack>
     </Stack>
   );
@@ -66,7 +76,17 @@ function DesktopFooterContent() {
       <Stack gap={4} align="flex-end">
         <Text fw={700}>Contact</Text>
         <Text size="sm">info@celestestone.com.au</Text>
-        <Text size="sm">Mon–Fri: 8am–5pm</Text>
+        <Text size="sm">(02) 7807 0723</Text>
+        <Flex gap="0.3rem">
+          <Text size="sm" fw={700}>
+            Mon–Fri:
+          </Text>
+          <Text size="sm">8am–5:30pm</Text>
+          <Text size="sm" fw={700}>
+            Sat:
+          </Text>
+          <Text size="sm">9am–3pm</Text>
+        </Flex>
       </Stack>
     </Group>
   );
