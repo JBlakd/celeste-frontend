@@ -7,10 +7,16 @@ function MobileFooterContent() {
   return (
     <Stack align="center" gap="xl">
       {/* Logo */}
-      <Image
-        src={LogoBrandDoubleColorTransparentBackground}
-        style={{ height: '3rem', width: 'auto' }}
-      />
+      <Stack gap={4} align="center">
+        <Image
+          src={LogoBrandDoubleColorTransparentBackground}
+          style={{ height: '3rem', width: 'auto', marginBottom: '1.5rem' }}
+        />
+        <Text size="sm" fw={700}>
+          Showroom and Warehouse:
+        </Text>
+        <Text size="sm">95 Mandoon Rd, Girraween, 2143 NSW</Text>
+      </Stack>
 
       {/* Navigation */}
       <Stack gap={4} align="center">
@@ -54,8 +60,12 @@ function DesktopFooterContent() {
       <Box>
         <Image
           src={LogoBrandDoubleColorTransparentBackground}
-          style={{ height: '3rem', width: 'auto' }}
+          style={{ height: '3rem', width: 'auto', marginBottom: '0.5rem' }}
         />
+        <Text size="sm" fw={700}>
+          Showroom and Warehouse:
+        </Text>
+        <Text size="sm">95 Mandoon Rd, Girraween, 2143 NSW</Text>
       </Box>
 
       {/* Navigation */}
