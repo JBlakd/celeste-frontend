@@ -3,6 +3,7 @@ import { Box } from '@mantine/core';
 import Header from '@components/Header/Header';
 import Footer from '@components/Footer/Footer';
 import { useRef, useState, useEffect } from 'react';
+import AnnouncementBar from '@components/Announcement/AnnouncementBar';
 
 export interface OutletContext {
   headerHeight: number;
@@ -25,6 +26,7 @@ export default function RootLayout() {
 
   return (
     <Box pos="relative" mih="100vh" display="flex" style={{ flexDirection: 'column' }}>
+      <AnnouncementBar />
       <Header headerRef={headerRef} />
       <Box style={{ flex: 1 }}>
         <Outlet context={{ headerHeight, headerRef }} />
