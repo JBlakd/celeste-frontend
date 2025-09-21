@@ -86,7 +86,6 @@ export default function Contact() {
           />
           <Textarea
             label="Message"
-            placeholder="Tell us what kind of slabs you're after..."
             required
             minRows={4}
             value={message}
