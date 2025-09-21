@@ -12,7 +12,7 @@ export const FlagsProvider = ({ children }: { children: React.ReactNode }) => {
     });
   }, []);
 
-  const setFlag = (key: string, value: boolean) => {
+  const setFlag = (key: string, value: boolean | string) => {
     setFlags((prev) => {
       if (!prev) return { lastDismissedAnnouncement: null };
 

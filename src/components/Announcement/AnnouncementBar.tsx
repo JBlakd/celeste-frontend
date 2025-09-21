@@ -22,7 +22,10 @@ export default function AnnouncementBar({
     undefined,
   );
   const shouldAnnouncementBeVisible =
-    !!queriedAnnouncement?.message && queriedAnnouncement.message !== lastDismissedAnnouncement;
+    !!queriedAnnouncement?.message &&
+    queriedAnnouncement !== undefined &&
+    lastDismissedAnnouncement !== undefined &&
+    queriedAnnouncement.message !== lastDismissedAnnouncement;
 
   useEffect(() => {
     sanity
@@ -34,6 +37,10 @@ export default function AnnouncementBar({
       .then((res) => setQueriedAnnouncement(res))
       .catch((err) => console.error('Couldn’t fetch announcement content:', err));
   }, []);
+
+  if (!shouldAnnouncementBeVisible) {
+    return null;
+  }
 
   return (
     <Affix
@@ -75,13 +82,13 @@ export default function AnnouncementBar({
                 style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}
               >
                 <Text size="sm" fw={600} c={theme.colors.coolWhite[6]}>
-                  {queriedAnnouncement?.message}
+                  {queriedAnnouncement.message}
                 </Text>
               </Group>
 
               <CloseButton
                 aria-label="Dismiss announcement"
-                onClick={() => setFlag('isAnnouncementDismissed', true)}
+                onClick={() => setFlag('lastDismissedAnnouncement', queriedAnnouncement.message)}
                 c={theme.colors.coolWhite[6]}
                 variant="transparent"
               />
