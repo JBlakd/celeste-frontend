@@ -29,7 +29,8 @@ export default function AnnouncementBar() {
       aria-label="Site announcement"
       withBorder
       radius={0}
-      p="0.3rem"
+      px="1.25rem"
+      py="0.3rem"
       style={{
         /* full-width + safe-area padding for iOS notches */
         width: '100vw',
