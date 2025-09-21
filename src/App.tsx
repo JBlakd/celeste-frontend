@@ -2,6 +2,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { routes } from './routes';
 import { Notifications } from '@mantine/notifications';
+import AnnouncementBar from '@components/Announcement/AnnouncementBar';
 
 function AppRoutes() {
   return useRoutes(routes);
@@ -80,6 +81,7 @@ export default function App() {
   return (
     <MantineProvider defaultColorScheme="light" theme={theme}>
       <Notifications position="top-right" zIndex={2077} />
+      <AnnouncementBar message="Free Delivery within 35km of our Sydney Warehouse!" />
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
