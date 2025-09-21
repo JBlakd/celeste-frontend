@@ -20,6 +20,12 @@ export default function ProductSpecificationsAndQuantity({ product }: { product:
 
             <Stack gap={4}>
               <Text c="gray.9" size="sm" fw={500}>
+                Range:{' '}
+                <Text c="gray.7" span fw={400}>
+                  {product.range?.title}
+                </Text>
+              </Text>
+              <Text c="gray.9" size="sm" fw={500}>
                 Dimensions:{' '}
                 <Text c="gray.7" span fw={400}>
                   {product.dimensions}

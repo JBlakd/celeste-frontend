@@ -121,7 +121,7 @@ export interface Product {
       url?: string;
     };
   }>;
-  range?: RangeRef;
+  range?: Range;
   dimensions?: string;
   finish: ('Matte' | 'Polished')[];
   features?: string[];
