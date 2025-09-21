@@ -9,7 +9,7 @@ localforage.config({
 export const FLAGS_KEY = 'flags';
 
 export interface FlagsData {
-  isAnnouncementDismissed: boolean;
+  lastDismissedAnnouncement: string | null;
 }
 
 export const flagsStoreEntry = {

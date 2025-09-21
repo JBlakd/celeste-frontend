@@ -8,13 +8,13 @@ export const FlagsProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     flagsStoreEntry.get().then((data) => {
       if (data) setFlags(data);
-      else setFlags({ isAnnouncementDismissed: false });
+      else setFlags({ lastDismissedAnnouncement: null });
     });
   }, []);
 
   const setFlag = (key: string, value: boolean) => {
     setFlags((prev) => {
-      if (!prev) return { isAnnouncementDismissed: false };
+      if (!prev) return { lastDismissedAnnouncement: null };
 
       const updatedFlags = { ...prev, [key]: value };
       flagsStoreEntry.set(updatedFlags);

@@ -2,14 +2,14 @@
 import { Affix, Paper, Group, Text, CloseButton, Transition, useMantineTheme } from '@mantine/core';
 import { useReducedMotion } from '@mantine/hooks';
 import { useFlags } from '@context/flags/useFlags';
-import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import type { Announcement } from '@typedefs/sanity';
+import { sanity } from '@lib/sanity';
 
 export default function AnnouncementBar({
-  message,
   zIndex = 400,
   withinPortal = true,
 }: {
-  message: ReactNode;
   zIndex?: number;
   /** set false if you want it rendered in-place instead of a portal */
   withinPortal?: boolean;
@@ -17,7 +17,23 @@ export default function AnnouncementBar({
   const theme = useMantineTheme();
   const prefersReduced = useReducedMotion();
   const { flags, setFlag } = useFlags();
-  const isAnnouncementDismissed = flags?.isAnnouncementDismissed;
+  const lastDismissedAnnouncement = flags?.lastDismissedAnnouncement;
+  const [queriedAnnouncement, setQueriedAnnouncement] = useState<Announcement | null | undefined>(
+    undefined,
+  );
+  const shouldAnnouncementBeVisible =
+    !!queriedAnnouncement?.message && queriedAnnouncement.message !== lastDismissedAnnouncement;
+
+  useEffect(() => {
+    sanity
+      .fetch<Announcement>(
+        `*[_type == "announcement"][0]{
+            message
+          }`,
+      )
+      .then((res) => setQueriedAnnouncement(res))
+      .catch((err) => console.error('Couldn’t fetch announcement content:', err));
+  }, []);
 
   return (
     <Affix
@@ -28,7 +44,7 @@ export default function AnnouncementBar({
       style={{ left: 0, right: 0 }}
     >
       <Transition
-        mounted={!isAnnouncementDismissed}
+        mounted={shouldAnnouncementBeVisible}
         transition="slide-up"
         duration={prefersReduced ? 0 : 200}
         timingFunction="ease"
@@ -59,7 +75,7 @@ export default function AnnouncementBar({
                 style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}
               >
                 <Text size="sm" fw={600} c={theme.colors.coolWhite[6]}>
-                  {message}
+                  {queriedAnnouncement?.message}
                 </Text>
               </Group>
 

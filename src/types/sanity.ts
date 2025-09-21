@@ -188,3 +188,7 @@ export interface ResourcePage {
   paragraphs?: string[];
   resources?: ResourceItem[];
 }
+
+export interface Announcement {
+  message: string;
+}

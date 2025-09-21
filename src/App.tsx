@@ -81,7 +81,7 @@ export default function App() {
   return (
     <MantineProvider defaultColorScheme="light" theme={theme}>
       <Notifications position="top-right" zIndex={2077} />
-      <AnnouncementBar message="Free Delivery within 35km of our Sydney Warehouse!" />
+      <AnnouncementBar />
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
