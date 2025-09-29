@@ -191,6 +191,8 @@ export interface ResourcePage {
 
 export interface Announcement {
   message: string;
+  linkText: string;
+  linkUrl: string;
 }
 
 export interface DeliveryPage {

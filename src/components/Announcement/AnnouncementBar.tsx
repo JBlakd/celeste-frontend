@@ -1,20 +1,24 @@
-import { Paper, Group, Text, useMantineTheme } from '@mantine/core';
+import { Paper, Group, Text, useMantineTheme, Flex } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import type { Announcement } from '@typedefs/sanity';
 import { sanity } from '@lib/sanity';
 import classes from './AnnouncementBar.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function AnnouncementBar() {
   const theme = useMantineTheme();
   const [queriedAnnouncement, setQueriedAnnouncement] = useState<Announcement | null | undefined>(
     undefined,
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     sanity
       .fetch<Announcement>(
         `*[_type == "announcement"][0]{
-            message
+            message,
+            linkText,
+            linkUrl
           }`,
       )
       .then((res) => setQueriedAnnouncement(res))
@@ -46,9 +50,23 @@ export default function AnnouncementBar() {
         wrap="nowrap"
         style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}
       >
-        <Text size="sm" fw={600} c={theme.colors.coolWhite[6]}>
-          {queriedAnnouncement?.message}
-        </Text>
+        <Flex gap="0.25rem">
+          <Text size="sm" fw={600} c={theme.colors.coolWhite[6]}>
+            {queriedAnnouncement?.message}
+          </Text>
+          {queriedAnnouncement?.linkUrl && queriedAnnouncement?.linkText && (
+            <Text
+              size="sm"
+              fw={700}
+              c={theme.colors.coolWhite[6]}
+              td="underline"
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate(queriedAnnouncement?.linkUrl || '/')}
+            >
+              {queriedAnnouncement?.linkText}
+            </Text>
+          )}
+        </Flex>
       </Group>
     </Paper>
   );
