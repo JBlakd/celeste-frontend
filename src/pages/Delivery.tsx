@@ -112,8 +112,6 @@ export default function Delivery() {
         {mapUrl ? (
           <Box
             style={{
-              height: '85vh',
-              width: '85vw',
               maxWidth: '1400px',
               display: 'flex',
               alignItems: 'center',
@@ -124,11 +122,14 @@ export default function Delivery() {
             <img
               src={mapUrl}
               alt="Delivery area map (expanded)"
+              // natural size, only constrained by viewport
               style={{
-                maxHeight: '100%',
-                maxWidth: '100%',
-                objectFit: 'contain',
+                maxWidth: '90vw',
+                maxHeight: '90vh',
+                width: 'auto',
+                height: 'auto',
                 display: 'block',
+                borderRadius: '8px',
               }}
             />
           </Box>
@@ -209,7 +210,7 @@ export default function Delivery() {
                     />
                   </AspectRatio>
                   <Text size="sm" c={theme.colors.gray[6]} ta="center" mt="xs">
-                    Click to enlarge
+                    Indicative Delivery Map (click to enlarge)
                   </Text>
                 </Card>
               </Box>
