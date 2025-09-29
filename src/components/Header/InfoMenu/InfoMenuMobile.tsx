@@ -12,7 +12,7 @@ export default function InfoMenuMobile({
 
   const [menuOpened, setMenuOpened] = useState(false);
 
-  const menuItemNames = ['About', 'Resources'];
+  const menuItemNames = ['About', 'Resources', 'Delivery'];
 
   return (
     <Menu
@@ -43,7 +43,7 @@ export default function InfoMenuMobile({
           <Menu.Item
             key={menuItemName}
             component={Link}
-            to={`/${menuItemName}`}
+            to={`/${menuItemName.toLowerCase()}`}
             w={140} // tighter
           >
             <Text fw={400}>{menuItemName}</Text>

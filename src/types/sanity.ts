@@ -192,3 +192,27 @@ export interface ResourcePage {
 export interface Announcement {
   message: string;
 }
+
+export interface DeliveryPage {
+  _type: 'delivery';
+  _id: string;
+  _rev?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+
+  pageTitle: string;
+
+  paragraphs?: Array<{
+    title?: string;
+    body?: string;
+  }>;
+
+  map?: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
+}

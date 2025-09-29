@@ -7,6 +7,7 @@ import DisplayRangeProducts from '@pages/DisplayRangeProducts';
 import ProductDetails from '@pages/ProductDetails';
 import DisplayAllProducts from '@pages/DisplayAllProducts';
 import Resources from '@pages/Resources';
+import Delivery from '@pages/Delivery';
 
 export const routes: RouteObject[] = [
   {
@@ -15,9 +16,10 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: 'about', element: <About /> },
-      { path: 'resources', element: <Resources /> },
       { path: 'all', element: <DisplayAllProducts /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'delivery', element: <Delivery /> },
+      { path: ':productSlug', element: <ProductDetails /> },
       {
         path: 'range',
         children: [
@@ -27,7 +29,7 @@ export const routes: RouteObject[] = [
           },
         ],
       },
-      { path: ':productSlug', element: <ProductDetails /> },
+      { path: 'resources', element: <Resources /> },
     ],
   },
 ];
