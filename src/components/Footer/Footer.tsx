@@ -15,7 +15,7 @@ function MobileFooterContent() {
         <Text size="sm" fw={700}>
           Showroom and Warehouse:
         </Text>
-        <Text size="sm">95 Mandoon Rd, Girraween, 2143 NSW</Text>
+        <Text size="sm">95 Mandoon Rd, Girraween, 2145 NSW</Text>
       </Stack>
 
       {/* Navigation */}
@@ -65,7 +65,7 @@ function DesktopFooterContent() {
         <Text size="sm" fw={700}>
           Showroom and Warehouse:
         </Text>
-        <Text size="sm">95 Mandoon Rd, Girraween, 2143 NSW</Text>
+        <Text size="sm">95 Mandoon Rd, Girraween, 2145 NSW</Text>
       </Box>
 
       {/* Navigation */}
