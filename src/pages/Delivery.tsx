@@ -148,8 +148,36 @@ export default function Delivery() {
         <Divider mb="xl" />
 
         <Grid gutter="xl">
-          {/* Left: content */}
-          <Grid.Col span={{ base: 12, md: 7 }}>
+          {/* Map FIRST on mobile, RIGHT on desktop */}
+          <Grid.Col span={{ base: 12, md: 5 }} order={{ base: 1, md: 2 }}>
+            {mapUrl ? (
+              <Box
+                style={{
+                  position: 'sticky',
+                  top: 'calc(var(--mantine-spacing-xl) + 64px)',
+                }}
+              >
+                <Card withBorder radius="md" p="sm" shadow="sm">
+                  <AspectRatio ratio={16 / 9}>
+                    <Image
+                      src={mapUrl}
+                      alt="Map showing our delivery area"
+                      radius="md"
+                      fit="cover"
+                      style={{ cursor: 'zoom-in' }}
+                      onClick={() => setMapOpen(true)}
+                    />
+                  </AspectRatio>
+                  <Text size="sm" c={theme.colors.gray[6]} ta="center" mt="xs">
+                    Indicative Delivery Map (click to enlarge)
+                  </Text>
+                </Card>
+              </Box>
+            ) : null}
+          </Grid.Col>
+
+          {/* Content SECOND on mobile, LEFT on desktop */}
+          <Grid.Col span={{ base: 12, md: 7 }} order={{ base: 2, md: 1 }}>
             <SimpleGrid cols={{ base: 1 }} spacing="md">
               {delivery.paragraphs?.map((section, i) => {
                 const isList = !!section.body && section.body.trim().startsWith('-');
@@ -187,34 +215,6 @@ export default function Delivery() {
                 );
               })}
             </SimpleGrid>
-          </Grid.Col>
-
-          {/* Right: map (clickable, sticky on desktop) */}
-          <Grid.Col span={{ base: 12, md: 5 }}>
-            {mapUrl ? (
-              <Box
-                style={{
-                  position: 'sticky',
-                  top: 'calc(var(--mantine-spacing-xl) + 64px)',
-                }}
-              >
-                <Card withBorder radius="md" p="sm" shadow="sm">
-                  <AspectRatio ratio={16 / 9}>
-                    <Image
-                      src={mapUrl}
-                      alt="Map showing our delivery area"
-                      radius="md"
-                      fit="cover"
-                      style={{ cursor: 'zoom-in' }}
-                      onClick={() => setMapOpen(true)} // 👈 open modal on click
-                    />
-                  </AspectRatio>
-                  <Text size="sm" c={theme.colors.gray[6]} ta="center" mt="xs">
-                    Indicative Delivery Map (click to enlarge)
-                  </Text>
-                </Card>
-              </Box>
-            ) : null}
           </Grid.Col>
         </Grid>
       </Container>
