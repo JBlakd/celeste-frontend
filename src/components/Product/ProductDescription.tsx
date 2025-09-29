@@ -6,8 +6,6 @@ export default function ProductDescription({ product }: { product: Product }) {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
-  console.log(product);
-
   return (
     <Box
       style={{
