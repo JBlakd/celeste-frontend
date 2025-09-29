@@ -15,6 +15,7 @@ import {
   Group,
   Skeleton,
   AspectRatio,
+  Modal, // 👈 added
 } from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons-react';
 import { sanity } from '@lib/sanity';
@@ -23,6 +24,7 @@ import type { DeliveryPage } from '@typedefs/sanity';
 export default function Delivery() {
   const [delivery, setDelivery] = useState<DeliveryPage | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mapOpen, setMapOpen] = useState(false); // 👈 modal state
   const theme = useMantineTheme();
   const gold = theme.colors.celesteGold?.[5] ?? theme.colors.yellow[6];
 
@@ -82,11 +84,56 @@ export default function Delivery() {
 
   if (!delivery) return null;
 
+  const mapUrl = delivery.map?.asset?.url || '';
+
   return (
     <>
       <title>Celeste Stone | Delivery Info</title>
       <meta name="description" content="Learn about our delivery policy." />
       <link rel="canonical" href="https://celestestone.com.au/delivery" />
+
+      {/* Map Modal */}
+      <Modal
+        opened={mapOpen}
+        onClose={() => setMapOpen(false)}
+        size="auto"
+        centered
+        withCloseButton={false}
+        styles={{
+          body: { padding: 0 },
+        }}
+        withinPortal
+        zIndex={9999}
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3,
+        }}
+      >
+        {mapUrl ? (
+          <Box
+            style={{
+              height: '85vh',
+              width: '85vw',
+              maxWidth: '1400px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'black',
+            }}
+          >
+            <img
+              src={mapUrl}
+              alt="Delivery area map (expanded)"
+              style={{
+                maxHeight: '100%',
+                maxWidth: '100%',
+                objectFit: 'contain',
+                display: 'block',
+              }}
+            />
+          </Box>
+        ) : null}
+      </Modal>
 
       <Container size="lg" py="xl">
         <Group justify="space-between" align="baseline" mb="sm">
@@ -141,26 +188,28 @@ export default function Delivery() {
             </SimpleGrid>
           </Grid.Col>
 
-          {/* Right: map (sticky on desktop, full-width on mobile) */}
+          {/* Right: map (clickable, sticky on desktop) */}
           <Grid.Col span={{ base: 12, md: 5 }}>
-            {delivery.map?.asset?.url ? (
+            {mapUrl ? (
               <Box
                 style={{
                   position: 'sticky',
-                  top: 'calc(var(--mantine-spacing-xl) + 64px)', // comfy offset under header
+                  top: 'calc(var(--mantine-spacing-xl) + 64px)',
                 }}
               >
                 <Card withBorder radius="md" p="sm" shadow="sm">
                   <AspectRatio ratio={16 / 9}>
                     <Image
-                      src={delivery.map.asset.url}
+                      src={mapUrl}
                       alt="Map showing our delivery area"
                       radius="md"
                       fit="cover"
+                      style={{ cursor: 'zoom-in' }}
+                      onClick={() => setMapOpen(true)} // 👈 open modal on click
                     />
                   </AspectRatio>
                   <Text size="sm" c={theme.colors.gray[6]} ta="center" mt="xs">
-                    Delivery area (indicative)
+                    Click to enlarge
                   </Text>
                 </Card>
               </Box>
