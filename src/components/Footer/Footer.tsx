@@ -34,7 +34,7 @@ function MobileFooterContent() {
 
       {/* Contact */}
       <Stack gap={4} align="center">
-        <Text fw={700}>Contact</Text>
+        <Text fw={700}>Contact & Hours</Text>
         <Text size="sm">info@celestestone.com.au</Text>
         <Text size="sm">(02) 7807 0723</Text>
         <Flex gap="0.3rem">
@@ -45,7 +45,7 @@ function MobileFooterContent() {
           <Text size="sm" fw={700}>
             Sat:
           </Text>
-          <Text size="sm">9am–3pm</Text>
+          <Text size="sm">By Appointment</Text>
         </Flex>
       </Stack>
     </Stack>
@@ -84,7 +84,7 @@ function DesktopFooterContent() {
 
       {/* Contact */}
       <Stack gap={4} align="flex-end">
-        <Text fw={700}>Contact</Text>
+        <Text fw={700}>Contact & Hours</Text>
         <Text size="sm">info@celestestone.com.au</Text>
         <Text size="sm">(02) 7807 0723</Text>
         <Flex gap="0.3rem">
@@ -95,7 +95,7 @@ function DesktopFooterContent() {
           <Text size="sm" fw={700}>
             Sat:
           </Text>
-          <Text size="sm">9am–3pm</Text>
+          <Text size="sm">By Appointment</Text>
         </Flex>
       </Stack>
     </Group>
