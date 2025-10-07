@@ -4,6 +4,49 @@ import LogoNataTransparentBackground from '@assets/LogoNataTransparentBackground
 import LogoSGSTransparentBackground from '@assets/LogoSGSTransparentBackground.webp';
 import { useMediaQuery } from '@mantine/hooks';
 
+function Logos() {
+  return (
+    <>
+      <Image
+        src={CrystallineSilicaFreeLogoTransparentBackground}
+        alt="Crystalline Silica Free badge"
+        w={120}
+        h={120}
+        fit="contain"
+        style={{
+          marginTop: rem(8),
+          marginBottom: rem(8),
+          flexShrink: 0,
+        }}
+      />
+      <Image
+        src={LogoNataTransparentBackground}
+        alt="Logo Nata"
+        w={120}
+        h={120}
+        fit="contain"
+        style={{
+          marginTop: rem(8),
+          marginBottom: rem(8),
+          flexShrink: 0,
+        }}
+      />
+      <Image
+        src={LogoSGSTransparentBackground}
+        alt="Logo SGS"
+        w={120}
+        h={120}
+        fit="contain"
+        style={{
+          marginTop: rem(8),
+          marginBottom: rem(8),
+          flexShrink: 0,
+        }}
+      />
+    </>
+  );
+}
+
 export default function QualityDeclaration() {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -23,42 +66,23 @@ export default function QualityDeclaration() {
           align="center"
           gap={{ base: 'xl', md: rem(48) }}
         >
-          <Image
-            src={CrystallineSilicaFreeLogoTransparentBackground}
-            alt="Crystalline Silica Free badge"
-            w={120}
-            h={120}
-            fit="contain"
-            style={{
-              marginTop: rem(8),
-              marginBottom: rem(8),
-              flexShrink: 0,
-            }}
-          />
-          <Image
-            src={LogoNataTransparentBackground}
-            alt="Logo Nata"
-            w={120}
-            h={120}
-            fit="contain"
-            style={{
-              marginTop: rem(8),
-              marginBottom: rem(8),
-              flexShrink: 0,
-            }}
-          />
-          <Image
-            src={LogoSGSTransparentBackground}
-            alt="Logo SGS"
-            w={120}
-            h={120}
-            fit="contain"
-            style={{
-              marginTop: rem(8),
-              marginBottom: rem(8),
-              flexShrink: 0,
-            }}
-          />
+          {isMobile ? (
+            <Flex
+              direction="row"
+              justify={isMobile ? 'center' : 'flex-start'}
+              align="center"
+              gap="md"
+              wrap="wrap"
+              style={{
+                flexShrink: 0,
+                width: isMobile ? '100%' : 'auto',
+              }}
+            >
+              <Logos />
+            </Flex>
+          ) : (
+            <Logos />
+          )}
           <Text
             size="md"
             fw={500}
