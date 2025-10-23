@@ -3,7 +3,8 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./.tsbuildinfo/tsconfig.app.tsbuildinfo",
     "target": "es2021",
-    "lib": ["es2021", "dom"]
+    "lib": ["es2021", "dom"],
+    "types": ["google.maps"]
   },
   "include": ["src"],
   "exclude": [
