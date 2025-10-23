@@ -16,11 +16,13 @@ import {
   ActionIcon,
   useMantineTheme,
   Tooltip,
+  type MantineTheme,
 } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconMapPin, IconExternalLink, IconMail, IconPhone } from '@tabler/icons-react';
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
 import { sanity } from '@lib/sanity';
-import type { Collaborator } from '@typedefs/sanity'; // use the interface you added
+import type { Collaborator } from '@typedefs/sanity';
 import { showNotification } from '@mantine/notifications';
 
 const MAP_STYLE = { width: '100%', height: '520px' };
@@ -29,18 +31,17 @@ const DEFAULT_CENTER = { lat: -33.8688, lng: 151.2093 }; // Sydney
 export default function FindADisplay() {
   const theme = useMantineTheme();
   const gold = theme.colors.celesteGold?.[5] ?? theme.colors.yellow[6];
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [loading, setLoading] = useState(true);
   const [collabs, setCollabs] = useState<Collaborator[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  // google maps loader
   const { isLoaded } = useJsApiLoader({
     id: 'gmaps',
-    googleMapsApiKey: import.meta.env.VITE_GMAPS_BROWSER_KEY,
+    googleMapsApiKey: import.meta.env.VITE_GMAPS_BROWSER_KEY as string,
   });
 
-  // hold the map instance to programmatically pan/zoom on card click
   const mapRef = useRef<google.maps.Map | null>(null);
 
   useEffect(() => {
@@ -48,24 +49,8 @@ export default function FindADisplay() {
     sanity
       .fetch<Collaborator[]>(
         `*[_type == "collaborator"] | order(rank asc){
-          _id,
-          _type,
-          _rev,
-          _createdAt,
-          _updatedAt,
-          name,
-          "slug": slug{_type, current},
-          website,
-          description,
-          contactEmail,
-          phone,
-          address,
-          "coordinates": coordinates{lat, lng, alt},
-          rank,
-          "logo": logo{
-            _type,
-            asset->{ _id, url, _type }
-          }
+          _id, name, website, description, contactEmail, phone, address,
+          "coordinates": coordinates{lat, lng, alt}, rank
         }`,
       )
       .then((res) => setCollabs(res || []))
@@ -109,211 +94,111 @@ export default function FindADisplay() {
     setActiveId(c._id);
   };
 
+  const copyText = async (e: React.MouseEvent, text: string, label: 'email' | 'phone') => {
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(text);
+      showNotification({ message: `Copied ${label}!`, color: 'teal' });
+    } catch {
+      showNotification({ message: `Couldn’t copy ${label}`, color: 'red' });
+    }
+  };
+
   if (loading || !isLoaded) {
     return (
-      <>
-        <title>Celeste Stone | Find a Display</title>
-        <meta name="description" content="Find our collaborator showrooms and displays." />
-        <link rel="canonical" href="https://celestestone.com.au/find-a-display" />
-        <Container size="lg" py="xl">
-          <Skeleton height={28} width={280} mb="lg" />
-          <Grid gutter="xl">
-            <Grid.Col span={{ base: 12, md: 7 }}>
-              <SimpleGrid cols={{ base: 1 }} spacing="md">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <Card key={i} withBorder radius="md" p="lg" shadow="sm">
-                    <Skeleton height={18} mb="xs" />
-                    <Skeleton height={12} width="70%" mb="xs" />
-                    <Skeleton height={12} width="50%" />
-                  </Card>
-                ))}
-              </SimpleGrid>
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 5 }}>
-              <Card withBorder radius="md" p="sm" shadow="sm">
-                <Skeleton height={400} />
-              </Card>
-            </Grid.Col>
-          </Grid>
-        </Container>
-      </>
+      <Container size="lg" py="xl">
+        <Skeleton height={28} width={280} mb="lg" />
+        <Grid gutter="xl">
+          <Grid.Col span={{ base: 12, md: 7 }}>
+            <SimpleGrid cols={{ base: 1 }} spacing="md">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Card key={i} withBorder radius="md" p="lg" shadow="sm">
+                  <Skeleton height={18} mb="xs" />
+                  <Skeleton height={12} width="70%" mb="xs" />
+                  <Skeleton height={12} width="50%" />
+                </Card>
+              ))}
+            </SimpleGrid>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 5 }}>
+            <Card withBorder radius="md" p="sm" shadow="sm">
+              <Skeleton height={400} />
+            </Card>
+          </Grid.Col>
+        </Grid>
+      </Container>
     );
   }
 
   return (
-    <>
-      <title>Celeste Stone | Find a Display</title>
-      <meta name="description" content="Browse our collaborators and view them on the map." />
-      <link rel="canonical" href="https://celestestone.com.au/find-a-display" />
+    <Container size="lg" py="xl">
+      <Group justify="space-between" align="baseline" mb="sm">
+        <Title order={2} c={gold}>
+          Find a Display
+        </Title>
+        <Badge variant="light" size="lg">
+          Australia
+        </Badge>
+      </Group>
+      <Divider mb="xl" />
 
-      <Container size="lg" py="xl">
-        <Group justify="space-between" align="baseline" mb="sm">
-          <Title order={2} c={gold}>
-            Find a Display
-          </Title>
-          <Badge variant="light" size="lg">
-            Australia
-          </Badge>
-        </Group>
-        <Divider mb="xl" />
+      <Grid gutter="xl">
+        {/* LEFT: Scrollable list */}
+        <Grid.Col span={{ base: 12, md: 7 }} order={{ base: 2, md: 1 }}>
+          <ScrollArea.Autosize mah="70vh" type="hover" offsetScrollbars>
+            <SimpleGrid cols={{ base: 1 }} spacing="md">
+              {collabs.map((c) => {
+                const hasCoords = !!c.coordinates;
+                const active = activeId === c._id;
 
-        <Grid gutter="xl">
-          {/* LEFT: Scrollable list (first on mobile) */}
-          <Grid.Col span={{ base: 12, md: 7 }} order={{ base: 2, md: 1 }}>
-            <ScrollArea.Autosize mah="70vh" type="hover" offsetScrollbars>
-              <SimpleGrid cols={{ base: 1 }} spacing="md">
-                {collabs.map((c) => {
-                  const hasCoords = !!c.coordinates;
-                  const active = activeId === c._id;
-                  return (
-                    <Card
-                      key={c._id}
-                      withBorder
-                      radius="md"
-                      p="lg"
-                      shadow={active ? 'md' : 'sm'}
-                      style={{
-                        borderColor: active ? theme.colors.blue[5] : undefined,
-                        outline: active ? `2px solid ${theme.colors.blue[3]}` : 'none',
-                        transition: 'outline-color 120ms ease, border-color 120ms ease',
-                        cursor: hasCoords ? 'pointer' : 'default',
-                      }}
-                      onClick={() => hasCoords && panToCollab(c)}
-                    >
-                      <Group justify="space-between" mb={6}>
-                        <Title order={4} style={{ lineHeight: 1.2 }}>
-                          {c.name}
-                        </Title>
-                        <Group gap="xs">
-                          {hasCoords && (
-                            <ActionIcon
-                              variant="light"
-                              color="blue"
-                              title="Show on map"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                panToCollab(c);
-                              }}
-                            >
-                              <IconMapPin size={18} />
-                            </ActionIcon>
-                          )}
-                          {c.website && (
-                            <Tooltip label={c.website}>
-                              <ActionIcon
-                                variant="subtle"
-                                component="a"
-                                href={c.website}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="Visit website"
-                              >
-                                <IconExternalLink size={18} />
-                              </ActionIcon>
-                            </Tooltip>
-                          )}
-                        </Group>
-                      </Group>
-                      <Group justify="space-between">
-                        {c.address && (
-                          <Text c={theme.colors.gray[7]} fz="sm" mb={6}>
-                            {c.address}
-                          </Text>
-                        )}
-                        <Group gap="xs">
-                          {c.contactEmail && (
-                            <Tooltip label={c.contactEmail}>
-                              <ActionIcon
-                                variant="subtle"
-                                title="Copy email"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (!c.contactEmail) {
-                                    return;
-                                  }
-                                  navigator.clipboard.writeText(c.contactEmail);
-                                  showNotification({
-                                    message: 'Copied email!',
-                                  });
-                                }}
-                              >
-                                <IconMail size={18} />
-                              </ActionIcon>
-                            </Tooltip>
-                          )}
-                          {c.phone && (
-                            <Tooltip label={c.phone}>
-                              <ActionIcon
-                                variant="subtle"
-                                title="Copy email"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (!c.phone) {
-                                    return;
-                                  }
-                                  navigator.clipboard.writeText(c.phone);
-                                  showNotification({
-                                    message: 'Copied phone!',
-                                  });
-                                }}
-                              >
-                                <IconPhone size={18} />
-                              </ActionIcon>
-                            </Tooltip>
-                          )}
-                        </Group>
-                      </Group>
+                const commonProps = {
+                  c,
+                  active,
+                  hasCoords,
+                  theme,
+                  onPin: () => hasCoords && panToCollab(c),
+                  onCopyEmail: (e: React.MouseEvent) =>
+                    c.contactEmail && copyText(e, c.contactEmail, 'email'),
+                  onCopyPhone: (e: React.MouseEvent) => c.phone && copyText(e, c.phone, 'phone'),
+                };
 
-                      {c.description && (
-                        <Text c={theme.colors.gray[6]} fz="sm" lineClamp={3}>
-                          {c.description}
-                        </Text>
-                      )}
+                return isMobile ? (
+                  <MobileCard key={c._id} {...commonProps} />
+                ) : (
+                  <DesktopCard key={c._id} {...commonProps} />
+                );
+              })}
+            </SimpleGrid>
+          </ScrollArea.Autosize>
+        </Grid.Col>
 
-                      {!hasCoords && (
-                        <Text c={theme.colors.red[6]} fz="xs" mt="xs">
-                          No coordinates set — won’t show on map
-                        </Text>
-                      )}
-                    </Card>
-                  );
-                })}
-              </SimpleGrid>
-            </ScrollArea.Autosize>
-          </Grid.Col>
+        {/* RIGHT: Sticky map */}
+        <Grid.Col span={{ base: 12, md: 5 }} order={{ base: 1, md: 2 }}>
+          <Box style={{ position: 'sticky', top: 'calc(var(--mantine-spacing-xl) + 64px)' }}>
+            <Card withBorder radius="md" p="sm" shadow="sm">
+              <GoogleMap
+                mapContainerStyle={MAP_STYLE}
+                center={initialCenter}
+                zoom={10}
+                onLoad={handleMapLoad}
+                options={{
+                  streetViewControl: false,
+                  mapTypeControl: false,
+                  fullscreenControl: false,
+                  clickableIcons: false,
+                }}
+              >
+                {collabsWithCoords.map((c) => (
+                  <Marker
+                    key={c._id}
+                    position={c.coordinates!}
+                    onClick={() => setActiveId(c._id)}
+                  />
+                ))}
 
-          {/* RIGHT: Sticky map (first on desktop) */}
-          <Grid.Col span={{ base: 12, md: 5 }} order={{ base: 1, md: 2 }}>
-            <Box
-              style={{
-                position: 'sticky',
-                top: 'calc(var(--mantine-spacing-xl) + 64px)',
-              }}
-            >
-              <Card withBorder radius="md" p="sm" shadow="sm">
-                <div style={{ height: 0 }}>{/* empty div keeps layout calm */}</div>
-                <GoogleMap
-                  mapContainerStyle={MAP_STYLE}
-                  center={initialCenter}
-                  zoom={10}
-                  onLoad={handleMapLoad}
-                  options={{
-                    streetViewControl: false,
-                    mapTypeControl: false,
-                    fullscreenControl: false,
-                    clickableIcons: false,
-                  }}
-                >
-                  {collabsWithCoords.map((c) => (
-                    <Marker
-                      key={c._id}
-                      position={c.coordinates!}
-                      onClick={() => setActiveId(c._id)}
-                    />
-                  ))}
-
-                  {collabsWithCoords.map((c) =>
-                    c._id === activeId ? (
+                {collabsWithCoords.map(
+                  (c) =>
+                    c._id === activeId && (
                       <InfoWindow
                         key={`iw-${c._id}`}
                         position={c.coordinates!}
@@ -336,14 +221,180 @@ export default function FindADisplay() {
                           )}
                         </div>
                       </InfoWindow>
-                    ) : null,
-                  )}
-                </GoogleMap>
-              </Card>
-            </Box>
-          </Grid.Col>
-        </Grid>
-      </Container>
-    </>
+                    ),
+                )}
+              </GoogleMap>
+            </Card>
+          </Box>
+        </Grid.Col>
+      </Grid>
+    </Container>
+  );
+}
+
+/* --------------------- Subcomponents --------------------- */
+
+function DesktopCard({
+  c,
+  active,
+  hasCoords,
+  theme,
+  onPin,
+  onCopyEmail,
+  onCopyPhone,
+}: {
+  c: Collaborator;
+  active: boolean;
+  hasCoords: boolean;
+  theme: MantineTheme;
+  onPin: () => false | void;
+  onCopyEmail: (e: React.MouseEvent) => '' | Promise<void> | undefined;
+  onCopyPhone: (e: React.MouseEvent) => '' | Promise<void> | undefined;
+}) {
+  return (
+    <Card
+      withBorder
+      radius="md"
+      p="lg"
+      shadow={active ? 'md' : 'sm'}
+      style={{
+        borderColor: active ? theme.colors.blue[5] : undefined,
+        outline: active ? `2px solid ${theme.colors.blue[3]}` : 'none',
+        cursor: hasCoords ? 'pointer' : 'default',
+      }}
+      onClick={hasCoords ? onPin : undefined}
+    >
+      <Group justify="space-between" mb={6}>
+        <Title order={4}>{c.name}</Title>
+        <Group gap="xs">
+          {hasCoords && (
+            <ActionIcon variant="light" color="blue" title="Show on map" onClick={onPin}>
+              <IconMapPin size={18} />
+            </ActionIcon>
+          )}
+          {c.website && (
+            <Tooltip label={c.website}>
+              <ActionIcon
+                variant="subtle"
+                component="a"
+                href={c.website}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <IconExternalLink size={18} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+        </Group>
+      </Group>
+      <Group justify="space-between">
+        {c.address && (
+          <Text c={theme.colors.gray[7]} fz="sm" mb={6}>
+            {c.address}
+          </Text>
+        )}
+
+        <Group gap="xs" justify="flex-end">
+          {c.contactEmail && (
+            <Tooltip label={c.contactEmail}>
+              <ActionIcon variant="subtle" onClick={onCopyEmail}>
+                <IconMail size={18} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+          {c.phone && (
+            <Tooltip label={c.phone}>
+              <ActionIcon variant="subtle" onClick={onCopyPhone}>
+                <IconPhone size={18} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+        </Group>
+      </Group>
+
+      {c.description && (
+        <Text c={theme.colors.gray[6]} fz="sm" lineClamp={3}>
+          {c.description}
+        </Text>
+      )}
+    </Card>
+  );
+}
+
+function MobileCard({
+  c,
+  active,
+  hasCoords,
+  theme,
+  onPin,
+  onCopyEmail,
+  onCopyPhone,
+}: {
+  c: Collaborator;
+  active: boolean;
+  hasCoords: boolean;
+  theme: MantineTheme;
+  onPin: () => false | void;
+  onCopyEmail: (e: React.MouseEvent) => '' | Promise<void> | undefined;
+  onCopyPhone: (e: React.MouseEvent) => '' | Promise<void> | undefined;
+}) {
+  return (
+    <Card
+      withBorder
+      radius="md"
+      p="md"
+      shadow={active ? 'md' : 'sm'}
+      style={{
+        borderColor: active ? theme.colors.blue[5] : undefined,
+        outline: active ? `2px solid ${theme.colors.blue[3]}` : 'none',
+        cursor: hasCoords ? 'pointer' : 'default',
+      }}
+      onClick={hasCoords ? onPin : undefined}
+    >
+      <Title order={5} mb={4}>
+        {c.name}
+      </Title>
+      {c.address && (
+        <Text c={theme.colors.gray[7]} fz="sm" mb={4}>
+          {c.address}
+        </Text>
+      )}
+      <Group gap="xs">
+        {hasCoords && (
+          <ActionIcon variant="light" color="blue" onClick={onPin}>
+            <IconMapPin size={18} />
+          </ActionIcon>
+        )}
+        {c.website && (
+          <Tooltip label={c.website}>
+            <ActionIcon
+              variant="subtle"
+              component="a"
+              href={c.website}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <IconExternalLink size={18} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+        {c.contactEmail && (
+          <Tooltip label={c.contactEmail}>
+            <ActionIcon variant="subtle" onClick={onCopyEmail}>
+              <IconMail size={18} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+        {c.phone && (
+          <Tooltip label={c.phone}>
+            <ActionIcon variant="subtle" onClick={onCopyPhone}>
+              <IconPhone size={18} />
+            </ActionIcon>
+          </Tooltip>
+        )}
+      </Group>
+    </Card>
   );
 }
