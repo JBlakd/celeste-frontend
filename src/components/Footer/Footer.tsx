@@ -45,7 +45,7 @@ function MobileFooterContent() {
           <Text size="sm" fw={700}>
             Sat:
           </Text>
-          <Text size="sm">By Appointment</Text>
+          <Text size="sm">9am-3pm</Text>
         </Flex>
       </Stack>
     </Stack>
@@ -95,7 +95,7 @@ function DesktopFooterContent() {
           <Text size="sm" fw={700}>
             Sat:
           </Text>
-          <Text size="sm">By Appointment</Text>
+          <Text size="sm">9am-3pm</Text>
         </Flex>
       </Stack>
     </Group>
