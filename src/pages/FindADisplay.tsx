@@ -49,8 +49,20 @@ export default function FindADisplay() {
     sanity
       .fetch<Collaborator[]>(
         `*[_type == "collaborator"] | order(rank asc){
-          _id, name, website, description, contactEmail, phone, address,
-          "coordinates": coordinates{lat, lng, alt}, rank
+          _id,
+          name,
+          website,
+          description,
+          contactEmail,
+          phone,
+          address,
+          logo {
+            asset->{
+              url
+            }
+          },
+          "coordinates": coordinates{lat, lng, alt},
+          rank
         }`,
       )
       .then((res) => setCollabs(res || []))
@@ -188,21 +200,31 @@ export default function FindADisplay() {
                   clickableIcons: false,
                 }}
               >
-                {collabsWithCoords.map((c) => (
-                  <Marker
-                    key={c._id}
-                    position={c.coordinates!}
-                    onClick={() => setActiveId(c._id)}
-                    icon={{
-                      path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
-                      fillColor: theme.colors.celesteGold[3], // iOS blue, change to your brand colour
-                      fillOpacity: 1,
-                      strokeColor: theme.colors.celesteGold[5],
-                      strokeWeight: 2,
-                      scale: 1.5,
-                    }}
-                  />
-                ))}
+                {collabsWithCoords.map((c) => {
+                  return (
+                    <Marker
+                      key={c._id}
+                      position={c.coordinates!}
+                      onClick={() => setActiveId(c._id)}
+                      icon={
+                        c.name.includes('Celeste Stone') && c.logo.asset.url
+                          ? {
+                              url: c.logo.asset.url,
+                              scaledSize: new window.google.maps.Size(32, 32), // adjust this down if it’s still big (e.g. 32,32)
+                              anchor: new window.google.maps.Point(24, 24), // keeps the image centred on the point
+                            }
+                          : {
+                              path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
+                              fillColor: theme.colors.celesteGold[3],
+                              fillOpacity: 1,
+                              strokeColor: theme.colors.celesteGold[5],
+                              strokeWeight: 2,
+                              scale: 1.5,
+                            }
+                      }
+                    />
+                  );
+                })}
 
                 {collabsWithCoords.map(
                   (c) =>
