@@ -193,6 +193,14 @@ export default function FindADisplay() {
                     key={c._id}
                     position={c.coordinates!}
                     onClick={() => setActiveId(c._id)}
+                    icon={{
+                      path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
+                      fillColor: theme.colors.celesteGold[3], // iOS blue, change to your brand colour
+                      fillOpacity: 1,
+                      strokeColor: theme.colors.celesteGold[5],
+                      strokeWeight: 2,
+                      scale: 1.5,
+                    }}
                   />
                 ))}
 
