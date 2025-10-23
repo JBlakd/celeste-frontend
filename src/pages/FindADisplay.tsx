@@ -214,7 +214,7 @@ export default function FindADisplay() {
                           )}
                         </Group>
                       </Group>
-                      <Group justify="space-between" mb={6}>
+                      <Group justify="space-between">
                         {c.address && (
                           <Text c={theme.colors.gray[7]} fz="sm" mb={6}>
                             {c.address}
