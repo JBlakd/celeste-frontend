@@ -15,11 +15,13 @@ import {
   ScrollArea,
   ActionIcon,
   useMantineTheme,
+  Tooltip,
 } from '@mantine/core';
-import { IconMapPin, IconExternalLink } from '@tabler/icons-react';
+import { IconMapPin, IconExternalLink, IconMail, IconPhone } from '@tabler/icons-react';
 import { GoogleMap, Marker, InfoWindow, useJsApiLoader } from '@react-google-maps/api';
 import { sanity } from '@lib/sanity';
 import type { Collaborator } from '@typedefs/sanity'; // use the interface you added
+import { showNotification } from '@mantine/notifications';
 
 const MAP_STYLE = { width: '100%', height: '520px' };
 const DEFAULT_CENTER = { lat: -33.8688, lng: 151.2093 }; // Sydney
@@ -32,12 +34,10 @@ export default function FindADisplay() {
   const [collabs, setCollabs] = useState<Collaborator[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  console.log('import.meta.env.VITE_GMAPS_BROWSER_KEY', import.meta.env.VITE_GMAPS_BROWSER_KEY);
-
   // google maps loader
   const { isLoaded } = useJsApiLoader({
     id: 'gmaps',
-    googleMapsApiKey: import.meta.env.VITE_GMAPS_BROWSER_KEY as string,
+    googleMapsApiKey: import.meta.env.VITE_GMAPS_BROWSER_KEY,
   });
 
   // hold the map instance to programmatically pan/zoom on card click
@@ -105,7 +105,7 @@ export default function FindADisplay() {
   const panToCollab = (c: Collaborator) => {
     if (!mapRef.current || !c.coordinates) return;
     mapRef.current.panTo(c.coordinates);
-    mapRef.current.setZoom(Math.max(mapRef.current.getZoom() ?? 12, 12));
+    mapRef.current.setZoom(Math.max(mapRef.current.getZoom() ?? 18, 18));
     setActiveId(c._id);
   };
 
@@ -199,25 +199,71 @@ export default function FindADisplay() {
                             </ActionIcon>
                           )}
                           {c.website && (
-                            <ActionIcon
-                              variant="subtle"
-                              component="a"
-                              href={c.website}
-                              target="_blank"
-                              rel="noreferrer"
-                              title="Visit website"
-                            >
-                              <IconExternalLink size={18} />
-                            </ActionIcon>
+                            <Tooltip label={c.website}>
+                              <ActionIcon
+                                variant="subtle"
+                                component="a"
+                                href={c.website}
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Visit website"
+                              >
+                                <IconExternalLink size={18} />
+                              </ActionIcon>
+                            </Tooltip>
+                          )}
+                        </Group>
+                      </Group>
+                      <Group justify="space-between" mb={6}>
+                        {c.address && (
+                          <Text c={theme.colors.gray[7]} fz="sm" mb={6}>
+                            {c.address}
+                          </Text>
+                        )}
+                        <Group gap="xs">
+                          {c.contactEmail && (
+                            <Tooltip label={c.contactEmail}>
+                              <ActionIcon
+                                variant="subtle"
+                                title="Copy email"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (!c.contactEmail) {
+                                    return;
+                                  }
+                                  navigator.clipboard.writeText(c.contactEmail);
+                                  showNotification({
+                                    message: 'Copied email!',
+                                  });
+                                }}
+                              >
+                                <IconMail size={18} />
+                              </ActionIcon>
+                            </Tooltip>
+                          )}
+                          {c.phone && (
+                            <Tooltip label={c.phone}>
+                              <ActionIcon
+                                variant="subtle"
+                                title="Copy email"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (!c.phone) {
+                                    return;
+                                  }
+                                  navigator.clipboard.writeText(c.phone);
+                                  showNotification({
+                                    message: 'Copied phone!',
+                                  });
+                                }}
+                              >
+                                <IconPhone size={18} />
+                              </ActionIcon>
+                            </Tooltip>
                           )}
                         </Group>
                       </Group>
 
-                      {c.address && (
-                        <Text c={theme.colors.gray[7]} fz="sm" mb={6}>
-                          {c.address}
-                        </Text>
-                      )}
                       {c.description && (
                         <Text c={theme.colors.gray[6]} fz="sm" lineClamp={3}>
                           {c.description}
