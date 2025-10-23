@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./.tsbuildinfo/tsconfig.app.tsbuildinfo"
+    "tsBuildInfoFile": "./.tsbuildinfo/tsconfig.app.tsbuildinfo",
+    "target": "es2021",
+    "lib": ["es2021", "dom"]
   },
   "include": ["src"],
   "exclude": [

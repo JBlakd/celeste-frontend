@@ -20,6 +20,7 @@ async function generateSitemap() {
     { url: '/contact', changefreq: 'monthly', priority: 0.7 },
     { url: '/about', changefreq: 'monthly', priority: 0.5 },
     { url: '/delivery', changefreq: 'monthly', priority: 0.5 },
+    { url: '/findADisplay', changefreq: 'monthly', priority: 0.5 },
     { url: '/resources', changefreq: 'monthly', priority: 0.5 },
   ];
   staticRoutes.forEach((route) => smStream.write(route));

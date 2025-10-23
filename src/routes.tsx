@@ -8,6 +8,7 @@ import ProductDetails from '@pages/ProductDetails';
 import DisplayAllProducts from '@pages/DisplayAllProducts';
 import Resources from '@pages/Resources';
 import Delivery from '@pages/Delivery';
+import FindADisplay from '@pages/FindADisplay';
 
 export const routes: RouteObject[] = [
   {
@@ -19,6 +20,7 @@ export const routes: RouteObject[] = [
       { path: 'all', element: <DisplayAllProducts /> },
       { path: 'contact', element: <Contact /> },
       { path: 'delivery', element: <Delivery /> },
+      { path: 'findADisplay', element: <FindADisplay /> },
       { path: ':productSlug', element: <ProductDetails /> },
       {
         path: 'range',

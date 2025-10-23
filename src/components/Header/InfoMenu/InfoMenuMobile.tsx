@@ -12,7 +12,12 @@ export default function InfoMenuMobile({
 
   const [menuOpened, setMenuOpened] = useState(false);
 
-  const menuItemNames = ['About', 'Resources', 'Delivery'];
+  const menuItems = {
+    About: 'about',
+    Delivery: 'delivery',
+    'Find A Display': 'findADisplay',
+    Resources: 'resources',
+  };
 
   return (
     <Menu
@@ -39,14 +44,14 @@ export default function InfoMenuMobile({
       </Menu.Target>
 
       <Menu.Dropdown>
-        {menuItemNames.map((menuItemName) => (
+        {Object.entries(menuItems).map(([title, endpoint]) => (
           <Menu.Item
-            key={menuItemName}
+            key={endpoint}
             component={Link}
-            to={`/${menuItemName.toLowerCase()}`}
+            to={`/${endpoint}`}
             w={140} // tighter
           >
-            <Text fw={400}>{menuItemName}</Text>
+            <Text fw={400}>{title}</Text>
           </Menu.Item>
         ))}
       </Menu.Dropdown>

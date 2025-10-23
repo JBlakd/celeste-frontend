@@ -12,7 +12,12 @@ export default function InfoMenuDesktop({
   const theme = useMantineTheme();
   const [isHovered, setIsHovered] = useState(false);
 
-  const menuItemNames = ['About', 'Resources', 'Delivery'];
+  const menuItems = {
+    About: 'about',
+    Delivery: 'delivery',
+    'Find A Display': 'findADisplay',
+    Resources: 'resources',
+  };
 
   const getColor = () => {
     if (isHovered) {
@@ -40,10 +45,10 @@ export default function InfoMenuDesktop({
       </Menu.Target>
 
       <Menu.Dropdown>
-        {menuItemNames.map((menuItemName) => {
+        {Object.entries(menuItems).map(([title, endpoint]) => {
           return (
-            <Menu.Item key={menuItemName} component={Link} to={`/${menuItemName.toLowerCase()}`}>
-              <Text fw={400}>{menuItemName}</Text>
+            <Menu.Item key={endpoint} component={Link} to={`/${endpoint}`}>
+              <Text fw={400}>{title}</Text>
             </Menu.Item>
           );
         })}
