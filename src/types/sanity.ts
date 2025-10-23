@@ -218,3 +218,37 @@ export interface DeliveryPage {
     };
   };
 }
+
+export interface Collaborator {
+  _id: string;
+  _type: 'collaborator';
+  _rev?: string;
+  _createdAt?: string;
+  _updatedAt?: string;
+
+  name: string;
+  slug: {
+    _type?: 'slug';
+    current: string;
+  };
+  website?: string;
+  logo: {
+    _type: 'image';
+    asset: {
+      _ref: string;
+      _type: 'reference';
+      url?: string;
+    };
+  };
+  description?: string;
+  contactEmail?: string;
+  phone?: string;
+  address?: string;
+  coordinates?: {
+    _type: 'geopoint';
+    lat: number;
+    lng: number;
+    alt?: number;
+  };
+  rank?: number;
+}
