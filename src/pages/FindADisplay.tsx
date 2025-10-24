@@ -146,7 +146,7 @@ export default function FindADisplay() {
     <Container size="lg" py="xl">
       <Group justify="space-between" align="baseline" mb="sm">
         <Title order={2} c={gold}>
-          Find a Display
+          Find A Display
         </Title>
         <Badge variant="light" size="lg">
           Australia
