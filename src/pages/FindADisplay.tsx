@@ -26,7 +26,7 @@ import type { Collaborator } from '@typedefs/sanity';
 import { showNotification } from '@mantine/notifications';
 
 const MAP_STYLE = { width: '100%', height: '520px' };
-const DEFAULT_CENTER = { lat: -33.8688, lng: 151.2093 }; // Sydney
+const DEFAULT_CENTER = { lat: -33.801730984959285, lng: 150.93758233231364 }; // Sydney
 
 export default function FindADisplay() {
   const theme = useMantineTheme();
@@ -91,7 +91,7 @@ export default function FindADisplay() {
     if (!collabsWithCoords.length) return;
     if (collabsWithCoords.length === 1) {
       map.setCenter(collabsWithCoords[0].coordinates!);
-      map.setZoom(12);
+      map.setZoom(18);
       return;
     }
     const bounds = new google.maps.LatLngBounds();
@@ -191,7 +191,7 @@ export default function FindADisplay() {
               <GoogleMap
                 mapContainerStyle={MAP_STYLE}
                 center={initialCenter}
-                zoom={10}
+                zoom={18}
                 onLoad={handleMapLoad}
                 options={{
                   streetViewControl: false,
@@ -214,12 +214,13 @@ export default function FindADisplay() {
                               anchor: new window.google.maps.Point(24, 24), // keeps the image centred on the point
                             }
                           : {
-                              path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
+                              path: 'M0 0 C 0 0 7 -7.75 7 -13 C 7 -16.87 3.87 -20 0 -20 C -3.87 -20 -7 -16.87 -7 -13 C -7 -7.75 0 0 0 0 Z',
                               fillColor: theme.colors.celesteGold[3],
                               fillOpacity: 1,
                               strokeColor: theme.colors.celesteGold[5],
                               strokeWeight: 2,
-                              scale: 1.5,
+                              scale: 1.4,
+                              anchor: new google.maps.Point(0, 0), // tip at origin
                             }
                       }
                     />
