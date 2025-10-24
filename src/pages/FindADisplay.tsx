@@ -194,6 +194,7 @@ export default function FindADisplay() {
                 zoom={18}
                 onLoad={handleMapLoad}
                 options={{
+                  mapTypeId: google.maps.MapTypeId.SATELLITE,
                   streetViewControl: false,
                   mapTypeControl: false,
                   fullscreenControl: false,
